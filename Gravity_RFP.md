@@ -84,7 +84,7 @@ This process identifies each step that is taken in reaction to an Order's recept
 
 This process ensures that enough units are available to fulfill the incoming orders.
 
-1. When a **Worker** preforms a *Pick* of a **Unit** if the  **Total Units on Hand** of that unit is below the **Min Units Threshold** (see *Frequency Table*) a *replenishment* of that unit is *Triggered*.
+1. When a **Worker** preforms a *Pick* of a **Unit** if the  **Total Units on Hand** of that unit is below the **Min Units Threshold** (see [*Frequency Table*](#frequency-table)) a *replenishment* of that unit is *Triggered*.
 1. Each **Unit** has its own **Replen Units Threshold** and an **Replenishment Order** is made for the difference between **Total Units on Hand** and its **Replen Units Threshold**.
 1. The **Replenishment Order** will be added to the next **Replenishment Shipment**.
 1. When a **Replenishment Shipment** *Arrives* **Workers** must preform *Quality Assurance (QA)* on each **Unit**
@@ -115,7 +115,7 @@ You will need to store this order information.
 
 ##### Scheduled Service
 
-> Inspection to be preformed by a **Worker**. See **Frequency Table**.
+> Inspection to be preformed by a **Worker**. See [**Frequency Table**](#frequency-table).
 
 ## Requirements
 
@@ -123,7 +123,7 @@ You will need to store this order information.
 
 * Team communication should be handled through Slack
 * Project Management should be handled through the Github Issues System
-* Simulate the time needed for a worker to preform a task while interacting with a unit/package/order. Actions, such as a **Worker** *Picking* a **Unit** from a **Pod**, should not happen instantaneously. These and other times are documented on the *Frequency Table*, any times not documented should be considered assumptions.
+* Simulate the time needed for a worker to preform a task while interacting with a unit/package/order. Actions, such as a **Worker** *Picking* a **Unit** from a **Pod**, should not happen instantaneously. These and other times are documented on the [*Frequency Table*](#frequency-table), any times not documented should be considered assumptions.
 
 ### API Requirements
 * Create and Document an API including all Endpoints and Expected Usage.
