@@ -2,7 +2,9 @@
 
 ## Project Summary
 
-Develop an Open Source Solution to Manage the Inventory and Fulfillment Tracking within a Materials Handling Environment. Future iterations will be developed upon this foundation.
+Develop an Open Solution to Manage the Inventory and Fulfillment Tracking within a Materials Handling Environment (Warehouse). Future iterations will be developed upon this foundation.
+
+Research [these videos](https://www.youtube.com/playlist?list=PLKeRbeoYMGFvgMrZzUDEXGkTbeMMxLR0U) covering the activities and processes internal to Fulfillment Centers for Amazon, Zappos, Quiet Logistics, and Kiva Robotics to obtain the context necessary for moving forward with the RFP process for the Gravity Project.
 
 ## Key Due Dates
 
@@ -34,13 +36,14 @@ You will be creating a base level application and enhancing it with each Schedul
 
 > The recursive process of Planning, implementation, Evaluation and Planning will be abridged for the time constraints of class.
 
-## Project Technology
+## Project Technologies
 
 | Technology / Module | Implementation |
 | --- | --- |
 | NodeJS | Component Modules |
 | ExpressJS | API |
 | MySQL | Data Storage |
+| Heroku | Staging & Production Platform |
 | ReactJS | Front-End |
 | Redux | Application State Container |
 | Gulp | Build Tasks |
@@ -50,10 +53,12 @@ You will be creating a base level application and enhancing it with each Schedul
 | Zenhub | Project Management |
 | Mocha + Chai | Unit Testing |
 | Slack | Team Communication |
+| Codeship| Testing and Deployment Automation |
 
-> Additional Technologies / Modules or modifications to this list can be proposed.
 
-## Project Background
+> Additional Technologies / Modules or modifications to this list can be proposed to the Product Owner.
+
+## Background & Processes
 
 Your team has been contracted to design an Inventory Management System. There are several processes (outlined below) that explain the order of actions to facilitate the prompt reception, fulfillment, and shipping of orders and supporting processes.
 
@@ -86,7 +91,7 @@ This process ensures that enough units are available to fulfill the incoming ord
 1. **Units** not passing *QA* are resolved by a **Problem Solver**.
 1. **Units** That pass QA, or have successfully been *Problem Solved* are then loaded onto a **Pod** for storage and are available to be *Picked* for **Orders**.
 
-#### Replenishment Scope
+##### Replenishment Scope
 
 > Creating an algorithm to handle that ordering of low stock units is beyond the scope of this project. Alternatively we will address this as a simple threshold reorder.
 
@@ -121,9 +126,10 @@ You will need to store this order information.
 * Simulate the time needed for a worker to preform a task while interacting with a unit/package/order. Actions, such as a **Worker** *Picking* a **Unit** from a **Pod**, should not happen instantaneously. These and other times are documented on the *Frequency Table*, any times not documented should be considered assumptions.
 
 ### API Requirements
-* Create and Document an API including all Endpoints and Expected Usage
+* Create and Document an API including all Endpoints and Expected Usage.
 * Endpoints allowing for checking the current status of any  order, Worker's current task or any unit in inventory.
 * Endpoints returning the total number of units at each status you elect to identify in the system (Example: Total Unique Units: 300,000, Pods Queued for Picking: 35, Pods Requiring Maintenance: 12, Bots Currently Queued for Picking: 150, etc...)
+* Orders will be POSTed to **/order/new** of your application.
 
 ### Documentation Requirements
 
@@ -136,15 +142,24 @@ Document all relevant Project Information including:
 * Each Endpoint should have (minimally) One Unit Test
 * For visual reference, document and diagram the flow of orders, units, workers, bots within your system. This reference should  be modified to reflect any changes to the system through the development process.
 
-### Production Process
+### Production Process Roles
+
+##### Product Owner
+
+* Set and maintaining the overall vision for the Product
+* Accept, Reject, Request Refactoring of Submitted Enhancements
 
 ##### Project Manager
 
 * A deployment every class day is required. These should exist as pull requests made from *Development* to a *Release* branch.
 * The PM can choose to review each pull request or delegate part or all of this duty, however the PM is responsible that all code merged into the *Development* Branch adheres to the **Development Guidelines**
+* Ensure overall *Product Goals* are aligned with Development *Sprint Goals*  within the Project Scoped.
+* Assign goals to Developers and evaluate outcomes. Adjustments may be required to achieve future *Sprint Goals*
 
-##### Developers
+##### Developer
 
+* Work with PM and other Team Members to help define clear *Sprint Goals*
+* Develop according to the [Development Guidelines](#Development-Guidelines) toward your assigned goals 
 * A deployment every class day is required. These should exist as pull requests made from the Dev's *Feature Branch* to a *Development* branch.
 
 #### Development Guidelines
