@@ -2,9 +2,7 @@
 
 ## Project Summary
 
-Develop an Open Source Solution to manage the inventory tracking requirements within a warehouse environment. Future iterations will be developed upon this foundation.
-
-
+Develop an Open Source Solution to Manage the Inventory and Fulfillment Tracking within a Materials Handling Environment. Future iterations will be developed upon this foundation.
 
 ## Key Due Dates
 
@@ -20,11 +18,44 @@ All items below are due at the beginning of lecture unless otherwise specified.
 * Day 9: Final Deployment
 * Day 10: Presentation to Product Owner
 
+## RFP Response
 
+Your team will create a presentation that will demonstrate, from a high level, your understanding of the project being requested.
+
+This presentation should outline each process and detail any logical decision trees for how each module of the system will handle through each process.
+
+Within your outline identify key modules that can be broken down into smaller components. Label and define these components from a high level as what function they serve and how they relate to their larger module.
+
+The Development Lifecycle for this project with be one of Continual Development and Deployment. This means that there is no defined end of the Project Lifecycle. Future developers will be adding to and maintaining the codebase in addition to your team.
+
+With this presentation you are creating baseline goals that your development team may not be directly supporting. Each deployment your PM should identify reasonable individual goals for each developer on the team. After each deployment the PM should assess the progress made and adjust individual expectations for the next sprint.
+
+You will be creating a base level application and enhancing it with each Scheduled Deployment.
+
+> The recursive process of Planning, implementation, Evaluation and Planning will be abridged for the time constraints of class.
+
+## Project Technology
+
+| Technology / Module | Implementation |
+| --- | --- |
+| NodeJS | Component Modules |
+| ExpressJS | API |
+| MySQL | Data Storage |
+| ReactJS | Front-End |
+| Redux | Application State Container |
+| Gulp | Build Tasks |
+| Webpack | Asset Bundler |
+| Sequelize | Data Retrieval |
+| Git | Source Control |
+| Zenhub | Project Management |
+| Mocha + Chai | Unit Testing |
+| Slack | Team Communication |
+
+> Additional Technologies / Modules or modifications to this list can be proposed.
 
 ## Project Background
 
-Your team has been contracted to design an Inventory Management System. There are several processes (outlined below) that explain the order actions to facilitate the prompt reception, fulfillment, supporting processes, and shipping of orders.
+Your team has been contracted to design an Inventory Management System. There are several processes (outlined below) that explain the order of actions to facilitate the prompt reception, fulfillment, and shipping of orders and supporting processes.
 
 **Bold Items** refer to objects that need manipulated while *Italic Item* are more representative of Actions or Statuses of objects and processes.
 
@@ -81,28 +112,20 @@ You will need to store this order information.
 
 > Inspection to be preformed by a **Worker**. See **Frequency Table**.
 
-
-
-## Expectations
-
-
-
 ## Requirements
 
-
-
-### General
+### General Requirements
 
 * Team communication should be handled through Slack
 * Project Management should be handled through the Github Issues System
 * Simulate the time needed for a worker to preform a task while interacting with a unit/package/order. Actions, such as a **Worker** *Picking* a **Unit** from a **Pod**, should not happen instantaneously. These and other times are documented on the *Frequency Table*, any times not documented should be considered assumptions.
 
-### API
+### API Requirements
 * Create and Document an API including all Endpoints and Expected Usage
 * Endpoints allowing for checking the current status of any  order, Worker's current task or any unit in inventory.
 * Endpoints returning the total number of units at each status you elect to identify in the system (Example: Total Unique Units: 300,000, Pods Queued for Picking: 35, Pods Requiring Maintenance: 12, Bots Currently Queued for Picking: 150, etc...)
 
-### Documentation
+### Documentation Requirements
 
 Document all relevant Project Information including:
 
@@ -135,12 +158,6 @@ The Project will adhere to the Development Standards listed below. If you have a
 * [12-Factor Methodology](http://12factor.net/) (Covered Day 3)
 * [Semantic Versioning: SemVer](http://semver.org/) (Covered Day 4)
 
-### Features
-
-### Technology Choices
-
-
-
 ## Frequency Table
 
 | Type | Frequency |
@@ -157,15 +174,11 @@ The Project will adhere to the Development Standards listed below. If you have a
 | **Bot** *Procuring* a **Pod** takes | 10 mins|
 | *Scheduled Service* for a **Pod** | Every 10,000 Picks |
 
+## Fulfillment Systems Research & Findings
 
+[Video Research](https://www.youtube.com/playlist?list=PLKeRbeoYMGFvgMrZzUDEXGkTbeMMxLR0U)
 
-## Request for Proposal Guidelines
-
-
-
-## Supporting Statistic
-
-|  Statistics |  |
+|  Important Statistics |  |
 | --- | --- |
 | SKUs in a Warehouse (Amazon)| ^3 Million |
 | Total Units in a Warehouse (Amazon) | ^21 Million |
@@ -179,5 +192,3 @@ The Project will adhere to the Development Standards listed below. If you have a
 | Robot Assisted Order Processing Time | 15 mins|
 | Kiva Bots Recharge Time | 5 mins |
 | Kiva Bots Accuracy | 99.99% |
-
-[Sources](https://www.youtube.com/watch?v=zknLfU7GJIw&index=1&list=PLKeRbeoYMGFvgMrZzUDEXGkTbeMMxLR0U)
