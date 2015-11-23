@@ -183,7 +183,7 @@ Students will be assessed for their work on the project and adherence to develop
 
     (Online)
       Git Feature Branch Development Methodology
-      Zendhub.io integration    
+      Zenhub.io integration    
 
     (Lecture)
       Demo: Automated Deployment
