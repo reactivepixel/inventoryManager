@@ -4,7 +4,7 @@
 
 Develop an Open Source Solution to manage the inventory tracking requirements within a warehouse environment. Future iterations will be developed upon this foundation.
 
-***
+
 
 ## Key Due Dates
 
@@ -20,7 +20,7 @@ All items below are due at the beginning of lecture unless otherwise specified.
 * Day 9: Final Deployment
 * Day 10: Presentation to Product Owner
 
-***
+
 
 ## Project Background
 
@@ -81,11 +81,11 @@ You will need to store this order information.
 
 > Inspection to be preformed by a **Worker**. See **Frequency Table**.
 
-***
+
 
 ## Expectations
 
-***
+
 
 ## Requirements
 
@@ -139,7 +139,7 @@ The Project will adhere to the Development Standards listed below. If you have a
 
 ### Technology Choices
 
-***
+
 
 ## Frequency Table
 
@@ -157,11 +157,11 @@ The Project will adhere to the Development Standards listed below. If you have a
 | **Bot** *Procuring* a **Pod** takes | 10 mins|
 | *Scheduled Service* for a **Pod** | Every 10,000 Picks |
 
-***
+
 
 ## Request for Proposal Guidelines
 
-***
+
 
 ## Supporting Statistic
 
