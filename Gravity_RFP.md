@@ -159,7 +159,7 @@ Document all relevant Project Information including:
 ##### Developer
 
 * Work with PM and other Team Members to help define clear *Sprint Goals*
-* Develop according to the [Development Guidelines](#Development-Guidelines) toward your assigned goals 
+* Develop according to the [Development Guidelines](#development-guidelines) toward your assigned goals 
 * A deployment every class day is required. These should exist as pull requests made from the Dev's *Feature Branch* to a *Development* branch.
 
 #### Development Guidelines
