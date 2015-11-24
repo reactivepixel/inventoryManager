@@ -2,9 +2,9 @@
 
 ## Project Summary
 
-Develop an Open Solution to Manage the Inventory and Fulfillment Tracking within a Materials Handling Environment (Warehouse). Future iterations will be developed upon this foundation.
+Develop an Open Source Application to Manage the Inventory, Fulfillment, and Internal Tracking within a Material Handling Environment (Warehouse). Future iterations will be developed upon this foundation and extend the application into new horizons.
 
-Research [these videos](https://www.youtube.com/playlist?list=PLKeRbeoYMGFvgMrZzUDEXGkTbeMMxLR0U) covering the activities and processes internal to Fulfillment Centers for Amazon, Zappos, Quiet Logistics, and Kiva Robotics to obtain the context necessary for moving forward with the RFP process for the Gravity Project.
+Research [these videos](https://www.youtube.com/playlist?list=PLKeRbeoYMGFvgMrZzUDEXGkTbeMMxLR0U) covering the activities and processes internal central to Fulfillment Centers for Amazon, Zappos, Quiet Logistics, and Kiva Robotics to obtain the context necessary for moving forward with this RFP.
 
 ## Key Due Dates
 
@@ -13,7 +13,7 @@ All items below are due at the beginning of lecture unless otherwise specified.
 * Daily Deployments (Days 2-9, Beginning of Lab)
 * Day 1: Organization into Teams (Beginning of Lab)
 * Day 2: RFP Response / Kick-Off
-* Day 2: Deployment Pipeline setup (End of Lab)
+* Day 2: Deployment Pipeline Setup (End of Lab)
 * Day 4: API Modification Requests / Work with External Front End Team (End of Lab)
 * Day 5: Product Owner Update
 * Day 8: Product Owner Update
@@ -24,15 +24,15 @@ All items below are due at the beginning of lecture unless otherwise specified.
 
 Your team will create a presentation that will demonstrate, from a high level, your understanding of the project being requested.
 
-This presentation should outline each process and detail any logical decision trees for how each module of the system will handle through each process.
+This presentation should outline each process and detail any logical decision trees for how each module of the system will be handled through each process.
 
-Within your outline identify key modules that can be broken down into smaller components. Label and define these components from a high level as what function they serve and how they relate to their larger module.
+Identify key modules that can be broken down into smaller components. Label and define these components and what function they serve along with how they relate to their larger module. These should be high level assertions.
 
 The Development Lifecycle for this project with be one of Continual Development and Deployment. This means that there is no defined end of the Project Lifecycle. Future developers will be adding to and maintaining the codebase in addition to your team.
 
-With this presentation you are creating baseline goals that your development team may not be directly supporting. Each deployment your PM should identify reasonable individual goals for each developer on the team. After each deployment the PM should assess the progress made and adjust individual expectations for the next sprint.
+With this presentation you are creating baseline goals for your team to hit. Your development team may end up laying the ground work for future dev teams.
 
-You will be creating a base level application and enhancing it with each Scheduled Deployment.
+You will be creating a base level application and enhancing it with each Scheduled Deployment. The Project Manager should identify and assign reasonable goals for each developer per each deployment. After each deployment the PM should assess the progress made and adjust individual developer expectations for the next Sprint Cycle.
 
 > The recursive process of Planning, implementation, Evaluation and Planning will be abridged for the time constraints of class.
 
@@ -43,12 +43,12 @@ You will be creating a base level application and enhancing it with each Schedul
 | NodeJS | Component Modules |
 | ExpressJS | API |
 | MySQL | Data Storage |
-| Heroku | Staging & Production Platform |
-| ReactJS | Front-End |
+| Heroku | Staging & Production PaaS |
+| ReactJS | Application Interface |
 | Redux | Application State Container |
 | Gulp | Build Tasks |
 | Webpack | Asset Bundler |
-| Sequelize | Data Retrieval |
+| Sequelize | ORM |
 | Git | Source Control |
 | Zenhub | Project Management |
 | Mocha + Chai | Unit Testing |
@@ -60,24 +60,24 @@ You will be creating a base level application and enhancing it with each Schedul
 
 ## Background & Processes
 
-Your team has been contracted to design an Inventory Management System. There are several processes (outlined below) that explain the order of actions to facilitate the prompt reception, fulfillment, and shipping of orders and supporting processes.
+Your team has been contracted to design an Inventory Management System to ensure the accurate completion of the process outlined below. These processes detail the order of actions to facilitate the prompt reception, fulfillment, and shipping of orders and other supporting processes.
 
 **Bold Items** refer to objects that need manipulated while *Italic Item* are more representative of Actions or Statuses of objects and processes.
 
 ### The Order Fulfillment Process
 
-This process identifies each step that is taken in reaction to an Order's reception that combinate in the Picking and Shipping of each Unit in the Order.
+This process identifies each step taken in reaction to an order's reception that combinate in the Picking and Shipping of each Unit in the Order.
 
 1. An **Order** is received for *Fulfillment*.
 1. A **Bot** is *Dispatched* to procure a **Pod**.
 1. The **Pod** is *Brought* to a **Pick Queue** of Pods.
 1. When the **Pod** is at the top of the **Pick Queue**  a **Worker** is directed to remove a **Unit** from the pod in a process called *Picking*.
-1. The **Worker** combines the *Picked* **Unit** with other *picked* **Units** as directed by the **Order** to create a **Package**.
+1. The **Worker** combines the *Picked* **Unit** with other *Picked* **Units** as directed by the **Order** to create a **Package**.
 1. The **Worker** *Finalizes* the **Packages** ready for QA.
 1. **Packages** are *Collected* by another **Worker** to preform *QA*.
 1. If *QA Fails* the **Package** and finds an inconsistency it is assigned to a **Problem Solver** for resolution.
-1. If the **Package** *Passes QA* or has a been *Problem Solved* another **Worker** *Collects* the package.
-1. Once collected they are *Registered* with a Shipping Vendor (UPS, FedEx, USPS) which will generate a **External Tracking Number** and *Loaded* onto a Truck.
+1. If the **Package** *Passes QA* or has a been *Problem Solved*, another **Worker** *Collects* the package.
+1. Once collected they are *Registered* with a Shipping Vendor (UPS, FedEx, USPS) which will generate a **External Tracking Number** and are *Loaded* onto a Truck.
 1. When the **Truck** is *Filled* to capacity (Weight and/or Volume must be accounted for) the **Order** can be marked as *Shipped*.
 
 ### The Replenishment Process
@@ -135,7 +135,7 @@ You will need to store this order information.
 
 Document all relevant Project Information including:
 
-* All assumptions in your readme.md and formally submit each to the Product Owner.
+* All assumptions in your readme.md
 * The Installation Process
 * Setting up the required Development Environment (For On-Boarding a new Developer)
 * All API Endpoints and Expected Usage
@@ -193,7 +193,7 @@ The Project will adhere to the Development Standards listed below. If you have a
 
 [Video Research](https://www.youtube.com/playlist?list=PLKeRbeoYMGFvgMrZzUDEXGkTbeMMxLR0U)
 
-|  Important Statistics |  |
+|  Notable Statistics |  |
 | --- | --- |
 | SKUs in a Warehouse (Amazon)| ^3 Million |
 | Total Units in a Warehouse (Amazon) | ^21 Million |
@@ -202,7 +202,9 @@ The Project will adhere to the Development Standards listed below. If you have a
 | Total Pods in a Warehouse (Kiva) | 1,000 |
 | Total Bots in a Warehouse (Kiva) | 100 |
 | Total Workers in a Warehouse (Kiva) | 300 |
+| Total Orders Per Day (Amazon, Cyber Monday 2013) | ^36,000,000 day |
 | Total Orders Per Day (Quiet Logistics) | 30,000 day |
+| Total Orders Per Second (Amazon, Cyber Monday 2013) | 426 sec |
 | Non-Robot Assisted Order Processing Time | 1 - 1.5 hrs |
 | Robot Assisted Order Processing Time | 15 mins|
 | Kiva Bots Recharge Time | 5 mins |
