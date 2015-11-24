@@ -10,14 +10,14 @@ Research [these videos](https://www.youtube.com/playlist?list=PLKeRbeoYMGFvgMrZz
 
 All items below are due at the beginning of lecture unless otherwise specified.
 
-* Daily Deployments (Days 2-9, End of Lab)
+* Daily Deployments (Days 2-9, Beginning of Lab)
 * Day 1: Organization into Teams (Beginning of Lab)
 * Day 2: RFP Response / Kick-Off
 * Day 2: Deployment Pipeline setup (End of Lab)
 * Day 4: API Modification Requests / Work with External Front End Team (End of Lab)
 * Day 5: Product Owner Update
 * Day 8: Product Owner Update
-* Day 9: Final Deployment
+* Day 9: Final Deployment (End of Lab - Hard Deadline)
 * Day 10: Presentation to Product Owner
 
 ## RFP Response
@@ -167,9 +167,9 @@ Document all relevant Project Information including:
 The Project will adhere to the Development Standards listed below. If you have any questions beyond the Development Guidelines that fall beyond the scope itemized below please consult the Product Owner.
 
 * Passwords or API Keys should be saved to a [.env file](https://www.npmjs.com/package/dotenv) and NOT committed to your repo.
-* Development Follow the [Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) (Covered Day 2)
 * [Development Guide: Javascript](https://github.com/airbnb/javascript) (Covered Day 1)
 * [Development Guide: React/JSX](https://github.com/airbnb/javascript/tree/master/react) (Covered Day 1)
+* Development Follow the [Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) (Covered Day 2)
 * [12-Factor Methodology](http://12factor.net/) (Covered Day 3)
 * [Semantic Versioning: SemVer](http://semver.org/) (Covered Day 4)
 
