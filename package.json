@@ -1,0 +1,29 @@
+{
+  "name": "gravity",
+  "version": "1.0.0",
+  "description": "Open Source Application to Manage the Inventory, Fulfillment, and Internal Tracking within a Material Handling Environment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactivepixel/Gravity.git"
+  },
+  "keywords": [
+    "CI"
+  ],
+  "author": "Chris Chapman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reactivepixel/Gravity/issues"
+  },
+  "homepage": "https://github.com/reactivepixel/Gravity#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "4.13.3"
+  },
+  "engines": {
+    "node": "v5.1.0"
+  }
+}
