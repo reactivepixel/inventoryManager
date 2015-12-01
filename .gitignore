@@ -5,6 +5,7 @@
 .Spotlight-V100
 .Trashes
 Thumbs.db
+.env
 
 #########
 # Github's recommended Node .gitignore items (https://github.com/github/gitignore/blob/master/Node.gitignore)
