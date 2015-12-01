@@ -3,7 +3,6 @@
 The backend business logic for the **Sol Project**
 
 ## Environments
-
 Here are links to all Environments.
 
 ### Development
