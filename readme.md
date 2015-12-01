@@ -2,6 +2,20 @@
 
 The backend business logic for the **Sol Project**
 
+## Install Locally
+
+Clone the repo to your local machine
+
+```
+npm install
+```
+
+## Developing Locally
+
+```
+npm start
+```
+
 ## Environments
 Here are links to all Environments.
 
