@@ -22,7 +22,9 @@
   "homepage": "https://github.com/reactivepixel/Gravity#readme",
   "dependencies": {
     "body-parser": "1.14.1",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "gulp": "^3.9.0",
+    "webpack": "^1.12.9"
   },
   "engines": {
     "node": "v5.1.0"

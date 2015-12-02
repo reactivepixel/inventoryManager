@@ -1,12 +1,26 @@
-// npm module
-var express 		= require('express'),
-    app         = express(),
-    bodyParser  = require('body-parser');
+// Gravity Application Server | NPM Modules
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// located in the node_modules [use npm install to update from package.json]
+var express 	= require('express');
+var bodyParser  = require('body-parser');
+
+
+
+// Initialize Application
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+var app = express();
+var router = express.Router();
+
+
 
 // Config
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var port = process.env.PORT || 3000;
 
+
+
+// Middleware
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // for parsing application/json
 app.use(bodyParser.json());
 
@@ -14,15 +28,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// ROUTES
+
+// Routes
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Version 1 of the API
 app.use('/api/v1', require('./routes/api/v1.js')(express));
 
 
-// START THE SERVER
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-var server = app.listen(port);
-console.log('Server Active on Port - ' + port);
 
-// Hello
+// Start The Server
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+var server = app.listen(port, function(){
+    console.log('Server Active on Port ' + port);
+});
+
