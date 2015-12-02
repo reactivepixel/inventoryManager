@@ -23,6 +23,6 @@ app.use('/api/v1', require('./routes/api/v1.js')(express));
 // START THE SERVER
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var server = app.listen(port);
-console.log('Server Active on Port: ' + port);
+console.log('Server Active on Port - ' + port);
 
 // Hello
