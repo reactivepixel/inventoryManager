@@ -9,7 +9,6 @@ var bodyParser  = require('body-parser');
 // Initialize Application
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var app = express();
-var router = express.Router();
 
 
 
@@ -33,6 +32,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Version 1 of the API
 app.use('/api/v1', require('./routes/api/v1.js')(express));
+
+// TODO: add passport to parameters
+app.use('/orderAPI', require('./routes/api/orderAPI.js')(express));
 
 
 
