@@ -1,11 +1,27 @@
 // npm modules
-var express 		= require('express'),
+
+require('dotenv').load();
+
+var express 	= require('express'),
     app         = express(),
-    bodyParser  = require('body-parser');
+    bodyParser  = require('body-parser')
+    env 		= process.env,
+    Sequelize  	= require('sequelize');
 
 // Config
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 var port = process.env.PORT || 3000;
+
+var sequelize = new Sequelize(env.DB_NAME, env.MYSQL_NAME, env.MYSQL_PASS, {
+  host: 'localhost',
+  dialect: 'mysql',
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  }
+});
 
 // for parsing application/json
 app.use(bodyParser.json());
@@ -24,3 +40,4 @@ app.use('/api/v1', require('./routes/api/v1.js')(express));
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var server = app.listen(port);
 console.log('Server Active on Port ' + port);
+
