@@ -26,11 +26,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// Version 1 of the API
-app.use('/api/v1', require('./routes/api/v1.js')(express));
-
 // TODO: add passport to parameters
-app.use('/orderAPI', require('./routes/api/orderAPI.js')(express));
+app.use('/orderAPI', require('./server/routes/orderAPI.js')(express));
 
 
 // Start The Server
