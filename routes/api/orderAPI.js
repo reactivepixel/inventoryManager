@@ -6,15 +6,15 @@ module.exports = function (express) {
   // Sample Database
   var orderDatabase = [
     {orderId: '5f41c846-4c48-ae09-52da-658d47614d9e', status: 'packing', order : [
-      {item : 'teacup', price : 2.00, quality : 4, location : {robotId : 1042, currentStock : '32', restock : '20', status: 'charging'}},
-      {item : 'teapot', price : 4.00, quality : 2, location : {robotId : 1693, currentStock : '14', restock : '10', status: 'inTransit'}},
-      {item : 'teaset', price : 8.00, quality : 1, location : {robotId : 1285, currentStock : '17', restock : '10', status: 'delivered'}}
+      {item : 'teacup', price : 2.00, quantity : 4, location : {robotId : 1042, currentStock : '32', restock : '20', status: 'charging'}},
+      {item : 'teapot', price : 4.00, quantity : 2, location : {robotId : 1693, currentStock : '14', restock : '10', status: 'inTransit'}},
+      {item : 'teaset', price : 8.00, quantity : 1, location : {robotId : 1285, currentStock : '17', restock : '10', status: 'delivered'}}
     ], recipient : {name : 'Yanely Ramirez', address : '3300 University Blvd, Winter Park, FL 32792', contact : "555-555-5555"}},
 
     {orderId: '7bf13dc8-5e09-eedd-2ad4-a0cfbebafc29', status: 'packing', order : [
-      {item : 'usbDrive', price : 12.00, quality : 2, location : {robotId : 1424, currentStock : '98', restock : '50', status: 'delivered'}},
-      {item : 'Computer', price : 90.00, quality : 1, location : {robotId : 1777, currentStock : '44', restock : '20', status: 'delivered'}},
-      {item : 'Keyboard', price : 25.00, quality : 1, location : {robotId : 1982, currentStock : '17', restock : '15', status: 'inTransit'}}
+      {item : 'usbDrive', price : 12.00, quantity : 2, location : {robotId : 1424, currentStock : '98', restock : '50', status: 'delivered'}},
+      {item : 'Computer', price : 90.00, quantity : 1, location : {robotId : 1777, currentStock : '44', restock : '20', status: 'delivered'}},
+      {item : 'Keyboard', price : 25.00, quantity : 1, location : {robotId : 1982, currentStock : '17', restock : '15', status: 'inTransit'}}
     ], recipient : {name : 'Brandy Bergh', address : '3300 University Blvd, Winter Park, FL 32792', contact : "555-555-5555"}}
   ];
 
@@ -37,8 +37,6 @@ module.exports = function (express) {
       '<br><br>For Order List: http://localhost:3000/orderAPI/orders' +
       '<br><br>For specific order details, send data to: http://localhost:3000/orderAPI/details' +
       '<br>&#8195 Data format: {orderId : "number"}');
-
-
   });
 
 
