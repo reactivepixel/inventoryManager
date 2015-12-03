@@ -6,6 +6,7 @@
 .Trashes
 Thumbs.db
 .env
+.idea
 
 #########
 # Github's recommended Node .gitignore items (https://github.com/github/gitignore/blob/master/Node.gitignore)
