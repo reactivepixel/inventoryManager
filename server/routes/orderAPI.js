@@ -3,21 +3,32 @@
 module.exports = function (express) {
   var router = express.Router();
 
-  // Sample Database
-  var orderDatabase = [
-    {orderId: '5f41c846-4c48-ae09-52da-658d47614d9e', status: 'packing', order : [
-      {item : 'teacup', price : 2.00, quantity : 4, location : {robotId : 1042, currentStock : '32', restock : '20', status: 'charging'}},
-      {item : 'teapot', price : 4.00, quantity : 2, location : {robotId : 1693, currentStock : '14', restock : '10', status: 'inTransit'}},
-      {item : 'teaset', price : 8.00, quantity : 1, location : {robotId : 1285, currentStock : '17', restock : '10', status: 'delivered'}}
-    ], recipient : {name : 'Yanely Ramirez', address : '3300 University Blvd, Winter Park, FL 32792', contact : "555-555-5555"}},
+  // Sample of Database Structure
+  var orderDatabase = [{
+    tracking : { status : 'packing', timestamp : 'today'},
+    recipient : {name : 'Yanely Ramirez', address : '3300 University Blvd, Winter Park, FL 32792',  email : 'orange@fullsail.edu', phone : "555-555-5555"},
+    units : [
+      {unitId: 'd6a85625-5cf4-c08b-d74c-7fa0d1fbfef6', quantity : 4,
+        details : {price : 2.00, name : 'teacup', stock : 100, restock : 70 }, pod : {id : '6830', status : 'charging'}},
+      {unitId: '4a737b05-4ea1-f106-4a35-a315e57062fd', quantity : 2,
+        details : {price : 4.00, name : 'teapot', stock : 100, restock : 50 }, pod : {id : '1047', status : 'inTransit'}},
+      {unitId: 'fa4e2515-f1e3-0bbd-fbc2-3c9651b7374d', quantity : 2,
+        details : {price : 8.00, name : 'teaset', stock : 100, restock : 30 }, pod : {id : '9702', status : 'inTransit'}}
+    ]},
 
-    {orderId: '7bf13dc8-5e09-eedd-2ad4-a0cfbebafc29', status: 'packing', order : [
-      {item : 'usbDrive', price : 12.00, quantity : 2, location : {robotId : 1424, currentStock : '98', restock : '50', status: 'delivered'}},
-      {item : 'Computer', price : 90.00, quantity : 1, location : {robotId : 1777, currentStock : '44', restock : '20', status: 'delivered'}},
-      {item : 'Keyboard', price : 25.00, quantity : 1, location : {robotId : 1982, currentStock : '17', restock : '15', status: 'inTransit'}}
-    ], recipient : {name : 'Brandy Bergh', address : '3300 University Blvd, Winter Park, FL 32792', contact : "555-555-5555"}}
+    {
+    tracking : { status : 'packing', timestamp : 'today'},
+    recipient : {name : 'Brandy Bergh', address : '3300 University Blvd, Winter Park, FL 32792', email : 'banana@fullsail.edu', phone : "555-555-5555"},
+    units : [
+      {unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91', quantity : 2,
+        details : {price : 12.00, name : 'usbDrive', stock : 100, restock : 50 }, pod : {id : '1038', status : 'charging'}},
+      {unitId: '6f013d9b-f924-f66a-2216-ed3f3472f641', quantity : 1,
+        details : {price : 90.00, name : 'Computer', stock : 100, restock : 40 }, pod : {id : '9472', status : 'inTransit'}},
+      {unitId: 'ed769138-f764-cceb-9309-dc3ebf17a279', quantity : 1,
+        details : {price : 25.00, name : 'Keyboard', stock : 100, restock : 20 }, pod : {id : '1947', status : 'delivered'}}
+    ]}
   ];
-
+  
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   function idGenerator() {
@@ -27,62 +38,51 @@ module.exports = function (express) {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   }
 
-
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   router.get('/', function( req, res) {
 
     // simple instructions on API paths
     // access point: http://localhost:3000/orderAPI
     res.send('<b>Order API Documentation</b>' +
-      '<br><br>For Order List: http://localhost:3000/orderAPI/orders' +
-      '<br><br>For specific order details, send data to: http://localhost:3000/orderAPI/details' +
-      '<br>&#8195 Data format: {orderId : "number"}');
+      '<br><br>List Database: http://localhost:3000/orderAPI/database' +
+      '<br><br>Post Search Request: http://localhost:3000/orderAPI/search' +
+      '<br><br>Post Order Placement Request: http://localhost:3000/orderAPI/placement'
+      );
   });
 
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  router.get('/orders', function(req, res) {
+  router.get('/database', function(req, res) {
 
-    // display all orders in database
-    // access point: http://localhost:3000/orderAPI/orders
+    // display temporary database
+    // access point: http://localhost:3000/orderAPI/database
     res.json(orderDatabase);
   });
 
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  router.post('/details', function(req, res) {
+  router.post('/search', function(req, res) {
 
     // find order details
-    // http://localhost:3000/orderAPI/details
+    // http://localhost:3000/orderAPI/search
     var orderDetails = {};
     var serverMessage = '';
-    var requestOrder = req.body;
+    var searchRequest = req.body;
 
+    // simulate search send {"orderId" : 1}
     // Triggered server response when order is placed
-    console.log('Request For Order ' + requestOrder.orderId);
+    console.log('Searching for order ' + searchRequest.orderId);
 
-
-    for(var i = 0; i <= orderDatabase.length; i++) {
-
-      // if there is no match run this
-      if(i == orderDatabase.length){
-        serverMessage = "order " + requestOrder.orderId + " Doesn't Exist";
-        console.log(serverMessage);
-        orderDetails = {};
-        break;
-      }
-
-      // when a match is found run this
-      if(orderDatabase[i].orderId == requestOrder.orderId) {
-        orderDetails = orderDatabase[i];
-        serverMessage = "order " + requestOrder.orderId + " Located";
-        console.log(serverMessage);
-        break;
-      }
+    if(orderDatabase.length <= searchRequest.orderId){
+      serverMessage = 'orderId: ' + searchRequest.orderId + ' was not found'
+    }else{
+      orderDetails  = orderDatabase[searchRequest.orderId];
+      serverMessage = 'orderId: ' + searchRequest.orderId + ' located'
     }
 
+
     res.json({
-      serverResponse : 'Searching For Order: ' + requestOrder.orderId,
+      serverResponse : 'Searching for order: ' + searchRequest.orderId,
       serverMessage : serverMessage,
       orderDetails: orderDetails
     });
@@ -90,22 +90,40 @@ module.exports = function (express) {
 
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//This is what we expect an order json to look like
+  var exampleOrder =
+  {"order" :
+  {"recipient" :
+  {"name" : "Jazy Jasilo",
+    "address" : "3300 University Blvd, Winter Park, FL 32792",
+    "email" : "orange@fullsail.edu",
+    "phone" : "555-555-5555"},
+    "units" : [{
+      "unitId" : "a5296ab9-9eee-7ba0-0a79-b801594f2c91",
+      "quantity" : 4}
+    ]}
+  };
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 router.post('/placement', function(req, res) {
-  var clientPlacement = {};
+  var orderPlacement = req.body;
+  orderTracking = { status : 'packing', timestamp : 'today'};
+  orderRecipient = orderPlacement.order.recipient;
+  orderUnits = orderPlacement.order.units;
 
-  // TODO: fill in recipient properties & robots
-  clientPlacement.orderId = idGenerator();
-  clientPlacement.status = 'processing';
-  clientPlacement.order = req.body;
 
-  // adding to pretend database
-  orderDatabase.push(clientPlacement);
-  var serverMessage = "your orderId is: " + clientPlacement.orderId;
+  var placement = {};
+  placement.tracking = orderTracking;
+  placement.recipient = orderRecipient;
+  placement.unit = orderUnits;
+
+  orderDatabase.push(placement);
+  console.log(placement);
+
 
   res.json({
-    serverResponse : "Your order is being processed",
-    serverMessage : serverMessage,
-    orderDetails: clientPlacement
+    serverResponse : "Your placement is being processed",
+    orderDetails: placement
   });
 });
 
