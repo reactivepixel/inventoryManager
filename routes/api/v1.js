@@ -10,12 +10,14 @@ module.exports = function (express) {
 
     // TODO: Save payload information to the database
     var payload = req.body;
+    var payload2 = req.params;
     console.log('I should probably save this to a database.', payload);
 
     // Response to Client
     res.json({
       code: {id:201, title:'Success Receipt of Post Data'},
-      reqBody: payload
+      reqBody: payload,
+      reqPara: payload2
     });
   });
 
