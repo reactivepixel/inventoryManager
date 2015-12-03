@@ -40,4 +40,6 @@ app.use('/api/v1', require('./routes/api/v1.js')(express));
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var server = app.listen(port);
 console.log('Server Active on Port ' + port);
+console.log("----Environment Variables----");
+console.log("Database Name: " + env.DB_NAME);
 
