@@ -9,7 +9,7 @@ module.exports = function (express) {
       {item : 'teacup', price : 2.00, quality : 4, location : {robotId : 1042, currentStock : '32', restock : '20', status: 'charging'}},
       {item : 'teapot', price : 4.00, quality : 2, location : {robotId : 1693, currentStock : '14', restock : '10', status: 'inTransit'}},
       {item : 'teaset', price : 8.00, quality : 1, location : {robotId : 1285, currentStock : '17', restock : '10', status: 'delivered'}}
-    ], recipient : {name : 'Yanelly Ramirez', address : '3300 University Blvd, Winter Park, FL 32792', contact : 555-555-5555}},
+    ], recipient : {name : 'Yanely Ramirez', address : '3300 University Blvd, Winter Park, FL 32792', contact : 555-555-5555}},
 
     {orderId: 10001, status: 'warehouse', stock : [
       {item : 'usbDrive', price : 12.00, quality : 2, location : {robotId : 1424, currentStock : '98', restock : '50', status: 'delivered'}},
@@ -55,7 +55,7 @@ module.exports = function (express) {
     console.log('Request For Order ' + clientOrder.orderId);
 
 
-    for(i = 0; i <= orderDatabase.length; i++){
+    for(i = 0; i <= orderDatabase.length; i++) {
 
       // if there is no match run this
       if(i == orderDatabase.length){
