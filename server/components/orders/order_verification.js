@@ -8,21 +8,24 @@
 
 	const order = [{
 	item: "Toy",
-	qty: 2}
-	];
+	qty: 2
+	}];
 
 	const package = {
-	item: "Toy", qty: 2 
+	item: "Toy",
+	qty: 2 
 	};
 	
 
 	function verify () {
-		if ( order[i].item = package[i].item && order[i].qty = package[i].qty ) {
+		if ( order[i].item === package[i].item && order[i].qty === package[i].qty ) {
 			
 			Mark package as "verified"
 			console.log("Package Verified");
 			
 			send to be used in shipping function
+			shippingFunction();
+			
 		} else {
 			
 			call a problem solver to review package
