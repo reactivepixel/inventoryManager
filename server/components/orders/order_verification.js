@@ -12,21 +12,21 @@ const order = [{
 
 const package = {
 	item: "Toy",
-	qty: 2 
+	qty: 2
 };
 
 
 function verify () {
 	if ( order[i].item === package[i].item && order[i].qty === package[i].qty ) {
-		
+
 		// mark package as "verified"
 		console.log("Package Verified");
-		
+
 		// send to be used in shipping function
 		shippingFunction();
-		
+
 	} else {
-		
+
 		// call a problem solver to review package
 		console.log('Problem Solver neeeded');
 
@@ -38,7 +38,7 @@ function verify () {
 }
 
 for (var i = 0; i < order.length; i += 1) {
-	
+
 	verify();
 
 }
