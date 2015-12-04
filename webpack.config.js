@@ -1,5 +1,5 @@
 var path = require('path'),
-	webpack = require('webpack');
+webpack = require('webpack');
 
 module.exports = {
 	cache:true,
@@ -19,22 +19,22 @@ module.exports = {
 		reasons:true
 	},
 	module: {
-	    loaders: [
-	      {test: /\.json$/, loader: 'json-loader'},
-	      {test: /\.js$/, exclude: [/node_modules/], loader: 'babel-loader?optional=runtime'},
-	      {
-	        test: /\.jsx$/,
-	        exclude: [/node_modules/],
-	        loaders: ['react-hot', 'babel-loader?optional=runtime']
-	      },
-	      {test: /\.scss$/, loaders: ["style", "css", "sass?config=otherSassLoaderConfig"]},
-	      {test: /\.css/, loader: 'style-loader!css-loader'}
-	    ],
-	    noParse: /\.min\.js/
-  	},
+		loaders: [
+		{test: /\.json$/, loader: 'json-loader'},
+		{test: /\.js$/, exclude: [/node_modules/], loader: 'babel-loader?optional=runtime'},
+		{
+			test: /\.jsx$/,
+			exclude: [/node_modules/],
+			loaders: ['react-hot', 'babel-loader?optional=runtime']
+		},
+		{test: /\.scss$/, loaders: ["style", "css", "sass?config=otherSassLoaderConfig"]},
+		{test: /\.css/, loader: 'style-loader!css-loader'}
+		],
+		noParse: /\.min\.js/
+	},
 	resolve: {
-    modulesDirectories: ['node_modules'],
-    extensions: ['', '.js', '.json', '.jsx', '.json', '.styl', '.css', '.scss']
-  	},
-  	
+		modulesDirectories: ['node_modules'],
+		extensions: ['', '.js', '.json', '.jsx', '.json', '.styl', '.css', '.scss']
+	},
+	
 }

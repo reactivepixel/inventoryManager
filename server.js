@@ -32,16 +32,11 @@ var test = sequelize.authenticate().then(function(){
   })
   .done()
 
+//Create Tables --------------------------------------------------------------------
 
-//Create Orders Table
+//Create order Table
 
-var Orders = sequelize.define('orders', {
-  order_id: {
-    type: Sequelize.BIGINT(11),
-    field: 'order_id',
-    primaryKey: true,
-    autoIncrement: true 
-  },
+var order = sequelize.define('orders', {
   time_stamp: {
     type: Sequelize.STRING,
     createdAt: true
@@ -49,14 +44,12 @@ var Orders = sequelize.define('orders', {
   recipient: {
     type: Sequelize.STRING,
   },
-  unit_id: {
-    type: Sequelize.STRING,
-  }
+  
 
 });
 //Create Units Table
 
-var Units = sequelize.define('units', {
+var unit = sequelize.define('units', {
   sku: {
     type: Sequelize.STRING,
     primaryKey: true,
@@ -73,13 +66,9 @@ var Units = sequelize.define('units', {
 
 })
 
-//Create Workers Table
+//Create worker Table
 
-var Workers = sequelize.define('workers', {
-  worker_id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
+var worker = sequelize.define('workers', {
   qty_on_hand: {
     type: Sequelize.INTEGER,
   },
@@ -94,12 +83,7 @@ var Workers = sequelize.define('workers', {
 
 //Create Jobs Table
 
-var Jobs = sequelize.define('jobs', {
-  job_id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
+var job = sequelize.define('jobs', {
   job_desc: {
     type: Sequelize.STRING
   },
@@ -108,12 +92,7 @@ var Jobs = sequelize.define('jobs', {
 
 //Create Pods Table
 
-var pods = sequelize.define('pods', {
-  pod_id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
+var pod = sequelize.define('pods', {
   current_weight: {
     type: Sequelize.INTEGER
   },
@@ -122,35 +101,10 @@ var pods = sequelize.define('pods', {
 
 //Create job_relations Table
 
-var job_relations = sequelize.define('job_relations', {
-  order_id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true
-  },
-  worker_id: {
-    type: Sequelize.INTEGER
-  },
-  job_id: {
-    type: Sequelize.INTEGER
-  },
-  status_id: {
-    type: Sequelize.INTEGER
-  },
-
-  // classMethods: {
-  //   associate: function(models){
-  //     Orders.belongsTo(models.Orders)
-  //   }
-  // }
-
-})
+var job_relation = sequelize.define('job_relations', {})
 
 //Create status Table
 var status = sequelize.define('status', {
-  status_id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true
-  },
   status_type: {
     type: Sequelize.STRING
   }
@@ -171,11 +125,7 @@ var unit_description = sequelize.define('unit_description', {
 })
 
 //Create unit_pods Table
-var unit_pods = sequelize.define('unit_pods', {
-  pod_id:{
-    type: Sequelize.INTEGER,
-    primaryKey:true
-  },
+var unit_pod = sequelize.define('unit_pods', {
   sku:{
     type:Sequelize.INTEGER
   },
@@ -184,7 +134,29 @@ var unit_pods = sequelize.define('unit_pods', {
   }
 })
 
-sequelize.sync();
+//table relations -----------------------------------------------------
+
+job_relation.belongsTo(order);
+order.hasMany(job_relation);
+
+job_relation.belongsTo(worker);
+worker.hasMany(job_relation);
+
+job_relation.belongsTo(job);
+job.hasMany(job_relation);
+
+job_relation.belongsTo(status);
+status.hasMany(job_relation);
+
+order.belongsTo(unit_pod);
+unit_pod.hasMany(order);
+
+order.belongsTo(status);
+status.hasMany(order);
+
+//table relations -----------------------------------------------------
+
+sequelize.sync(); // push all tables to database
 
 // for parsing application/json
 app.use(bodyParser.json());
