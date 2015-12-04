@@ -26,10 +26,23 @@ gulp.task("build-dev", ["webpack:build-dev"], function() {
 	gulp.watch(["Gravity/**/*"], ["webpack:build-dev"]);
 });
 
-// Production build
-gulp.task("build", ["webpack:build"]);
+function onBuild(done) {
+  return function(err, stats) {
+    if (err) {
+      console.log('Error: ', err);
+    } else {
+      console.log(stats.toString());
+    }
 
-gulp.task("bundle", function(callback) {
+    if (done) done();
+  }
+};
+
+gulp.task("bundle", function(done) {
+  webpack(webpackConfig).run(onBuild(done))
+});
+
+/*gulp.task("bundle", function(callback) {
 	// modify some webpack config options
 	var myConfig = Object.create(webpackConfig);
 	myConfig.devtool = "eval";
@@ -42,7 +55,7 @@ gulp.task("bundle", function(callback) {
 			colors: true
 		}
 	 });
-});
+});*/
 
 //UGLIFY------------------------------------------------------- 
 //Minify the public JS and strip comments.
