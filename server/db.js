@@ -10,6 +10,7 @@ module.exports = function(){
 var sequelize = new Sequelize(env.DB_NAME, env.MYSQL_NAME, env.MYSQL_PASS, {
   host: 'localhost',
   dialect: 'mysql',
+  port:8889,
   pool: {
     max: 5,
     min: 0,
