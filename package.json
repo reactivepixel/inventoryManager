@@ -23,8 +23,10 @@
   "dependencies": {
     "body-parser": "1.14.1",
     "express": "4.13.3",
-    "gulp": "^3.9.0",
-    "webpack": "^1.12.9"
+    "gulp": "3.9.0",
+    "webpack": "1.12.9",
+    "mysql": "2.9.0",
+    "sequelize": "3.14.2"
   },
   "engines": {
     "node": "v5.1.0"
@@ -37,14 +39,16 @@
     "babel-runtime": "6.2.0",
     "body-parser": "1.14.1",
     "chalk": "1.1.1",
+
     "dotenv": "1.2.0",
     "express": "4.13.3",
     "gulp": "3.9.0",
     "gulp-concat": "2.6.0",
+    "gulp-jshint": "^2.0.0",
     "gulp-sourcemaps": "1.6.0",
     "gulp-uglify": "1.5.1",
     "gulp-util": "3.0.7",
-    "jshint": "2.9.1-rc1",
+    "jshint": "2.8.0",
     "jshint-stylish": "2.1.0",
     "mysql": "2.9.0",
     "path": "0.12.7",

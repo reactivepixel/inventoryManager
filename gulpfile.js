@@ -2,10 +2,10 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   uglify = require('gulp-uglify'),
   sourcemaps = require('gulp-sourcemaps'),
-  gutil = require("gulp-util"),
-  webpack = require("webpack"),
-  WebpackDevServer = require("webpack-dev-server"),
-  webpackConfig = require("./webpack.config.js"),
+  gutil = require('gulp-util'),
+  webpack = require('webpack'),
+  WebpackDevServer = require('webpack-dev-server'),
+  webpackConfig = require('./webpack.config.js'),
   stream = require('webpack-stream'),
   nodemon = require('gulp-nodemon'),
   jshint = require('gulp-jshint'),
@@ -20,10 +20,10 @@ var redError = chalk.black.bgRed.bold,
   greenSuccess = chalk.black.bgGreen.bold,
   cyanWatch = chalk.black.bgCyan.bold;
 
-gulp.task("default", ["webpack-dev-server"]);
+gulp.task('default', ['webpack-dev-server']);
 
-gulp.task("build-dev", ["webpack:build-dev"], function() {
-  gulp.watch(["Gravity/**/*"], ["webpack:build-dev"]);
+gulp.task('build-dev', ['webpack:build-dev'], function() {
+  gulp.watch(['Gravity/**/*'], ['webpack:build-dev']);
 });
 
 function onBuild(done) {
@@ -38,7 +38,7 @@ function onBuild(done) {
   }
 };
 
-gulp.task("bundle", function(done) {
+gulp.task('bundle', function(done) {
   webpack(webpackConfig).run(onBuild(done))
 });
 
@@ -46,6 +46,7 @@ gulp.task("bundle", function(done) {
 // UGLIFY
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Minify the public JS and strip comments.
+
 gulp.task('uglify', function() {
   gulp.src('public/js')
     .pipe(sourcemaps.init())
@@ -66,17 +67,15 @@ gulp.task('jshint', function() {
 // NODEMON
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Enable nodemon and set environment to development so we can run a server locally and reload files.
-gulp.task('nodemon', function(done) {
-  nodemon({
-    script: 'server.js',
-    ext: 'html js css',
-    ignore: ['ignore.js'],
-    env: {
-      'NODE_ENV': 'development'
-    }
-  }).on('restart');
-  console.log(cyanWatch('Going into dev watch mode...'));
-  console.log("Watching...");
+gulp.task('nodemon', function (done) {
+    nodemon({
+        script: 'server.js',
+        ext: 'html js css',
+        ignore: ['ignore.js'],
+        env: { 'NODE_ENV': 'development' }
+    }).on('restart');
+    console.log(cyanWatch('Going into dev watch mode...'));
+    console.log('Watching...');
 });
 
 gulp.task('dev', ['jshint', 'bundle', 'nodemon']);

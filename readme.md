@@ -1,5 +1,4 @@
-# Gravity
-
+# Sol
 The backend business logic for the **Sol Project**
 
 ## Install Locally
