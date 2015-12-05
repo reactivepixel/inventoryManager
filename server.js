@@ -1,11 +1,13 @@
-// npm modules
-var express 		= require('express'),
-    app         = express(),
-    bodyParser  = require('body-parser');
+require('dotenv').load();
 
-// Config
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-var port = process.env.PORT || 3000;
+var express     = require('express'),
+    app         = express(),
+    bodyParser  = require('body-parser'),
+    env         = process.env,
+    mysql       = require('mysql'),
+    db          = require('./server/db.js')();
+
+var port = env.PORT || 3000;
 
 // for parsing application/json
 app.use(bodyParser.json());
@@ -23,4 +25,3 @@ app.use('/api/v1', require('./routes/api/v1.js')(express));
 // START THE SERVER
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var server = app.listen(port);
-console.log('Server Active on Port ' + port);
