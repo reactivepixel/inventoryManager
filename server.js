@@ -1,18 +1,17 @@
 // Gravity Application Server | NPM Modules
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // located in the node_modules [use npm install to update from package.json]
-var express 	= require('express');
-var bodyParser  = require('body-parser');
-
+var express = require('express');
+var bodyParser = require('body-parser');
+var dotenv = require('dotenv').load();
+var env = process.env;
+var mysql = require('mysql');
+var db = require('./server/db.js')();
 
 // Initialize Application
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var app = express();
-
-
-// Config
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-var port = process.env.PORT || 3000;
+var port = env.PORT || 3000;
 
 
 // Middleware
@@ -21,7 +20,9 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // for parsing application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 
 // Routes
@@ -34,6 +35,6 @@ app.use('/api/v1/order', require('./server/routes/api/v1/order/find.js')(express
 
 // Start The Server
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-var server = app.listen(port, function(){
-    console.log('Server Active on Port ' + port);
+var server = app.listen(port, function() {
+  console.log('Server Active on Port ' + port);
 });
