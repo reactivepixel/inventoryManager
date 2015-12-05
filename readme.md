@@ -1,9 +1,28 @@
 # Sol
+The backend business logic for the **Sol Project**
 
+## Install Locally
 
-Documentation for **Deployment of Web Projects** and the **Gravity Application Platform**. Please utilize [WDD.Slack](https://wdd.slack.com) for Course Communication. If you are not yet registered please do so on the [Sign Up Page](https://wdd.slack.com/signup)
+Clone the repo to your local machine
 
-## Documents
+```
+npm install
+```
 
-* [Gravity Project Brief (RFP)](/Gravity_RFP.md)
-* [Course Outline](/DWP_Course_Outline.md)
+## Developing Locally
+
+```
+npm start
+```
+
+## Environments
+Here are links to all Environments.
+
+### Development
+Link to [Development](https://sol-gravity-development.herokuapp.com)
+
+### Staging
+Link to [Staging](https://sol-gravity-staging.herokuapp.com)
+
+### Production
+Link to [Production](https://sol-gravity-production.herokuapp.com)
