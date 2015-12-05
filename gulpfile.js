@@ -13,7 +13,8 @@ var gulp = require('gulp'),
 	chalk = require('chalk');
 
 
-//NOTIFY MESSAGE VARIABLES-------------------------------------------------------
+// NOTIFY MESSAGE VARIABLES
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 //Color codes for terminal messages
 var redError = chalk.black.bgRed.bold,
     yelloWarning = chalk.black.bgYellow.bold,
@@ -42,22 +43,9 @@ gulp.task("bundle", function(done) {
   webpack(webpackConfig).run(onBuild(done))
 });
 
-/*gulp.task("bundle", function(callback) {
-	// modify some webpack config options
-	var myConfig = Object.create(webpackConfig);
-	myConfig.devtool = "eval";
-	myConfig.debug = true;
 
-	// Start a webpack-dev-server
-	new WebpackDevServer(webpack(myConfig), {
-		publicPath: myConfig.output.publicPath,
-		stats: {
-			colors: true
-		}
-	 });
-});*/
-
-//UGLIFY------------------------------------------------------- 
+// UGLIFY
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 //Minify the public JS and strip comments.
  
 gulp.task('uglify', function() {
@@ -68,7 +56,8 @@ gulp.task('uglify', function() {
     .pipe(gulp.dest('public/js'));
 });
 
-//JSHINT-------------------------------------------------------
+// JSHINT 
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 //Run js lint on our files to look for errors. 
  
 gulp.task('jshint', function() {
@@ -77,8 +66,9 @@ gulp.task('jshint', function() {
         .pipe(jshint.reporter(stylish));
 });
 
-//NODEMON-------------------------------------------------------
-//Enable nodemon and set environment to development so we can run a server locally and reload files.
+// NODEMON
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// Enable nodemon and set environment to development so we can run a server locally and reload files.
 
 gulp.task('nodemon', function (done) {
     nodemon({
@@ -88,9 +78,7 @@ gulp.task('nodemon', function (done) {
         env: { 'NODE_ENV': 'development' }
     }).on('restart');
     console.log(cyanWatch('Going into dev watch mode...'));
-    setInterval(function() {
-      console.log("Watching...");
-    }, 1000 * 10);
+    console.log("Watching...");
 });
 
 gulp.task('dev', ['jshint','bundle', 'nodemon' ]);
