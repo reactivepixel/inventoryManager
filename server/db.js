@@ -7,16 +7,17 @@ var express     = require('express'),
 // Config
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function(){
-var sequelize = new Sequelize(env.DB_NAME, env.MYSQL_NAME, env.MYSQL_PASS, {
-  host: 'localhost',
+var sequelize = new Sequelize(process.env.DB_NAME, process.env.MYSQL_NAME, process.env.MYSQL_PASS, {
+  host: process.env.DB_HOST,
   dialect: 'mysql',
-  port: process.env.MYSQL_PORT,
+  port:process.env.DB_PORT,
   pool: {
     max: 5,
     min: 0,
     idle: 10000
   },
 });
+
 // Checking connection status
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var test = sequelize.authenticate().then(function(){
@@ -36,9 +37,10 @@ var order = sequelize.define('orders', {
   recipient: {
     type: Sequelize.STRING,
   },
-  
+
 
 });
+
 // Create Units Table
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var unit = sequelize.define('units', {
@@ -129,9 +131,8 @@ var unit_pod = sequelize.define('unit_pods', {
   }
 })
 
-// Table relations 
+// Table Relations
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
 job_relation.belongsTo(order);
 order.hasMany(job_relation);
 
@@ -150,5 +151,7 @@ unit_pod.hasMany(order);
 order.belongsTo(status);
 status.hasMany(order);
 
+// Table Sync
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 sequelize.sync(); // push all tables to database
 }
