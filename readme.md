@@ -78,8 +78,8 @@ All routes should be prefixed with ```/api/v1```
 ### Routes - Units
 | Event | Definition |
 |---|---|
-| [Unit Create](#Unit-Create) | Add a new Unit to the Database |
-| [Unit Find](#Unit-Find) | Find a Unit by Supplied Unit ID |
+| [Unit Create](#unit-create) | Add a new Unit to the Database |
+| [Unit Find](#unit-find) | Find a Unit by Supplied Unit ID |
 | [Unit Update Inspect](#Unit-Update-Inspect) | Update a Unit based upon Inspection |
 | [Unit Receiving](#Unit-Recieving) | Returns all Units that are in Receiving |
 | [Unit Available](#Unit-Available) | Returns all Units that are available for Picking |
