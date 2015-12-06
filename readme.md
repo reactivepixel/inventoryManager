@@ -11,6 +11,9 @@ npm install
 
 ## Developing Locally
 
+###Gulp
+You will need to -g install gulp. You will also need to npm install to get all the node modules.
+
 ```
 npm start
 ```
@@ -27,6 +30,7 @@ Link to [Staging](https://sol-gravity-staging.herokuapp.com)
 ### Production
 Link to [Production](https://sol-gravity-production.herokuapp.com)
 
+<<<<<<< HEAD
 ### API list Documentation 
 How to get a list of all orders in the database
 run server, npm server.js in gravity directory 
@@ -68,3 +72,5 @@ pass a JSON object in this structure:
 
 
 
+=======
+>>>>>>> 6297e0e9fe15fbef2ccb4bd6a85b5db05b3c5eb4

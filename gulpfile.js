@@ -75,7 +75,6 @@ gulp.task('nodemon', function (done) {
         env: { 'NODE_ENV': 'development' }
     }).on('restart');
     console.log(cyanWatch('Going into dev watch mode...'));
-    console.log('Watching...');
 });
 
 gulp.task('dev', ['jshint', 'bundle', 'nodemon']);

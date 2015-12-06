@@ -1,0 +1,92 @@
+module.export = function (){
+  var db = require('../db.js')();
+  var mysql = require('mysql');
+  var env = process.env;
+  var data = require('../../lib/sanitize.js');
+  var Sequelize = require('sequelize');
+  var express = require('express');
+  var req = require('body-parser');
+  var sequelize = db.connection;
+  var unit = db.unit;
+  //Add One
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//   unit = {
+//     sku:"",
+//     qty_on_hand:0,
+//     trigger_qty:0,
+//     replenish_qty:0
+//   };
+//   //Add One
+//   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//   _addOne = function(){sequelize.sync().then(function (unit, success, fail) {
+//   //function(unit, success, fail){
+//   // var cleanData = data.sanitize(unit);
+//   //     if(!cleanData) return false;
+//         unit.create({
+//           sku: unit.sku,
+//           qty_on_hand: unit.qty_on_hand,
+//           trigger_qty: unit.trigger_qty,
+//           replenish_qty:unit.replenish_qty
+//         }).then(function (unit){
+//            unit.save();
+//           console.log("success");
+//          }).then(function (err){
+//           console.log("error", err)
+//         })
+//   })
+// }
+//   _addOne({sku:"676GHY", qty_on_hand: 3, trigger_qty:4, replenish_qty:5});
+  
+  //Find All units
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  _findAll = function (success, fail){
+    unit.find({}).catch(function (err, doc){
+      if(err){
+       console.log("error: ", err);
+      }else{
+        console.log("Success: ", doc);
+      } 
+    })
+  }
+
+  //Find One units
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  //Finding by SKU
+  //TODO put in documentation finding by SKU
+  _findOne = function (unit, success, fail){
+    unit.find({where:{sku:unit}}).catch(function (data, err){
+      if(err){
+       console.log("error: ", err);
+      }else{
+        console.log("Success: ", data);
+      }
+    });
+  }
+
+
+  _remove = function (unit, success, fail){
+  unit.find({where: {sku: '999888'}}).catch(function (err, data) {
+      if (err) {
+          console.log(err);
+      } else {
+          data.destroy({}).success(function (err, data) {
+              if(err){
+                  console.log(err);
+              }else{
+                  console.log(data);
+              }
+          })
+      }
+      console.log(data);
+  });
+}
+
+  return{
+    all: _findAll,
+    findOne: _findOne
+  }
+
+
+
+
+}();

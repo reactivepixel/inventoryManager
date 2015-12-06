@@ -1,12 +1,14 @@
 // Gravity Application Server | NPM Modules
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // located in the node_modules [use npm install to update from package.json]
+require('dotenv').load();
 var express = require('express');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv').load();
 var env = process.env;
 var mysql = require('mysql');
 var db = require('./server/db.js')();
+
 
 // Initialize Application
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
