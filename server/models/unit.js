@@ -24,6 +24,7 @@ _addOne = function(data, success, fail){
       console.log("Error: ", err)
     })
   });
+
 }
   //Find All units
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -52,16 +53,16 @@ _addOne = function(data, success, fail){
   }
 
 
-  _remove = function (data, success, fail){
-  unit.find({where: {sku: unit.sku}}).then(function (err, data) {
+  _remove = function (data, idx, success, fail){
+  unit.find({where: {sku: data.sku}}).then(function (err, data) {
     console.log("remove hit", data);
       if (err) {
           console.log("Error: ", err);
       } else {
-          data.destroy({sku: unit.sku}).success(function (err, data) {
+          data.destroy({sku: data.sku}).success(function (err, data) {
             console.log("Successful removal: ", data);
               if(err){
-                  console.log(err);
+                  console.log("error 2: ", err);
               }else{
                   console.log('hits', data);
               }
@@ -70,10 +71,7 @@ _addOne = function(data, success, fail){
       console.log(data);
   });
 }
-// _remove({sku:"220AbC"});
-_addOne({sku:"abc123", qty_on_hand: 2, trigger_qty:3, replenish_qty:64});
-_addOne({sku:"234AbC", qty_on_hand: 45, trigger_qty: 5, replenish_qty:100});
-_findOne({sku:"220AbC"});
+
   return{
     all: _findAll,
     findOne: _findOne,
