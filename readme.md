@@ -11,6 +11,9 @@ npm install
 
 ## Developing Locally
 
+###Gulp
+You will need to -g install gulp. You will also need to npm install to get all the node modules.
+
 ```
 npm start
 ```
@@ -27,27 +30,27 @@ Link to [Staging](https://sol-gravity-staging.herokuapp.com)
 ### Production
 Link to [Production](https://sol-gravity-production.herokuapp.com)
 
-### API list Documentation 
+### API List Documentation
 How to get a list of all orders in the database
-run server, npm server.js in gravity directory 
+run server, npm server.js in gravity directory
 
 navigate to http://localhost:3000/api/v1/order/find
 
-### API find Documentation 
-How to locate a order based on id. 
-run server, npm server.js in gravity directory 
+### API Find Documentation
+How to locate a order based on id.
+run server, npm server.js in gravity directory
 
-make a post request to this url: 
+make a post request to this url:
 http://localhost:3000/api/v1/order/find
 pass a JSON object in this structure:
 
 {"orderId" : "j1f4f2a2aa2a92637a2629c9ff2fe083a"}
 
-### API Create Documentation 
+### API Create Documentation
 How to create an order in the database
-run server, npm server.js in gravity directory 
+run server, npm server.js in gravity directory
 
-make a post request to this url: 
+make a post request to this url:
 http://localhost:3000/api/v1/order/create
 pass a JSON object in this structure:
 
@@ -65,6 +68,3 @@ pass a JSON object in this structure:
     }\]
   }
 }
-
-
-
