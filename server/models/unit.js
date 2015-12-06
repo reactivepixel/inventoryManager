@@ -8,36 +8,22 @@ module.export = function (){
   var req = require('body-parser');
   var sequelize = db.connection;
 
-var unit = sequelize.define('units', {
-  sku: {
-    type: Sequelize.STRING,
-    primaryKey: true,
-  },
-  qty_on_hand: {
-    type: Sequelize.INTEGER,
-  },
-  trigger_qty: {
-    type: Sequelize.INTEGER,
-  },
-  replenish_qty: {
-    type: Sequelize.INTEGER,
-  }
+  var unit = db.unit;
 
- })
 _addOne = function(data, success, fail){
-unit.sync({force:true}).then(function(){
-  unit.create({
-    sku: unit.sku,
-    qty_on_hand: unit.qty_on_hand,
-    trigger_qty:unit.trigger_qty,
-    replenish_qty:unit.replenish_qty
-  }).then(function (data){
-     data.save();
-    console.log("success")
-  }).catch(function (err){
-    console.log("error", err)
-  })
-});
+  unit.sync({force:true}).then(function(){
+    unit.create({
+      sku: data.sku,
+      qty_on_hand: data.qty_on_hand,
+      trigger_qty: data.trigger_qty,
+      replenish_qty: data.replenish_qty
+    }).then(function (data){
+       data.save();
+      console.log("Success: ")
+    }).catch(function (err){
+      console.log("Error: ", err)
+    })
+  });
 }
   //Find All units
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -84,8 +70,10 @@ unit.sync({force:true}).then(function(){
       console.log(data);
   });
 }
-_remove({sku:"220AbC"});
-_addOne({sku:"676GHY", qty_on_hand: 3, trigger_qty:4, replenish_qty:5});
+// _remove({sku:"220AbC"});
+_addOne({sku:"abc123", qty_on_hand: 2, trigger_qty:3, replenish_qty:64});
+_addOne({sku:"234AbC", qty_on_hand: 45, trigger_qty: 5, replenish_qty:100});
+_findOne({sku:"220AbC"});
   return{
     all: _findAll,
     findOne: _findOne,

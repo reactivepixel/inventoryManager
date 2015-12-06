@@ -11,7 +11,7 @@ var express     = require('express'),
 var sequelize = new Sequelize(env.DB_NAME, env.MYSQL_NAME, env.MYSQL_PASS, {
   host: 'localhost',
   dialect: 'mysql',
-  port:8889,
+  port:env.DB_PORT,
   pool: {
     max: 5,
     min: 0,
