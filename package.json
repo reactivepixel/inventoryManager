@@ -1,6 +1,6 @@
 {
   "name": "gravity",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "Open Source Application to Manage the Inventory, Fulfillment, and Internal Tracking within a Material Handling Environment",
   "main": "server.js",
   "scripts": {
@@ -29,7 +29,8 @@
     "sequelize": "3.14.2"
   },
   "engines": {
-    "node": "v5.1.0"
+    "node": "v5.1.0",
+    "npm": "2.14.14"
   },
   "devDependencies": {
     "babel": "6.1.18",
