@@ -8,7 +8,7 @@ var express     = require('express'),
 // Config
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-var sequelize = new Sequelize(env.DB_NAME, env.MYSQL_NAME, env.MYSQL_PASS, {
+var sequelize = new Sequelize(process.env.DB_NAME, process.env.MYSQL_NAME, process.env.MYSQL_PASS, {
   host: 'localhost',
   dialect: 'mysql',
   port:8889,
