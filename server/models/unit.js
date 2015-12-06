@@ -45,6 +45,7 @@ _addOne = function(data, success, fail){
 }
   // Find All units
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
   _findAll = function (success, fail){
     unit.find({}).catch(function (err, doc){
       if(err){
@@ -57,6 +58,7 @@ _addOne = function(data, success, fail){
 
   // Find One units
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  
   //Finding by SKU
   //TODO put in documentation finding by SKU
   _findOne = function (data, success, fail){
@@ -73,6 +75,7 @@ _addOne = function(data, success, fail){
 
   // Remove One units
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  
   _remove = function (data, idx, success, fail){
   unit.find({where: {sku: data.sku}}).then(function (err, data) {
     console.log("remove hit", data);
@@ -93,6 +96,7 @@ _addOne = function(data, success, fail){
 }
   // Update One units
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  
   _update = function(data,success,fail){
         // var cleanData = data.sanitize(item);
         // if(!cleanData) return false;
@@ -110,21 +114,14 @@ _addOne = function(data, success, fail){
         });
   }
    _update();
-
-
+    
 //_remove({sku:"676GHY"});
 _addOne({sku:"k76GHY", qty_on_hand: 3, trigger_qty:4, replenish_qty:5});
 _addOne({sku:"BBB123", qty_on_hand: 3, trigger_qty:4, replenish_qty:5});
     
-
   return{
     all: _findAll,
     findOne: _findOne,
     remove: _remove
   }
-
-
-
-
-
 }();
