@@ -60,68 +60,68 @@ All routes should be prefixed with ```/api/v1```
 | Event | Definition |
 |---|---|
 | [Order Create](#order-create) | Add a new Order to the Database |
-| [Order Find](#Order-Find) | Find an Order by Supplied Order ID |
-| [Order Update Inspect](#Order-Update-Inspect) | Update an Order based upon Inspection |
-| [Order Update Ship](#Order-Update-Ship) | Update an Order based upon Shipping |
-| [Order Picking](#Order-Picking) | Returns all Orders that are currently being Picked |
-| [Order Packaging](#Order-Packaging) | Returns all Orders that are currently being Packaged |
-| [Order Inspecting](#Order-Inspection) | Returns all Orders that are currently being Inspected |
-| [Order Shipping](#Order-Shipping) | Returns all Orders that are currently being Shipped |
-| [Order Shipped](#Order-Shipped) | Returns all Orders that are have been Shipped |
+| [Order Find](#order-find) | Find an Order by Supplied Order ID |
+| [Order Update Inspect](#order-update-inspect) | Update an Order based upon Inspection |
+| [Order Update Ship](#order-update-ship) | Update an Order based upon Shipping |
+| [Order Picking](#order-picking) | Returns all Orders that are currently being Picked |
+| [Order Packaging](#order-packaging) | Returns all Orders that are currently being Packaged |
+| [Order Inspecting](#order-inspection) | Returns all Orders that are currently being Inspected |
+| [Order Shipping](#order-shipping) | Returns all Orders that are currently being Shipped |
+| [Order Shipped](#order-shipped) | Returns all Orders that are have been Shipped |
 
 ### Routes - Packages
 | Event | Definition |
 |---|---|
-| [Package Create](#Package-Create) | Add a new Package to the Database |
-| [Package Find](#Package-Find) | Find a Package by Supplied Package ID |
+| [Package Create](#package-create) | Add a new Package to the Database |
+| [Package Find](#Package-find) | Find a Package by Supplied Package ID |
 
 ### Routes - Units
 | Event | Definition |
 |---|---|
 | [Unit Create](#unit-create) | Add a new Unit to the Database |
 | [Unit Find](#unit-find) | Find a Unit by Supplied Unit ID |
-| [Unit Update Inspect](#Unit-Update-Inspect) | Update a Unit based upon Inspection |
-| [Unit Receiving](#Unit-Recieving) | Returns all Units that are in Receiving |
-| [Unit Available](#Unit-Available) | Returns all Units that are available for Picking |
-| [Unit Picking](#Unit-Picking) | Returns all Units that are currently being Picked |
-| [Unit Packaging](#Unit-Packaging) | Returns all Units that are currently being Packaged |
-| [Unit Inspecting](#Order-Inspection) | Returns all Units that are currently being Inspected |
-| [Unit Shipping](#Order-Shipping) | Returns all Units that are currently being Shipped |
-| [Unit Shipped](#Order-Shipped) | Returns all Units that are have been Shipped |
+| [Unit Update Inspect](#unit-update-inspect) | Update a Unit based upon Inspection |
+| [Unit Receiving](#unit-recieving) | Returns all Units that are in Receiving |
+| [Unit Available](#unit-available) | Returns all Units that are available for Picking |
+| [Unit Picking](#unit-picking) | Returns all Units that are currently being Picked |
+| [Unit Packaging](#unit-packaging) | Returns all Units that are currently being Packaged |
+| [Unit Inspecting](#order-inspection) | Returns all Units that are currently being Inspected |
+| [Unit Shipping](#order-shipping) | Returns all Units that are currently being Shipped |
+| [Unit Shipped](#order-shipped) | Returns all Units that are have been Shipped |
 
 ### Routes - SKUs
 | Event | Definition |
 |---|---|
-| [SKU Create](#SKU-Create) | Add a new SKU to the Database |
-| [SKU Find](#SKU-Find) | Find a SKU by Supplied SKU |
+| [SKU Create](#sku-freate) | Add a new SKU to the Database |
+| [SKU Find](#sku-find) | Find a SKU by Supplied SKU |
 
 ### Routes - Shipments
 | Event | Definition |
 |---|---|
-| [Shipment Create](#Shipment-Create) | Add a new Shipment to the Database |
-| [Shipment Find](#Shipment-Find) | Find a Shipment by Supplied Shipment ID |
-| [Shipment Loading](#Shipment-Loading) | Find the Shipment currently being loaded |
-| [Shipment Recieving](#Shipment-Recieving) | Find all Shipments in Recieving |
+| [Shipment Create](#shipment-create) | Add a new Shipment to the Database |
+| [Shipment Find](#shipment-find) | Find a Shipment by Supplied Shipment ID |
+| [Shipment Loading](#shipment-loading) | Find the Shipment currently being loaded |
+| [Shipment Recieving](#shipment-recieving) | Find all Shipments in Recieving |
 
 ### Routes - Workers
 | Event | Definition |
 |---|---|
-| [Worker Find](#Worker-Find) | Find a Worker by Supplied Worker ID |
-| [Worker Available](#Worker-Available) | Returns all Workers that are available for Jobs |
-| [Worker Occupied](#Worker-Occupied) | Returns all Workers that are occupied and thier current Jobs |
-| [Worker Inspection](#Worker-Inspection) | Returns all Workers assigned to Inspection and their current Status |
-| [Worker Picking](#Worker-Picking) | Returns all Workers assigned to Picking and their current Status |
-| [Worker Packaging](#Worker-Packaging) | Returns all Workers assigned to Packaging and their current Status |
-| [Worker Shipping](#Worker-Shipping) | Returns all Workers assigned to Shipping and their current Status |
+| [Worker Find](#worker-find) | Find a Worker by Supplied Worker ID |
+| [Worker Available](#worker-available) | Returns all Workers that are available for Jobs |
+| [Worker Occupied](#worker-occupied) | Returns all Workers that are occupied and thier current Jobs |
+| [Worker Inspection](#worker-inspection) | Returns all Workers assigned to Inspection and their current Status |
+| [Worker Picking](#worker-picking) | Returns all Workers assigned to Picking and their current Status |
+| [Worker Packaging](#worker-packaging) | Returns all Workers assigned to Packaging and their current Status |
+| [Worker Shipping](#worker-shipping) | Returns all Workers assigned to Shipping and their current Status |
 
 ### Routes - Pods
 | Event | Definition |
 |---|---|
-| [Pod Find](#Pod-Find) | Find a Pod by Supplied Pod ID |
-| [Pod Available](#Pod-Available) | Returns all Pods that are available for Units |
-| [Pod Loading](#Pod-Loading) | Returns all Pods that being Loaded |
-| [Pod Picking](#Pod-Picking) | Returns all Pods assigned to Picking |
-| [Pod Maintenance](#Pod-Maintenance) | Returns all Pods in Maintenance |
+| [Pod Find](#pod-find) | Find a Pod by Supplied Pod ID |
+| [Pod Available](#pod-available) | Returns all Pods that are available for Units |
+| [Pod Loading](#pod-loading) | Returns all Pods that being Loaded |
+| [Pod Picking](#pod-picking) | Returns all Pods assigned to Picking |
+| [Pod Maintenance](#pod-maintenance) | Returns all Pods in Maintenance |
 
 ### Order Create
 | Endpoint | Method |
