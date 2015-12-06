@@ -154,6 +154,7 @@ module.exports = function(){
     // Push all tables to database
     sequelize.sync();
 
+
       return {
         connection: sequelize,
         order: order,
