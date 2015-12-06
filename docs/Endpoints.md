@@ -1,5 +1,4 @@
 # Endpoints  
-  
 
 **Orders**: 
 
@@ -9,10 +8,8 @@
 
 * /status/in_process
 
-* /status/accepted   (add
-id timestamp)
+* /status/accepted (add id timestamp)
 
-  
 **Units**: 
 
 * /sku
@@ -44,8 +41,6 @@ id timestamp)
 * /status/receiving
 
 * /status/QA
-
- 
 
 * /worker/id  
   
