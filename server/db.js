@@ -1,3 +1,4 @@
+module.exports = function(){
 var express     = require('express'),
     app         = express(),
     env         = process.env,
@@ -5,8 +6,8 @@ var express     = require('express'),
     Sequelize   = require('sequelize');
 
 // Config
-//-------------------------------------------------------------------------
-module.exports = function(){
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 var sequelize = new Sequelize(env.DB_NAME, env.MYSQL_NAME, env.MYSQL_PASS, {
   host: 'localhost',
   dialect: 'mysql',
@@ -18,7 +19,7 @@ var sequelize = new Sequelize(env.DB_NAME, env.MYSQL_NAME, env.MYSQL_PASS, {
   },
 });
 //Checking connection status
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var test = sequelize.authenticate().then(function(){
     console.log("connected");
   }).catch(function(err){
@@ -27,7 +28,7 @@ var test = sequelize.authenticate().then(function(){
   .done()
 
 //Create Tables
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var order = sequelize.define('orders', {
   time_stamp: {
     type: Sequelize.STRING,
@@ -40,7 +41,7 @@ var order = sequelize.define('orders', {
 
 });
 //Create Units Table
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var unit = sequelize.define('units', {
   sku: {
     type: Sequelize.STRING,
@@ -59,7 +60,7 @@ var unit = sequelize.define('units', {
 })
 
 //Create worker Table
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var worker = sequelize.define('workers', {
   qty_on_hand: {
     type: Sequelize.INTEGER,
@@ -74,7 +75,7 @@ var worker = sequelize.define('workers', {
 })
 
 //Create Jobs Table
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var job = sequelize.define('jobs', {
   job_desc: {
     type: Sequelize.STRING
@@ -83,7 +84,7 @@ var job = sequelize.define('jobs', {
 })
 
 //Create Pods Table
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var pod = sequelize.define('pods', {
   current_weight: {
     type: Sequelize.INTEGER
@@ -92,11 +93,11 @@ var pod = sequelize.define('pods', {
 })
 
 //Create job_relations Table
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var job_relation = sequelize.define('job_relation', {})
 
 //Create status Table
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var status = sequelize.define('status', {
   status_type: {
     type: Sequelize.STRING
@@ -104,7 +105,7 @@ var status = sequelize.define('status', {
 })
 
 //Create unit_description Table
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var unit_description = sequelize.define('unit_description', {
   sku:{
     type:Sequelize.INTEGER,
@@ -119,7 +120,7 @@ var unit_description = sequelize.define('unit_description', {
 })
 
 //Create unit_pods Table
-//-------------------------------------------------------------------------
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var unit_pod = sequelize.define('unit_pods', {
   sku:{
     type:Sequelize.INTEGER
@@ -129,7 +130,8 @@ var unit_pod = sequelize.define('unit_pods', {
   }
 })
 
-//table relations -----------------------------------------------------
+//table relations
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 job_relation.belongsTo(order);
 order.hasMany(job_relation);
@@ -149,7 +151,22 @@ unit_pod.hasMany(order);
 order.belongsTo(status);
 status.hasMany(order);
 
-//-------------------------------------------------------------------------
+//Creating all the tables in the proper orders
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 sequelize.sync(); // push all tables to database
+
+
+  return {
+    connection: sequelize,
+    order: order,
+    unit: unit,
+    worker: worker,
+    job: job,
+    pod: pod,
+    job_relation: job_relation,
+    status: status,
+    unit_description: unit_description,
+    unit_pod: unit_pod
+  }
 }

@@ -48,6 +48,7 @@
     "webpack-dev-server": "1.14.0",
     "webpack-stream": "2.2.0",
     "jshint-stylish": "2.1.0",
-    "chalk": "1.1.1" 
+    "chalk": "1.1.1" ,
+    "gulp-jshint": "2.0.0"
   }
 }

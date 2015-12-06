@@ -6,6 +6,7 @@ var express     = require('express'),
     env         = process.env,
     mysql       = require('mysql'),
     db          = require('./server/db.js')();
+    units				= require('./server/models/unit.js');
 
 var port = env.PORT || 3000;
 
@@ -24,4 +25,6 @@ app.use('/api/v1', require('./routes/api/v1.js')(express));
 
 // START THE SERVER
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-var server = app.listen(port);
+var server = app.listen(port, function(){
+  console.log("server is listening on port", port);
+});
