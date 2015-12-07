@@ -1,5 +1,4 @@
 # Status Codes
-======
 | Status Code   | General Meaning | Reason                                  |
 | ------------- | --------------  | --------------------------------------- |
 | 100           | Picking         | Usually means 'continue' or 'processing'|
@@ -12,4 +11,4 @@
 | 800           | Incomplete      |                                         |
 | 900           | Retired         | After it is out of our hands            |
 
-*This list can be changed, this is not set in stone. If you find that a status code would suit a different reason, let me know so that the proper changes can be made. The assigned status code decisions were made based on http status codes and somewhat an order in which they go through in the warehouse.
+* *This list can be changed, this is not set in stone. If you find that a status code would suit a different reason, let me know so that the proper changes can be made. The assigned status code decisions were made based on http status codes and somewhat an order in which they go through in the warehouse.*
