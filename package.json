@@ -30,7 +30,7 @@
   },
   "engines": {
     "node": "v5.1.0",
-    "npm": "3.5.0"
+    "npm": "2.14.14"
   },
   "devDependencies": {
     "babel": "6.1.18",
