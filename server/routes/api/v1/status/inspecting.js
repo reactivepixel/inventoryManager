@@ -17,7 +17,7 @@ module.exports = function (express) {
   	if(database[status] == "undefined" || database[status] == undefined){
       serverMessage = "No orders with " + status + " status found."
     }else{
-    	//push all orders with matching status to ordersPicking
+    	//push all orders with matching status to ordersInspecting
     	
     }
     //return array of orders with matching status
