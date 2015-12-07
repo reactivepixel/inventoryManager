@@ -51,7 +51,7 @@ module.exports = function (){
   * @param {function} success Callback function for execution on successful adding.
   * @param {function} fail Callback function for execution on failed adding.
   * @example
-  * // Add Unit with Success and Failure. Note if a sku is not supplied, one is generated.
+  * // Add One Unit with Success and Failure. Note if a sku is not supplied, one is generated.
   * unit.add({qty_on_hand: 3, trigger_qty:4, replenish_qty:5}, function(data){
   *  console.log('Added Unit');
   * }, function(err){
@@ -113,14 +113,90 @@ module.exports = function (){
     cleanData = defaultSanitize(payload);
 
     // If sanitize fails prevent payload from touching the db
-    if(!cleanData) return false;
+    if(!cleanData) return fail({ code:301 });
 
     unit.findOne({where:payload}).then(success).catch(fail);
   }
 
-  return {
-    all: _findAll,
-    findOne: _findOne,
-    add: _addOne
-  }
+
+
+// Remove One units
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+/**
+* @param {obj} payload Requires 'sku' attribute
+* @param {function} success Callback function for execution on successful adding.
+* @param {function} fail Callback function for execution on failed adding.
+* @example
+* // Remove Unit with Success and Fail
+* unit.remove({sku:'j50611e7d5dd30b0d676654de47d6794d'}, function(){
+*   console.log('No more records remain with that sku');
+* }, function(err, doc){
+*   console.log('err' + err + doc);
+* });
+*/
+var _remove = function (payload, success, fail){
+
+  // Run user data through sanitize.
+  cleanData = defaultSanitize(payload);
+
+  // If sanitize fails prevent payload from touching the db
+  if(!cleanData) return fail({ code:301 });
+
+  //valudation:
+  if(!cleanData.sku) return fail({ code:301 });
+
+  unit.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
+}
+
+
+
+// Update One units
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+/**
+* @param {obj} payload Requires 'sku' attribute
+* @param {function} success Callback function for execution on successful adding.
+* @param {function} fail Callback function for execution on failed adding.
+* @example
+* // Update Unit with Success and Fail
+* unit.update({sku:'j14d158c64ece48fasd00ccee895b18b8bb6', qty_on_hand: 9}, function(data){
+*     console.log(data);
+* }, function(err){
+*   console.log('Error Code: ' + err.code);
+* });
+*/
+var _update = function(payload, success, fail){
+
+      // Run user data through sanitize.
+      cleanData = defaultSanitize(payload);
+
+      // If sanitize fails prevent payload from touching the db
+      if(!cleanData) return fail({ code:301 });
+
+
+      //valudation:
+      if(!cleanData.sku) return fail({ code:301 });
+
+      unit.find({where:{sku:cleanData.sku}}).then(function (data) {
+
+        // No data was found
+        if (!data) return fail({ code:302 });
+
+        // Update the Atts of the returned row
+        data.updateAttributes({
+
+            // Unit's SKU should not change.
+            qty_on_hand: cleanData.qty_on_hand,
+            trigger_qty: cleanData.trigger_qty,
+            replenish_qty: cleanData.replenish_qty
+        }).then(success).catch(fail)
+      }).catch(fail;
+}
+
+return {
+  add: _addOne,
+  all: _findAll,
+  findOne: _findOne,
+  remove: _remove,
+  update: _update
+}
 }();
