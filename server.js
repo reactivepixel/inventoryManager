@@ -5,7 +5,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv').load();
 var mysql = require('mysql');
-var db = require('./server/db.js')();
 var dotenv = require('dotenv').load();
 
 // Initialize Application
