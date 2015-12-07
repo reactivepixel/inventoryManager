@@ -405,3 +405,33 @@ All orders with a status of "shipped" are returned.  A total of all orders is al
     }\]
 }
 ```  
+
+
+## Database Model Usage
+Include the model and as it is self contained you can directly access the methods retuned by it. Ideally require the model into the desired ```route file``` and run the appropriate method depending on the route specified.
+
+``` javascript
+var unit = require('./server/models/unit.js');
+
+// Add Unit with Success and Failure. Note if a sku is not supplied, one is generated.
+unit.add({qty_on_hand: 3, trigger_qty:4, replenish_qty:5}, function(data){
+  console.log('Added Unit');
+}, function(err){
+  console.log('Adding Error-' + err);
+});
+
+// Return all Units with Success and Failure
+unit.all(function(data){
+  res.json(data);
+}, function(err){
+  console.log('err' + err);
+});
+```
+
+### How To Adapt
+To use the Unit model as a template and start building out other models you will need to adjust `/server/db.js` 's definition of your model to contain the appropriate fields to your model to meet the documentation. `db.js` is just a rough structure and will need adjusted.
+
+Copy `/server/models/unit.js` and rename it to match your model. You will need to restructure the definitions in this file to reflect the changes you have made to  `/server/db.js`
+
+### Documentation
+Each public method in `/server/models/unit.js` is documented according to the AirBNB Standards. Your own adaptation of this file means you will need to document its use. In your pull request if additional information is needed for team members to understand how to use your contributions please `mark it down` in the description of your pull request (just like I'm doing now). Additionally, copy / paste your modifications to the `/readme.md` file so this can be saved for use later by other devs.
