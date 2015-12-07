@@ -7,7 +7,24 @@ module.exports = function (express) {
   
   // http://localhost:3000/api/v1/status/shipping
   router.post("/shipping" , function(req, res){
+  	var serverMessage = '';
   	var ordersShipping = [];
+  	var totalShipping = ordersShipping.length;
+
+  	var statusRequest = req.body;
+  	var status = statusRequest.tracking.status;
+
+  	if(database[status] == "undefined" || database[status] == undefined){
+      serverMessage = "No orders with " + status + " status found."
+    }else{
+    	//push all orders with matching status to ordersPicking
+    	
+    }
+    //return array of orders with matching status
+    res.json(ordersShipping);
+    res.send(totalShipping);
 
   });
+  
+  	return router;
   };
