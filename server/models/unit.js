@@ -189,7 +189,7 @@ var _update = function(payload, success, fail){
             trigger_qty: cleanData.trigger_qty,
             replenish_qty: cleanData.replenish_qty
         }).then(success).catch(fail)
-      }).catch(fail;
+      }).catch(fail);
 }
 
 return {

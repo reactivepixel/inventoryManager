@@ -6,7 +6,7 @@ module.exports = function (express) {
 
   // http://localhost:3000/api/v1/order/packaging
   router.post('/packaging', function(req, res) {
-    order.findOne({status.responseCode: 300}, function(data){
+    order.findOne({status.responseCode: 300}), function(data){
      res.json(data);
     }, function(err, doc){
      console.log('err' + err + doc);
