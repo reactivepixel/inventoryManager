@@ -4,15 +4,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv').load();
-var env = process.env;
 var mysql = require('mysql');
-var db = require('./server/db.js')();
+var dotenv = require('dotenv').load();
 
 // Initialize Application
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var app = express();
-var port = env.PORT || 3000;
-
+var port = process.env.PORT || 3000;
 
 // Middleware
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
