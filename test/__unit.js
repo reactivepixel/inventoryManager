@@ -1,5 +1,6 @@
 var expect          = require("chai").expect,
     assert          = require("assert"),
+    should          = require('should'),
     unit            = require('../server/models/unit.js');
 
 describe('Unit', function() {
@@ -11,6 +12,8 @@ describe('Unit', function() {
         }, function (data) {
             data.qty_on_hand.should.equal(34);
             done();
+        }, function (err){
+          console.log('err' + err);
         });
     });
 });
