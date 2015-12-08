@@ -1,7 +1,5 @@
-/*
-* Code for status codes -- Only a partial, this will have to be integrated
-* into the actual sequelize file
-*/
+// Code for status codes -- Only a partial, this will have to be integrated into the actual sequelize file
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 var Sequelize = require('sequelize');
 
