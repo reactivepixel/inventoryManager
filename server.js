@@ -28,7 +28,10 @@ app.use(bodyParser.urlencoded({
 // TODO: add passport to parameters
 app.use('/api/v1/order', require('./server/routes/api/v1/order/list.js')(express));
 app.use('/api/v1/order', require('./server/routes/api/v1/order/find.js')(express));
-//app.use('api/v1/orderCreate', require('./server/routes/api/v1/orderCreate.js')(router, sampleDatabase));
+app.use('/api/v1/order', require('./server/routes/api/v1/status/picking.js')(express));
+app.use('/api/v1/order', require('./server/routes/api/v1/status/inspecting.js')(express));
+app.use('/api/v1/order', require('./server/routes/api/v1/status/packaging.js')(express));
+app.use('/api/v1/order', require('./server/routes/api/v1/status/shipping.js')(express));
 
 
 // Start The Server

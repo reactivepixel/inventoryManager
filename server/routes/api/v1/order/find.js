@@ -9,12 +9,12 @@ module.exports = function (express) {
     var serverMessage = '';
     var statusMessage = {};
 
-    // order request from client
+    // Order request from client
     var searchRequest = req.body;
     var searchId = searchRequest.orderId;
 
 
-    // checking for if the requestId exsists in the database
+    // Checking for if the requestId exsists in the database
     if(database[searchId] == "undefined" || database[searchId] == undefined){
       serverMessage = "orderId " + searchId + " doesn't exist."
     }else{
