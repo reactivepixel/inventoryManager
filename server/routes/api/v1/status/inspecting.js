@@ -4,7 +4,7 @@
 module.exports = function (express) {
   var router = express.Router();
 
-  // http://localhost:3000/api/v1/order/find
+  // http://localhost:3000/api/v1/order/inspecting
   router.post('/inspecting', function(req, res) {
     order.findOne({status.responseCode: 600}, function(data){
      res.json(data);
