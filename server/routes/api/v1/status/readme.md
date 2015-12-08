@@ -3,11 +3,11 @@
 | ------------- | --------------  | --------------------------------------- |
 | 100           | Picking         | Usually means 'continue' or 'processing'|
 | 200           | Shipped         | Usually a 'success' message             |
-| 300           | Packing         | Usually means a 'redirect'              |
+| 300           | Packaging       | Usually means a 'redirect'              |
 | 400           | Not Found       | Usually an 'error'                      |
 | 500           | Unavailable     | Usually a 'bad request'                 |
-| 600           | Shipping        |                                         |
-| 700           | Inspecting      |                                         |
+| 600           | Inspecting      |                                         |
+| 700           | Shipping        |                                         |
 | 800           | Incomplete      |                                         |
 | 900           | Retired         | After it is out of our hands            |
 
