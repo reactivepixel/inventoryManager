@@ -56,8 +56,8 @@ module.exports = function (){
   * @param {function} success Callback function for execution on successful adding.
   * @param {function} fail Callback function for execution on failed adding.
   * @example
-  * // Return all Units with Success and Failure
-  * unit.all(function(data){
+  * // Return all Orders with Success and Failure
+  * order.all(function(data){
   *   res.json(data);
   * }, function(err){
   *   console.log('err' + err);
@@ -73,8 +73,8 @@ module.exports = function (){
   * @param {function} success Callback function for execution on successful adding.
   * @param {function} fail Callback function for execution on failed adding.
   * @example
-  * // Find One based on supplied obj, in this case just a sku with Success and Failure
-  * unit.findOne({sku:'j50611e7d5dd30b0d676654de47d6794d'}, function(data){
+  * // Find One based on supplied obj, in this case just a time_stamp or ID with Success and Failure
+  * unit.findOne({time_stamp:'1600'}, function(data){
   *   res.json(data);
   * }, function(err, doc){
   *   console.log('err' + err + doc);
