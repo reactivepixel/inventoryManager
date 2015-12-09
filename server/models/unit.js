@@ -3,20 +3,7 @@ module.exports = function (){
   var data = require('../../lib/sanitize.js');
   var Sequelize = require('sequelize');
   var sequelize = db.connection;
-
-  // TODO make a utility for more than just the API out of the ID Generator
-  var APIFunctions = {
-    idGenerator : function(){
-      function s4() {
-        // handles making unqiue characters in sets of 4
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-      }
-
-      // combine and return a string of random characters several.
-      // the first character MUST be a letter for id's to work. we've gone with "J"
-      return "j" + s4() + s4() +  s4() +  s4() +  s4() + s4() + s4() + s4();
-    }
-  };
+  var generator = require('../../lib/sanitize.js');
 
   // TODO Write a nice system wide defaultFail DB interaction Failure
   var defaultFail = function(err, doc){ console.log('err' + err + doc); }
@@ -63,7 +50,7 @@ module.exports = function (){
     payload = defaultSanitize(payload);
     // Parse payload to be applied to the defined properties
     unit.create({
-      sku: payload.sku || APIFunctions.idGenerator(),
+      sku: payload.sku || generator.idGenerator(),
       qty_on_hand: payload.qty_on_hand,
       trigger_qty: payload.trigger_qty,
       replenish_qty: payload.replenish_qty
