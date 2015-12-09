@@ -81,7 +81,7 @@ http://localhost:3000/api/v1/order/find
 pass a JSON object in this structure:
 
 ```
-{'orderId': 'j1f4f2a2aa2a92637a2629c9ff2fe083a'}
+{'uuid': 'j1f4f2a2aa2a92637a2629c9ff2fe083a'}
 ```
 
 ### Dev Environment Setup
@@ -183,7 +183,7 @@ An order is created when a JSON object that matches the supplied example is sent
   	  phone: '555-555-5555'
     },
     units: [{
-      unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   	  quantity: 4
     }]
   }
@@ -228,7 +228,7 @@ An order is retrieved when a JSON object that contains an `uuid` is sent to the 
   	  phone: '555-555-5555'
     },
     units: [{
-      unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   	  quantity: 4
     }]
   }
@@ -314,7 +314,7 @@ All orders with a status of "picking" are returned.  A total of all orders is al
 {
   totalOrders: 300,
   orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
@@ -342,7 +342,7 @@ All orders with a status of "packaging" are returned.  A total of all orders is 
 {
   totalOrders: 300,
   orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
@@ -370,7 +370,7 @@ All orders with a status of "inspecting" are returned.  A total of all orders is
 {
   totalOrders: 300,
   orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
@@ -399,7 +399,7 @@ All orders with a status of "shipping" are returned.  A total of all orders is a
 {
   totalOrders: 300,
   orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
@@ -427,7 +427,7 @@ All orders with a status of "shipped" are returned.  A total of all orders is al
 {
   totalOrders: 300,
   orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
@@ -457,7 +457,7 @@ A package is created when a JSON object that matches the supplied example is sen
         phone: '555-555-5555'
       },
       units: [{
-        unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+        uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
         quantity: 4
       }]
     }
@@ -508,7 +508,7 @@ An order is retrieved when a JSON object that contains an `uuid` is sent to the 
         phone: '555-555-5555'
       },
       units: [{
-        unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+        uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
         quantity: 4
       }]
     }
@@ -523,16 +523,22 @@ An order is retrieved when a JSON object that contains an `uuid` is sent to the 
 |---|---|---|
 | `unit/create` | `POST` | `STATUS` |
 
-A unit is created/entered into the db when a JSON object that matches the supplied example is sent to the endpoint.
+A unit is created/entered into the db when a JSON object that matches the supplied example is sent to the endpoint. There should be logic in this model to check for the uuid in the db before attempting to Create a new record.
 
 ##### Request
+An object is submitted to the db with uuid, initial quantity and the intial status code.
 
 ```javascript
 {
-  units: [{
-    unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    quantity: 4
-  }]
+  units: [
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 4,
+      status: {
+        responseCode: 200
+      }
+    }
+  ]
 }
 ```
 
@@ -540,7 +546,7 @@ A unit is created/entered into the db when a JSON object that matches the suppli
 
 ```javascript
 {
-  unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   status: {
     responseCode: 200
   }
@@ -552,13 +558,14 @@ A unit is created/entered into the db when a JSON object that matches the suppli
 |---|---|---|
 | `unit/find` | `POST` | `STATUS` |
 
-An unit record is retrieved when a JSON object that contains a `unitId` is sent to the endpoint.
+A specific unit record is retrieved assisting in discerning the location of the unit in the warehouse based on status code or pod affiliation.
 
 ##### Request
+Units table is queried for units matching the uuid.
 
 ```javascript
 {
-  unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
@@ -566,10 +573,16 @@ An unit record is retrieved when a JSON object that contains a `unitId` is sent 
 
 ```javascript
 {
-  units: [{
-    unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    quantity: 4
-  }]
+  units: [
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 10,
+      status: {
+        responseCode: 200
+      },
+      pod: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    }
+  ]
 }
 ```
 
@@ -578,21 +591,23 @@ An unit record is retrieved when a JSON object that contains a `unitId` is sent 
 |---|---|---|
 | `unit/update/inspect` | `POST` | `STATUS` |
 
-The status of a unit is updated during the inspection process to either "shipping" or "failed."
+The status of a unit is updated during the inspection process to either "passed" or "failed." Because there are two inspection areas in the workflow this endpoint might need to be split into two separate ones to correlate with the actual inspection versus a general inspection.
 
 #### Request
+Units table is queried for units matching the uuid.
 
 ```javascript
 {
-  unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
 #### Response
+Returns an object containing the uuid queried and its' status code.
 
 ```javascript
 {
-  unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   status: {
     responseCode: 200
   }
@@ -608,11 +623,11 @@ The quantity of a unit is updated during the receiving of units for replenishmen
 The model for this will likely be very similar to the find method in that it takes the single uuid as an argument and returns info on that sku alone.
 
 #### Request
-Db is queried for units matching the uuid.
+Units table is queried for units matching the uuid.
 
 ```javascript
 {
-  unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
@@ -622,9 +637,8 @@ The response contains all the new data on the unit after adding received units t
 ```javascript
 {
   units: [{
-    unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
     quantity_on_hand: 8,
-    qty_reserved: 1,
     trigger_qty: 3,
     replenish_qty: 5,
     status: {
@@ -635,6 +649,7 @@ The response contains all the new data on the unit after adding received units t
 ```
 
 ### Unit Receiving
+This might turn out to be what I wrote for Unit Qty Update above. Need feedback.
 
 ***
 
@@ -643,22 +658,25 @@ The response contains all the new data on the unit after adding received units t
 |---|---|---|
 | `unit/available` | `POST` | `STATUS` |
 
+Available units are returned for a particular uuid.
+
 #### Request
-Db is queried for records matching the uuid.
+Units table is queried for records matching the uuid.
 
 ```javascript
 {
-  unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
 #### Response
+Returns an object containing the unit matching the uuid. Displays the `qty_on_hand`.
 
 ```javascript
 {
   units: [{
-    unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    quantity_available: 7
+    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    qty_on_hand: 7
     status: {
       responseCode: 200
     }
@@ -672,7 +690,7 @@ Db is queried for records matching the uuid.
 | `unit/picking` | `POST` | `STATUS` |
 
 #### Request
-Db is queried for units with a status code that indicates 'picking'.
+Units table is queried for units with a status code that indicates 'picking'.
 
 ```javascript
 {
@@ -685,17 +703,17 @@ Db is queried for units with a status code that indicates 'picking'.
 ```
 
 #### Response
-All units with a status code that indicates 'picking' are returned.  A total of all units could be returned if desired.
+Returns an object containing all units with the status code corresponding to picking.
 
 ```javascript
 {
   units: [
     {
-      unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
       quantity: 2
     },
     {
-      unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
       quantity: 1
     }
   ]
@@ -707,9 +725,10 @@ All units with a status code that indicates 'picking' are returned.  A total of 
 |---|---|---|
 | `unit/packaging` | `POST` | `STATUS` |
 
-All orders with a status of "packaging" are returned.  A total of all orders is also returned.
+These units have passed through the post-picking inspection and are on their way to shipping.
 
 #### Request
+Units table is queried for all units with a status corresponding to packaging.
 
 ```javascript
 {
@@ -720,13 +739,20 @@ All orders with a status of "packaging" are returned.  A total of all orders is 
 ```
 
 #### Response
+Returns an object containing all units with the status code corresponding to packaging.
 
 ```javascript
 {
-  totalOrders: 300,
-  orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-  }]
+  units: [
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 1
+    },
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 2
+    }
+  ]
 }
 ```
 
@@ -735,9 +761,10 @@ All orders with a status of "packaging" are returned.  A total of all orders is 
 |---|---|---|
 | `unit/inspecting` | `POST` | `STATUS` |
 
-All orders with a status of "inspecting" are returned.  A total of all orders is also returned.
+These units are involved in the receiving inspection or the post-picking inspection.
 
 #### Request
+Units table is queried for all units with a status corresponding to inspection.
 
 ```javascript
 {
@@ -748,13 +775,20 @@ All orders with a status of "inspecting" are returned.  A total of all orders is
 ```
 
 #### Response
+Returns an object containing all units with the status code corresponding to inspection.
 
 ```javascript
 {
-  totalOrders: 300,
-  orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-  }]
+  units: [
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 3
+    },
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 1
+    }
+  ]
 }
 ```
 
@@ -764,9 +798,10 @@ All orders with a status of "inspecting" are returned.  A total of all orders is
 |---|---|---|
 | `unit/shipping` | `POST` | `STATUS` |
 
-All orders with a status of "shipping" are returned.  A total of all orders is also returned.
+These units are involved in the shipping stage.
 
 #### Request
+Units table is queried for all units with a status corresponding to shipping.
 
 ```javascript
 {
@@ -777,13 +812,20 @@ All orders with a status of "shipping" are returned.  A total of all orders is a
 ```
 
 #### Response
+Returns an object containing all units with the status code corresponding to shipping.
 
 ```javascript
 {
-  totalOrders: 300,
-  orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-  }]
+  units: [
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 3
+    },
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 1
+    }
+  ]
 }
 ```
 
@@ -792,9 +834,10 @@ All orders with a status of "shipping" are returned.  A total of all orders is a
 |---|---|---|
 | `unit/shipped` | `POST` | `STATUS` |
 
-All orders with a status of "shipped" are returned.  A total of all orders is also returned.
+These units have been sucessfully shipped from the warehouse.
 
 #### Request
+Units table is queried for all units with a status corresponding to shipped.
 
 ```javascript
 {
@@ -805,13 +848,20 @@ All orders with a status of "shipped" are returned.  A total of all orders is al
 ```
 
 #### Response
+Returns an object containing all units with the status code corresponding to shipping.
 
 ```javascript
 {
-  totalOrders: 300,
-  orders: [{
-    orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-  }]
+  units: [
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 3
+    },
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: 1
+    }
+  ]
 }
 ```
 
