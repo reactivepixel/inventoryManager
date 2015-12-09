@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var dotenv = require('dotenv').load();
 var mysql = require('mysql');
 var dotenv = require('dotenv').load();
-var unit = require('./server/models/unit.js');
+
 // Initialize Application
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var app = express();
