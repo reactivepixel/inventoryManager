@@ -30,15 +30,29 @@ DB_PORT = {local port running mysql}
 
 ```
 
-###Gulp
-You will need to -g install gulp. You will also need to npm install to get all the node modules.
+### Installing and using Gulp
+#### 1. Install gulp globally:
+This step can be performed from any directory.
 
 ```
-gulp dev
+$ npm install --global gulp
 
 ```
+#### 2. Install gulp in your project devDependencies:
+This step should be performed in the directory containing the gulp file.
 
-Once you have this your server should run great!
+```
+$ npm install --save-dev gulp
+```
+
+#### 3. Ensure you have a `gulpfile.js` at the root of your project:
+#### 4. Run gulp:
+
+```
+$ gulp
+```
+
+Once you have this completed your server should run great!
 
 ## Environments
 Here are links to all Environments.
@@ -59,7 +73,7 @@ run server, npm server.js in gravity directory
 navigate to http://localhost:3000/api/v1/order/find
 
 ### API find Documentation
-How to locate a order based on id.
+How to locate an order based on id.
 run server, npm server.js in gravity directory
 
 make a post request to this url:
@@ -67,7 +81,7 @@ http://localhost:3000/api/v1/order/find
 pass a JSON object in this structure:
 
 ```
-{'orderId' : 'j1f4f2a2aa2a92637a2629c9ff2fe083a'}
+{'orderId': 'j1f4f2a2aa2a92637a2629c9ff2fe083a'}
 ```
 
 ### Dev Environment Setup
@@ -106,6 +120,7 @@ All routes should be prefixed with ```/api/v1```
 | [Unit Create](#unit-create) | Add a new Unit to the Database |
 | [Unit Find](#unit-find) | Find a Unit by Supplied Unit ID |
 | [Unit Update Inspect](#unit-update-inspect) | Update a Unit based upon Inspection |
+| [Unit Update Qty](#unit-update-qty) | Update Unit quantity during Receiving |
 | [Unit Receiving](#unit-recieving) | Returns all Units that are in Receiving |
 | [Unit Available](#unit-available) | Returns all Units that are available for Picking |
 | [Unit Picking](#unit-picking) | Returns all Units that are currently being Picked |
@@ -148,16 +163,17 @@ All routes should be prefixed with ```/api/v1```
 | [Pod Picking](#pod-picking) | Returns all Pods assigned to Picking |
 | [Pod Maintenance](#pod-maintenance) | Returns all Pods in Maintenance |
 
+## Order Object Definitions
 ### Order Create
-| Endpoint | Method |
-|---|---|
-| ```order/create``` | ```POST``` |
+| Endpoint | Method | Status |
+|---|---|---|
+| `order/create` | `POST` | `STATUS` |
 
 An order is created when a JSON object that matches the supplied example is sent to the endpoint.
 
 ##### Request
 
-```
+```javascript
 {
   order: {
     recipient: {
@@ -166,19 +182,19 @@ An order is created when a JSON object that matches the supplied example is sent
   	  email: 'orange@fullsail.edu',
   	  phone: '555-555-5555'
     },
-    units: \[{
+    units: [{
       unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   	  quantity: 4
-    }\]
+    }]
   }
 }
 ```
 
 ##### Response
 
-```
+```javascript
 {
-  uuid : a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+  uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   status : {
     responseCode: 200
   }
@@ -186,15 +202,15 @@ An order is created when a JSON object that matches the supplied example is sent
 ```
 
 ### Order Find
-| Enpoint | Method |
-|---|---|
-| ```order/find``` | ```POST``` |
+| Endpoint | Method | Status |
+|---|---|---|
+| `order/find` | `POST` | `STATUS` |
 
-An order is retrieved when a JSON object that contains an ```uuid``` is sent to the endpoint.
+An order is retrieved when a JSON object that contains an `uuid` is sent to the endpoint.
 
 ##### Request
 
-```
+```javascript
 {
   uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
@@ -202,33 +218,33 @@ An order is retrieved when a JSON object that contains an ```uuid``` is sent to 
 
 ##### Response
 
-```
+```javascript
 {
   order: {
-    recipient': {
+    recipient: {
   	  name: 'Jazy Jasilo',
   	  address: '3300 University Blvd, Winter Park, FL 32792',
   	  email: 'orange@fullsail.edu',
   	  phone: '555-555-5555'
     },
-    units: \[{
+    units: [{
       unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   	  quantity: 4
-    }\]
+    }]
   }
 }
 ```
 
 ### Order Update Inspect
-| Enpoint | Method |
-|---|---|
-| ```order/update/inspect``` | ```POST``` |
+| Endpoint | Method | Status |
+|---|---|---|
+| `order/update/inspect` | `POST` | `STATUS` |
 
 The status of an order is updated during the inspection process to either "shipping" or "failed."
 
 #### Request
 
-```
+```javascript
 {
   uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
@@ -236,9 +252,9 @@ The status of an order is updated during the inspection process to either "shipp
 
 #### Response
 
-```
+```javascript
 {
-  uuid : a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+  uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   status : {
     responseCode: 200
   }
@@ -246,15 +262,15 @@ The status of an order is updated during the inspection process to either "shipp
 ```
 
 ### Order Update Ship
-| Enpoint | Method |
-|---|---|
-| ```order/update/ship``` | ```POST``` |
+| Endpoint | Method | Status |
+|---|---|---|
+| `order/update/ship` | `POST` | `STATUS` |
 
 The status of an order is updated during the shipping process to either "shipped."  The shipping method and tracking number is added.
 
 #### Request
 
-```
+```javascript
 {
   uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
@@ -262,9 +278,9 @@ The status of an order is updated during the shipping process to either "shipped
 
 #### Response
 
-```
+```javascript
 {
-  uuid : a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+  uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   status : {
     responseCode: 200
   },
@@ -276,14 +292,15 @@ The status of an order is updated during the shipping process to either "shipped
 ```
 
 ### Order Picking
-| Enpoint | Method |
-|---|---|
-| ```order/picking``` | ```POST``` |
+| Endpoint | Method | Status |
+|---|---|---|
+| `order/picking` | `POST` | `STATUS` |
 
 All orders with a status of "picking" are returned.  A total of all orders is also returned.
 
 #### Request
-```
+
+```javascript
 {
   status : {
     responseCode: 200
@@ -292,24 +309,26 @@ All orders with a status of "picking" are returned.  A total of all orders is al
 ```
 
 #### Response
-```
+
+```javascript
 {
-  totalOrders: '300',
-  orders: \[{
+  totalOrders: 300,
+  orders: [{
       orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-    }\]
+    }]
 }
-```    
+```
 
 ### Order Packaging
-| Enpoint | Method |
-|---|---|
-| ```order/packaging``` | ```POST``` |
+| Endpoint | Method | Status |
+|---|---|---|
+| `order/packaging` | `POST` | `STATUS` |
 
 All orders with a status of "packaging" are returned.  A total of all orders is also returned.
 
 #### Request
-```
+
+```javascript
 {
   status : {
     responseCode: 200
@@ -318,24 +337,26 @@ All orders with a status of "packaging" are returned.  A total of all orders is 
 ```
 
 #### Response
-```
+
+```javascript
 {
-  totalOrders: '300',
-  orders: \[{
+  totalOrders: 300,
+  orders: [{
       orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-    }\]
+    }]
 }
-```   
+```
 
 ### Order Inspecting
-| Enpoint | Method |
-|---|---|
-| ```order/inspecting``` | ```POST``` |
+| Enpoint | Method | Status |
+|---|---|---|
+| `order/inspecting` | `POST` | `STATUS` |
 
 All orders with a status of "inspecting" are returned.  A total of all orders is also returned.
 
 #### Request
-```
+
+```javascript
 {
   status : {
     responseCode: 200
@@ -344,25 +365,27 @@ All orders with a status of "inspecting" are returned.  A total of all orders is
 ```
 
 #### Response
-```
+
+```javascript
 {
-  totalOrders: '300',
-  orders: \[{
+  totalOrders: 300,
+  orders: [{
       orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-    }\]
+    }]
 }
-```  
+```
 
 ### Order Shipping
 
-| Enpoint | Method |
-|---|---|
-| ```order/shipping``` | ```POST``` |
+| Enpoint | Method | Status |
+|---|---|---|
+| `order/shipping` | `POST` | `STATUS` |
 
 All orders with a status of "shipping" are returned.  A total of all orders is also returned.
 
 #### Request
-```
+
+```javascript
 {
   status : {
     responseCode: 200
@@ -371,24 +394,26 @@ All orders with a status of "shipping" are returned.  A total of all orders is a
 ```
 
 #### Response
-```
+
+```javascript
 {
-  totalOrders: '300',
-  orders: \[{
+  totalOrders: 300,
+  orders: [{
       orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-    }\]
+    }]
 }
-```  
+```
 
 ### Order Shipped
-| Enpoint | Method |
-|---|---|
-| ```order/shipped``` | ```POST``` |
+| Enpoint | Method | Status |
+|---|---|---|
+| `order/shipped` | `POST` | `STATUS` |
 
 All orders with a status of "shipped" are returned.  A total of all orders is also returned.
 
 #### Request
-```
+
+```javascript
 {
   status : {
     responseCode: 200
@@ -397,30 +422,233 @@ All orders with a status of "shipped" are returned.  A total of all orders is al
 ```
 
 #### Response
-```
-{
-  totalOrders: '300',
-  orders: \[{
-      orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-    }\]
-}
-```  
 
+```javascript
+{
+  totalOrders: 300,
+  orders: [{
+      orderId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    }]
+}
+```
+
+## Package Object Definitions
+### Package Create
+| Endpoint | Method | Status |
+|---|---|---|
+| `package/create` | ```POST` | `STATUS` |
+
+A package is created when a JSON object that matches the supplied example is sent to the endpoint.
+
+##### Request
+
+```javascript
+{
+  package: {
+    order: {
+      uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      status : {
+        responseCode: 200
+      },
+      recipient: {
+        name: 'Jazy Jasilo',
+        address: '3300 University Blvd, Winter Park, FL 32792',
+        email: 'orange@fullsail.edu',
+        phone: '555-555-5555'
+      },
+      units: [{
+        unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+        quantity: 4
+      }]
+    }
+  }
+}
+```
+
+##### Response
+
+```javascript
+{
+  uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+  status : {
+    responseCode: 200
+  }
+}
+```
+
+### Package Find
+| Enpoint | Method | Status |
+|---|---|---|
+| `package/find` | `POST` | `STATUS` |
+
+An order is retrieved when a JSON object that contains an `uuid` is sent to the endpoint.
+
+##### Request
+
+```javascript
+{
+  uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+}
+```
+
+##### Response
+
+```javascript
+{
+  package: {
+    order: {
+      uuid : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      status : {
+        responseCode: 200
+      },
+      recipient: {
+        name: 'Jazy Jasilo',
+        address: '3300 University Blvd, Winter Park, FL 32792',
+        email: 'orange@fullsail.edu',
+        phone: '555-555-5555'
+      },
+      units: [{
+        unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+        quantity: 4
+      }]
+    }
+  }
+}
+```
+
+## Unit Object Definitions
+
+### Unit Create
+| Endpoint | Method | Status |
+|---|---|---|
+| `unit/create` | `POST` | `STATUS` |
+
+A unit is created/entered into the db when a JSON object that matches the supplied example is sent to the endpoint.
+
+##### Request
+
+```javascript
+{
+  units: [{
+    unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    quantity: 4
+  }]
+}
+```
+
+##### Response
+
+```javascript
+{
+  unitId : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  status : {
+    responseCode: 200
+  }
+}
+```
+
+### Unit Find
+| Endpoint | Method | Status |
+|---|---|---|
+| `unit/find` | `POST` | `STATUS` |
+
+An unit record is retrieved when a JSON object that contains a `unitId` is sent to the endpoint.
+
+##### Request
+
+```javascript
+{
+  unitId : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+}
+```
+
+##### Response
+
+```javascript
+{
+  units: [{
+    unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    quantity: 4
+  }]
+}
+```
+
+### Unit Update Inspect
+| Endpoint | Method | Status |
+|---|---|---|
+| `unit/update/inspect` | `POST` | `STATUS` |
+
+The status of a unit is updated during the inspection process to either "shipping" or "failed."
+
+#### Request
+
+```javascript
+{
+  unitId : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+}
+```
+
+#### Response
+
+```javascript
+{
+  unitId : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+  status : {
+    responseCode: 200
+  }
+}
+```
+
+### Unit Update Qty
+| Endpoint | Method | Status |
+|---|---|---|
+| `unit/update/qty` | `POST` | `STATUS` |
+
+The quantity of a unit is updated during the receiving of units for replenishment."
+
+#### Request
+
+```javascript
+{
+  unitId : 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+  quantity: 4
+}
+```
+
+#### Response
+
+```javascript
+{
+  units: [{
+    unitId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    quantity: 4,
+    status : {
+      responseCode: 200
+    }
+  }]
+}
+```
 
 ## Database Model Usage
-Include the model and as it is self contained you can directly access the methods retuned by it. Ideally require the model into the desired ```route file``` and run the appropriate method depending on the route specified.
+Include the model and as it is self contained you can directly access the methods retuned by it. Ideally require the model into the desired `route file` and run the appropriate method depending on the route specified.
 
-``` javascript
+```javascript
 var unit = require('./server/models/unit.js');
+```
 
 // Add Unit with Success and Failure. Note if a sku is not supplied, one is generated.
+
+```javascript
 unit.add({qty_on_hand: 3, trigger_qty:4, replenish_qty:5}, function(data){
   console.log('Added Unit');
 }, function(err){
   console.log('Adding Error-' + err);
 });
+```
 
 // Return all Units with Success and Failure
+
+```javascript
 unit.all(function(data){
   res.json(data);
 }, function(err){
@@ -429,7 +657,7 @@ unit.all(function(data){
 ```
 
 ### How To Adapt
-To use the Unit model as a template and start building out other models you will need to adjust `/server/db.js` 's definition of your model to contain the appropriate fields to your model to meet the documentation. `db.js` is just a rough structure and will need adjusted.
+To use the Unit model as a template and start building out other models you will need to adjust the definition of your model in '/server/db.js' to contain the appropriate fields to your model to meet the documentation. `db.js` is just a rough structure and will need adjusted.
 
 Copy `/server/models/unit.js` and rename it to match your model. You will need to restructure the definitions in this file to reflect the changes you have made to  `/server/db.js`
 
