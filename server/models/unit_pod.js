@@ -7,12 +7,12 @@ module.exports = function(){
  var APIFunctions = {
   idGenerator : function(){
     function s4() {
-      // handles making unqiue characters in sets of 4
+      // Handles making unqiue characters in sets of 4
       return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
 
-    // combine and return a string of random characters several.
-    // the first character MUST be a letter for id's to work. we've gone with "J"
+    // Combine and return a string of random characters several.
+    // The first character MUST be a letter for id's to work. we've gone with "J"
     return "j" + s4() + s4() +  s4() +  s4() +  s4() + s4() + s4() + s4();
   	}
   };
@@ -156,7 +156,7 @@ var _update = function(payload,success, fail){
       if(!cleanData) return fail({ code:301 });
 
 
-      //valudation:
+      // Valudation:
       if(!cleanData.sku) return fail({ code:301 });
 
       unit_pod.find({where:{sku:cleanData.sku}}).then(function (data) {
