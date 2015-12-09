@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var dotenv = require('dotenv').load();
 var mysql = require('mysql');
 
+
 // Initialize Application
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var app = express();
@@ -26,6 +27,10 @@ app.use(bodyParser.urlencoded({
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // TODO: add passport to parameters
 app.use('/api/v1/order', require('./server/routes/api/v1/order/list.js')(express));
+app.use('/api/v1/unit', require('./server/routes/api/v1/unit/create.js')(express));
+
+
+
 // app.use('/api/v1/order', require('./server/routes/api/v1/order/find.js')(express));
 // app.use('/api/v1/order', require('./server/routes/api/v1/status/picking.js')(express));
 // app.use('/api/v1/order', require('./server/routes/api/v1/status/inspecting.js')(express));
