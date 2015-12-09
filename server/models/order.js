@@ -74,7 +74,7 @@ module.exports = function (){
   * @param {function} fail Callback function for execution on failed adding.
   * @example
   * // Find One based on supplied obj, in this case just a time_stamp or ID with Success and Failure
-  * unit.findOne({time_stamp:'1600'}, function(data){
+  * order.findOne({time_stamp:'1600'}, function(data){
   *   res.json(data);
   * }, function(err, doc){
   *   console.log('err' + err + doc);
