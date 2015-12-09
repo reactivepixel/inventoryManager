@@ -29,31 +29,6 @@ MYSQL_PASS = {local password}
 DB_PORT = {local port running mysql}
 
 ```
-
-### Installing and using Gulp
-#### 1. Install gulp globally:
-This step can be performed from any directory.
-
-```
-$ npm install --global gulp
-
-```
-#### 2. Install gulp in your project devDependencies:
-This step should be performed in the directory containing the gulp file.
-
-```
-$ npm install --save-dev gulp
-```
-
-#### 3. Ensure you have a `gulpfile.js` at the root of your project:
-#### 4. Run gulp:
-
-```
-$ gulp
-```
-
-Once you have this completed your server should run great!
-
 ## Environments
 Here are links to all Environments.
 
