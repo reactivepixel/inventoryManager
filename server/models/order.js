@@ -43,7 +43,6 @@ module.exports = function (){
       time_stamp: payload.time_stamp,
       recipient: payload.recipient,
     })
-
     // If Successful Adding run Success callback
     .then(success)
 
@@ -67,6 +66,7 @@ module.exports = function (){
     order.findAll().then(success).catch(fail);
     console.log(success);
   }
+  
   // Find One Order(s)
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
@@ -90,8 +90,6 @@ module.exports = function (){
 
     order.findOne({where:payload}).then(success).catch(fail);
   }
-
-
 
 // Remove One Order
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -120,8 +118,6 @@ var _remove = function (payload, success, fail){
 
   order.destroy({where: {time_stamp: cleanData.time_stamp}}).then(success).catch(fail);
 }
-
-
 
 // Update One Order
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -162,6 +158,7 @@ var _update = function(payload, update, success, fail){
       }).catch(fail);
 }
 _findAll();
+    
 //_addOne({time_stamp:"k76GHY", recipient: "Brandy"});
 //_update({time_stamp:"k76GHY"}, {time_stamp:"k76GHY", recipient: "jeff"});
 //_remove({time_stamp:"k76GHY"})

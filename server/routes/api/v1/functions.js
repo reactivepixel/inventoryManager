@@ -14,5 +14,4 @@ var APIFunctions = {
   }
 };
 
-
 module.exports = APIFunctions;

@@ -9,7 +9,6 @@ module.exports = function (router) {
     orderRecipient = orderPlacement.order.recipient;
     orderUnits = orderPlacement.order.units;
 
-
     var placement = {};
     placement.tracking = orderTracking;
     placement.recipient = orderRecipient;
@@ -17,7 +16,6 @@ module.exports = function (router) {
 
     orderDatabase.push(placement);
     console.log(placement);
-
 
     res.json({
       serverResponse : "Your placement is being processed",

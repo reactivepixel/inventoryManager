@@ -45,7 +45,6 @@ module.exports = function(){
   *  console.log('Adding Error-' + err);
   * });
   */
-
   var _addOne = function(payload, success, fail){
     payload = defaultSanitize(payload);
     // Parse payload to be applied to the defined properties
@@ -60,6 +59,7 @@ module.exports = function(){
     // If Error on Adding run Fail Callback
     .catch(fail);
   }
+  
   // Find All Unit Pods
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
@@ -77,6 +77,7 @@ module.exports = function(){
     unit_pod.findAll().then(success).catch(fail);
     console.log(success);
   }
+  
   // Find One Unit Pod(s)
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
@@ -100,8 +101,6 @@ module.exports = function(){
 
     unit_pod.findOne({where:payload}).then(success).catch(fail);
   }
-
-
 
 	// Remove One Unit Pod
 	// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -130,8 +129,6 @@ module.exports = function(){
 
 	  unit_pod.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
 	}
-
-
 
 // Update One Unit Pod
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -171,6 +168,7 @@ var _update = function(payload,success, fail){
         }).then(success).catch(fail)
       }).catch(fail);
 }
+
 //_findAll();
 //_addOne({qty:5});
 //_update({time_stamp:"k76GHY"}, {time_stamp:"k76GHY", recipient: "jeff"});

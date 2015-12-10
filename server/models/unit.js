@@ -63,7 +63,6 @@ module.exports = function (){
     .catch(fail);
   }
 
-
   // Find All units
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
@@ -105,8 +104,6 @@ module.exports = function (){
     unit.findOne({where:payload}).then(success).catch(fail);
   }
 
-
-
 // Remove One units
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 /**
@@ -134,8 +131,6 @@ var _remove = function (payload, success, fail){
 
   unit.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
 }
-
-
 
 // Update One units
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
