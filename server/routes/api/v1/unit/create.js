@@ -1,35 +1,36 @@
-// Gravity Application API orderList| API showing the sample database
+// Gravity Application API | Create a unit in the database
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function (express) {
   var router = express.Router();
   var unit = require('../../../../models/unit.js');
 
+  // /api/v1/unit/create
   router.post('/create', function(req, res) {
-    var responseMessage = '';
-    var unitResponse = '';
-    var clientUnit = req.body;
 
+    // request made from client
+    var clientUnitPost = req.body;
 
-    unit.add(
-      {qty_on_hand: clientUnit.qty_on_hand, trigger_qty: clientUnit.trigger_qty, replenish_qty: clientUnit.replenish_qty},
+    // example of data in JSON format
+    // {"qty_on_hand" : 7, "trigger_qty" : 10 : "replenish_qty" : 5}
+    unit.add({qty_on_hand: clientUnitPost.qty_on_hand, trigger_qty: clientUnitPost.trigger_qty, replenish_qty: clientUnitPost.replenish_qty},
       function(data){
-        unitResponse = data;
-        responseMessage = 'Unit added successfully';
-        console.log('Unit added successfully');
+
+        // server message of the request
+        console.log('A unit create request has been made');
 
         res.json({
-          responseMessage: responseMessage,
-          unitResponse: unitResponse
+          serverMessage: "Your unit is being created",
+          serverResponse: "Your unit was created successfully, your SKU is: ",
+          unitSKU: data.sku
         });
       },
+
       function(err){
-        responseMessage = 'Adding Error' + err;
-        console.log('Adding Error-' + err);
+        serverMessage = "Your unit is being created";
+        ServerResponse = err
     });
-
-
-
   });
 
+  // sent route back to server.js
   return router;
 };

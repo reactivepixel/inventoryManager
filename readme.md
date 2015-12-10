@@ -30,7 +30,9 @@ $ brew install mysql
 login to your local mysql server create a database called gravity
 
 ```
+$ mysql.server start
 $ mysql -u root 
+$ mysql.server restart
 
 mysql> create database gravity
 
