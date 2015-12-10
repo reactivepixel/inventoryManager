@@ -1,24 +1,24 @@
-var gulp = require('gulp'),
-  concat = require('gulp-concat'),
-  uglify = require('gulp-uglify'),
-  sourcemaps = require('gulp-sourcemaps'),
-  gutil = require('gulp-util'),
-  webpack = require('webpack'),
-  WebpackDevServer = require('webpack-dev-server'),
-  webpackConfig = require('./webpack.config.js'),
-  stream = require('webpack-stream'),
-  nodemon = require('gulp-nodemon'),
-  jshint = require('gulp-jshint'),
-  stylish = require('jshint-stylish'),
-  chalk = require('chalk');
+var gulp              = require('gulp'),
+    concat            = require('gulp-concat'),
+    uglify            = require('gulp-uglify'),
+    sourcemaps        = require('gulp-sourcemaps'),
+    gutil             = require('gulp-util'),
+    webpack           = require('webpack'),
+    WebpackDevServer  = require('webpack-dev-server'),
+    webpackConfig     = require('./webpack.config.js'),
+    stream            = require('webpack-stream'),
+    nodemon           = require('gulp-nodemon'),
+    jshint            = require('gulp-jshint'),
+    stylish           = require('jshint-stylish'),
+    chalk             = require('chalk');
 
 // NOTIFY MESSAGE VARIABLES
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Color codes for terminal messages
-var redError = chalk.black.bgRed.bold,
-  yelloWarning = chalk.black.bgYellow.bold,
-  greenSuccess = chalk.black.bgGreen.bold,
-  cyanWatch = chalk.black.bgCyan.bold;
+var redError          = chalk.black.bgRed.bold,
+    yelloWarning      = chalk.black.bgYellow.bold,
+    greenSuccess      = chalk.black.bgGreen.bold,
+    cyanWatch         = chalk.black.bgCyan.bold;
 
 gulp.task('default', ['webpack-dev-server']);
 
@@ -35,11 +35,11 @@ function onBuild(done) {
     }
 
     if (done) done();
-  }
-};
+  };
+}
 
 gulp.task('bundle', function(done) {
-  webpack(webpackConfig).run(onBuild(done))
+  webpack(webpackConfig).run(onBuild(done));
 });
 
 
@@ -67,7 +67,7 @@ gulp.task('jshint', function() {
 // NODEMON
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Enable nodemon and set environment to development so we can run a server locally and reload files.
-gulp.task('nodemon', function (done) {
+gulp.task('nodemon', ['bundle'], function (done) {
     nodemon({
         script: 'server.js',
         ext: 'html js css',
@@ -79,4 +79,4 @@ gulp.task('nodemon', function (done) {
 });
 
 gulp.task('dev', ['jshint', 'bundle', 'nodemon']);
-gulp.task('build', ['jshint', 'bundle', 'uglify'])
+gulp.task('build', ['jshint', 'bundle', 'uglify']);
