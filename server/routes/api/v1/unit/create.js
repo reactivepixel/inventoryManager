@@ -9,15 +9,15 @@ module.exports = function (express) {
     var serverMessage = "Your unit is being created";
     var serverResponse = "Your unit was created successfully, your SKU is: ";
 
-    // request made from client
+    // Request made from client
     var clientUnitPost = req.body;
 
-    // example of data in JSON format
+    // Example of data in JSON format
     // {"qty_on_hand" : 7, "trigger_qty" : 10 : "replenish_qty" : 5}
     unit.add({qty_on_hand: clientUnitPost.qty_on_hand, trigger_qty: clientUnitPost.trigger_qty, replenish_qty: clientUnitPost.replenish_qty},
     function(data){
 
-      // server message of the request
+      // Server message of the request
       console.log('A unit create request has been made');
 
       res.json({
@@ -38,7 +38,3 @@ module.exports = function (express) {
 
   return router;
 };
-
-
-
-

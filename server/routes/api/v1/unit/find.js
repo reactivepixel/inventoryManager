@@ -9,24 +9,23 @@ module.exports = function (express) {
     var serverMessage = "Your find request is being processed";
     var serverResponse = "You've encountered an unknown error";
 
-    // request made from client
+    // Request made from client
     var clientFindPost = req.body;
 
-
-    // example of data in JSON format
+    // Example of data in JSON format
     // {"sku" : "j9fead89099de0cf88ce52bf794e5a47e"}
     unit.findOne({sku: clientFindPost.sku},
     function(data) {
 
-      // server message of the request
+      // Server message of the request
       console.log('A find request has been made for unit: ' + clientFindPost.sku);
 
-      // check data
+      // Check data
       if(data == null) {
-        // if data doesn't have a result
+        // If data doesn't have a result
         serverResponse = "Your find request for sku: " + clientFindPost.sku + " was not found"
       }else {
-        // if data returns positive
+        // If data returns positive
         serverResponse = "Your find request for sku: " + clientFindPost.sku + " was located"
       }
 
@@ -48,4 +47,3 @@ module.exports = function (express) {
 
   return router;
 };
-
