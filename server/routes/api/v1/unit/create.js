@@ -6,6 +6,8 @@ module.exports = function (express) {
 
   // /api/v1/unit/create
   router.post('/create', function(req, res) {
+    var serverMessage = "Your unit is being created";
+    var serverResponse = "Your unit was created successfully, your SKU is: ";
 
     // request made from client
     var clientUnitPost = req.body;
@@ -13,24 +15,30 @@ module.exports = function (express) {
     // example of data in JSON format
     // {"qty_on_hand" : 7, "trigger_qty" : 10 : "replenish_qty" : 5}
     unit.add({qty_on_hand: clientUnitPost.qty_on_hand, trigger_qty: clientUnitPost.trigger_qty, replenish_qty: clientUnitPost.replenish_qty},
-      function(data){
+    function(data){
 
-        // server message of the request
-        console.log('A unit create request has been made');
+      // server message of the request
+      console.log('A unit create request has been made');
 
-        res.json({
-          serverMessage: "Your unit is being created",
-          serverResponse: "Your unit was created successfully, your SKU is: ",
-          unitSKU: data.sku
-        });
-      },
+      res.json({
+        serverMessage: serverMessage,
+        serverResponse: serverResponse,
+        unitSKU: data.sku
+      });
+    },
 
-      function(err){
-        serverMessage = "Your unit is being created";
-        ServerResponse = err
+    function(err){
+      res.json({
+        serverMessage: serverMessage,
+        serverResponse: "You've encountered an unknown error",
+        serverError: err
+      });
     });
   });
 
-  // sent route back to server.js
   return router;
 };
+
+
+
+
