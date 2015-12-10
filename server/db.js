@@ -1,8 +1,10 @@
 module.exports = function(){
-  var express     = require('express'),
-      app         = express(),
-      mysql       = require('mysql'),
-      Sequelize   = require('sequelize');
+  var express     = require('express');
+  var app         = express();
+  var mysql       = require('mysql');
+  var Sequelize   = require('sequelize');
+
+  var dotenv = require('dotenv').load();
 
   // Config
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

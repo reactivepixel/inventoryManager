@@ -35,11 +35,11 @@ function onBuild(done) {
     }
 
     if (done) done();
-  }
-};
+  };
+}
 
 gulp.task('bundle', function(done) {
-  webpack(webpackConfig).run(onBuild(done))
+  webpack(webpackConfig).run(onBuild(done));
 });
 
 
@@ -79,4 +79,4 @@ gulp.task('nodemon', function (done) {
 });
 
 gulp.task('dev', ['jshint', 'bundle', 'nodemon']);
-gulp.task('build', ['jshint', 'bundle', 'uglify'])
+gulp.task('build', ['jshint', 'bundle', 'uglify']);

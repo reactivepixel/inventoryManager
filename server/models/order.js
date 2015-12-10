@@ -3,7 +3,6 @@ module.exports = function (){
   var data = require('../../lib/sanitize.js');
   var Sequelize = require('sequelize');
   var sequelize = db.connection;
-  var generator = require('../../lib/sanitize.js');
 
   // TODO Write a nice system wide defaultFail DB interaction Failure
   var defaultFail = function(err, doc){ console.log('err' + err + doc); }
@@ -11,36 +10,27 @@ module.exports = function (){
   // TODO Write a sanitize function once we see some bad data comeing through
   var defaultSanitize = function(uncleanData){ return uncleanData; }
 
-  // Create Units Table
+  // Create Orders Table
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var unit = sequelize.define('units', {
+ var order = sequelize.define('orders', {
+      time_stamp: {
+        type: Sequelize.STRING,
+        createdAt: true
+      },
+      recipient: {
+        type: Sequelize.STRING,
+      }
+    })
 
-    sku: {
-      type: Sequelize.STRING,
-      primaryKey: true,
-    },
-    qty_on_hand: {
-      type: Sequelize.INTEGER,
-    },
-    trigger_qty: {
-      type: Sequelize.INTEGER,
-    },
-    replenish_qty: {
-      type: Sequelize.INTEGER,
-    }
-
-  })
-
-  // Add One Unit to db
+  // Add One Order to db
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
-  * @param {obj} payload Information about the Unit to save
+  * @param {obj} payload Information about the Order to save
   * @param {function} success Callback function for execution on successful adding.
   * @param {function} fail Callback function for execution on failed adding.
   * @example
-  * // Add One Unit with Success and Failure. Note if a sku is not supplied, one is generated.
-  * unit.add({qty_on_hand: 3, trigger_qty:4, replenish_qty:5}, function(data){
-  *  console.log('Added Unit');
+  * order.add({time_stamp: 1500, recipient:'Muffin Man'}, function(data){
+  *  console.log('Added Order');
   * }, function(err){
   *  console.log('Adding Error-' + err);
   * });
@@ -49,11 +39,9 @@ module.exports = function (){
   var _addOne = function(payload, success, fail){
     payload = defaultSanitize(payload);
     // Parse payload to be applied to the defined properties
-    unit.create({
-      sku: payload.sku || generator.idGenerator(),
-      qty_on_hand: payload.qty_on_hand,
-      trigger_qty: payload.trigger_qty,
-      replenish_qty: payload.replenish_qty
+    order.create({
+      time_stamp: payload.time_stamp,
+      recipient: payload.recipient,
     })
 
     // If Successful Adding run Success callback
@@ -62,33 +50,31 @@ module.exports = function (){
     // If Error on Adding run Fail Callback
     .catch(fail);
   }
-
-
-  // Find All units
+  // Find All Orders
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
   * @param {function} success Callback function for execution on successful adding.
   * @param {function} fail Callback function for execution on failed adding.
   * @example
-  * // Return all Units with Success and Failure
-  * unit.all(function(data){
+  * // Return all Orders with Success and Failure
+  * order.all(function(data){
   *   res.json(data);
   * }, function(err){
   *   console.log('err' + err);
   * });
   */
   var _findAll = function (success, fail){
-    unit.findAll().then(success).catch(fail);
+    order.findAll().then(success).catch(fail);
+    console.log(success);
   }
-
-  // Find One Unit(s)
+  // Find One Order(s)
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
   * @param {function} success Callback function for execution on successful adding.
   * @param {function} fail Callback function for execution on failed adding.
   * @example
-  * // Find One based on supplied obj, in this case just a sku with Success and Failure
-  * unit.findOne({sku:'j50611e7d5dd30b0d676654de47d6794d'}, function(data){
+  * // Find One based on supplied obj, in this case just a time_stamp or ID with Success and Failure
+  * order.findOne({time_stamp:'1600'}, function(data){
   *   res.json(data);
   * }, function(err, doc){
   *   console.log('err' + err + doc);
@@ -102,21 +88,21 @@ module.exports = function (){
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
 
-    unit.findOne({where:payload}).then(success).catch(fail);
+    order.findOne({where:payload}).then(success).catch(fail);
   }
 
 
 
-// Remove One units
+// Remove One Order
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 /**
-* @param {obj} payload Requires 'sku' attribute
+* @param {obj} payload Requires 'time_stamp' attribute
 * @param {function} success Callback function for execution on successful adding.
 * @param {function} fail Callback function for execution on failed adding.
 * @example
-* // Remove Unit with Success and Fail
-* unit.remove({sku:'j50611e7d5dd30b0d676654de47d6794d'}, function(){
-*   console.log('No more records remain with that sku');
+* // Remove Order with Success and Fail
+* order.remove({time_stamp:'1500'}, function(){
+*   console.log('No more records remain with that time_stamp');
 * }, function(err, doc){
 *   console.log('err' + err + doc);
 * });
@@ -129,29 +115,29 @@ var _remove = function (payload, success, fail){
   // If sanitize fails prevent payload from touching the db
   if(!cleanData) return fail({ code:301 });
 
-  //valudation:
-  if(!cleanData.sku) return fail({ code:301 });
+  // Valudation:
+  if(!cleanData.time_stamp) return fail({ code:301 });
 
-  unit.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
+  order.destroy({where: {time_stamp: cleanData.time_stamp}}).then(success).catch(fail);
 }
 
 
 
-// Update One units
+// Update One Order
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 /**
-* @param {obj} payload Requires 'sku' attribute
+* @param {obj} payload Requires 'time_stamp' attribute
 * @param {function} success Callback function for execution on successful adding.
 * @param {function} fail Callback function for execution on failed adding.
 * @example
 * // Update Unit with Success and Fail
-* unit.update({sku:'j14d158c64ece48fasd00ccee895b18b8bb6', qty_on_hand: 9}, function(data){
+* order.update({time_stamp:'1600', receiptant: "Brandy Bergh"}, function(data){
 *     console.log(data);
 * }, function(err){
 *   console.log('Error Code: ' + err.code);
 * });
 */
-var _update = function(payload, success, fail){
+var _update = function(payload, update, success, fail){
 
       // Run user data through sanitize.
       cleanData = defaultSanitize(payload);
@@ -161,24 +147,24 @@ var _update = function(payload, success, fail){
 
 
       //valudation:
-      if(!cleanData.sku) return fail({ code:301 });
+      if(!cleanData.time_stamp) return fail({ code:301 });
 
-      unit.find({where:{sku:cleanData.sku}}).then(function (data) {
+      order.find({where:{time_stamp:cleanData.time_stamp}}).then(function (data) {
 
         // No data was found
         if (!data) return fail({ code:302 });
 
         // Update the Atts of the returned row
         data.updateAttributes({
-
-            // Unit's SKU should not change.
-            qty_on_hand: cleanData.qty_on_hand,
-            trigger_qty: cleanData.trigger_qty,
-            replenish_qty: cleanData.replenish_qty
+            time_stamp: update.time_stamp,
+            recipient: update.recipient,
         }).then(success).catch(fail)
       }).catch(fail);
 }
-
+_findAll();
+//_addOne({time_stamp:"k76GHY", recipient: "Brandy"});
+//_update({time_stamp:"k76GHY"}, {time_stamp:"k76GHY", recipient: "jeff"});
+//_remove({time_stamp:"k76GHY"})
 return {
   add: _addOne,
   all: _findAll,
@@ -187,3 +173,6 @@ return {
   update: _update
 }
 }();
+
+
+
