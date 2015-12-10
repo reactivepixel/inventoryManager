@@ -13,9 +13,25 @@ npm install
 
 ### Configure Database
 
+make sure that mysql is installed 
+
+```
+$ mysql --version
+
+```
+
+if its not installed
+
+```
+$ brew install mysql
+
+```
+
 login to your local mysql server create a database called gravity
 
 ```
+$ mysql -u root 
+
 mysql> create database gravity
 
 ```
@@ -24,9 +40,9 @@ Next create a .env file for your local environment variables
 ```
 DB_HOST = 127.0.0.1
 DB_NAME = gravity
-MYSQL_NAME = {local user}
-MYSQL_PASS = {local password}
-DB_PORT = {local port running mysql}
+MYSQL_NAME = {local user} // usually root
+MYSQL_PASS = {local password} // standard install set to blank 
+DB_PORT = {local port running mysql} //standard port is 3306
 
 ```
 
