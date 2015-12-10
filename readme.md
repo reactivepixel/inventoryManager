@@ -38,15 +38,9 @@ This step can be performed from any directory.
 $ npm install --global gulp
 
 ```
-#### 2. Install gulp in your project devDependencies:
-This step should be performed in the directory containing the gulp file.
 
-```
-$ npm install --save-dev gulp
-```
-
-#### 3. Ensure you have a `gulpfile.js` at the root of your project:
-#### 4. Run gulp:
+#### 2. Ensure you have a `gulpfile.js` at the root of your project:
+#### 3. Run gulp:
 
 ```
 $ gulp
@@ -121,13 +115,13 @@ All routes should be prefixed with ```/api/v1```
 | [Unit Find](#unit-find) | Find a Unit by Supplied Unit ID |
 | [Unit Update Inspect](#unit-update-inspect) | Update a Unit based upon Inspection |
 | [Unit Update Qty](#unit-update-qty) | Update Unit quantity during Receiving |
-| [Unit Receiving](#unit-recieving) | Returns all Units that are in Receiving |
+| [Unit Receiving](#unit-receiving) | Returns all Units that are in Receiving |
 | [Unit Available](#unit-available) | Returns all Units that are available for Picking |
 | [Unit Picking](#unit-picking) | Returns all Units that are currently being Picked |
 | [Unit Packaging](#unit-packaging) | Returns all Units that are currently being Packaged |
-| [Unit Inspecting](#order-inspection) | Returns all Units that are currently being Inspected |
-| [Unit Shipping](#order-shipping) | Returns all Units that are currently being Shipped |
-| [Unit Shipped](#order-shipped) | Returns all Units that are have been Shipped |
+| [Unit Inspecting](#unit-inspecting) | Returns all Units that are currently being Inspected |
+| [Unit Shipping](#unit-shipping) | Returns all Units that are currently being Shipped |
+| [Unit Shipped](#unit-shipped) | Returns all Units that are have been Shipped |
 
 ### Routes - SKUs
 | Event | Definition |
