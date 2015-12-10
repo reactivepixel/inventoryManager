@@ -66,7 +66,27 @@ module.exports = function (){
     order.findAll().then(success).catch(fail);
     console.log(success);
   }
-  
+
+
+  // Find Orders
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  /**
+  * @param {obj} What to filter upon
+  * @param {function} success Callback function for execution on successful adding.
+  * @param {function} fail Callback function for execution on failed adding.
+  * @example
+  * // Return all Orders where it meets a certain requirement with Success and Failure
+  * order.find({statusId: status.statusId}, function(data){
+  *   res.json(data);
+  * }, function(err){
+  *   console.log('err' + err);
+  * });
+  */
+  var _find = function (payload, success, fail){
+    order.findAll({where:payload}).then(success).catch(fail);
+    console.log(success);
+  }
+
   // Find One Order(s)
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
@@ -158,7 +178,7 @@ var _update = function(payload, update, success, fail){
       }).catch(fail);
 }
 _findAll();
-    
+
 //_addOne({time_stamp:"k76GHY", recipient: "Brandy"});
 //_update({time_stamp:"k76GHY"}, {time_stamp:"k76GHY", recipient: "jeff"});
 //_remove({time_stamp:"k76GHY"})
@@ -167,9 +187,7 @@ return {
   all: _findAll,
   findOne: _findOne,
   remove: _remove,
-  update: _update
+  update: _update,
+  find: _find
 }
 }();
-
-
-
