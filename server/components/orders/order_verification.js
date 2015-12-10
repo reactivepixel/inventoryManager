@@ -1,4 +1,5 @@
-/**
+/*
+*
 * Order Verification Pseudo Code
 *
 * Receive package, if package contents = order contents then set status
@@ -18,14 +19,14 @@ const package = {
 
 function verify () {
 	if ( order[i].item === package[i].item && order[i].qty === package[i].qty ) {
-		// mark package as "verified"
+		// Mark package as "verified"
 		console.log("Package Verified");
-		// send to be used in shipping function
+		// Send to be used in shipping function
 		shippingFunction();
 	} else {
-		// call a problem solver to review package
+		// Call a problem solver to review package
 		console.log('Problem Solver neeeded');
-		// once problem solved mark package as "verified"
+		// Once problem solved mark package as "verified"
 		console.log("Package Verified")
 	}
 }

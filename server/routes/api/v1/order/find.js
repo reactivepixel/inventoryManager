@@ -13,7 +13,6 @@ module.exports = function (express) {
     var searchRequest = req.body;
     var searchId = searchRequest.orderId;
 
-
     // Checking for if the requestId exsists in the database
     if(database[searchId] == "undefined" || database[searchId] == undefined){
       serverMessage = "orderId " + searchId + " doesn't exist."
@@ -21,7 +20,6 @@ module.exports = function (express) {
       serverMessage = "orderId " + searchId + " located";
       statusMessage = database[searchId].tracking.status
     }
-
 
     res.json({
 
@@ -31,7 +29,6 @@ module.exports = function (express) {
       statusMessage : statusMessage
     });
   });
-
 
   return router;
 };
