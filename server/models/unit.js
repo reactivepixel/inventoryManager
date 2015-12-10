@@ -3,7 +3,9 @@ module.exports = function (){
   var data = require('../../lib/sanitize.js');
   var Sequelize = require('sequelize');
   var sequelize = db.connection;
-  var generator = require('../../lib/sanitize.js');
+
+  // importing generateNew function for SKU
+  var IdGenerator = require('../../lib/id-generator.js');
 
   // TODO Write a nice system wide defaultFail DB interaction Failure
   var defaultFail = function(err, doc){ console.log('err' + err + doc); }
@@ -49,8 +51,10 @@ module.exports = function (){
   var _addOne = function(payload, success, fail){
     payload = defaultSanitize(payload);
     // Parse payload to be applied to the defined properties
+
     unit.create({
-      sku: payload.sku || generator.idGenerator(),
+
+      sku: payload.sku || IdGenerator.generateNew(),
       qty_on_hand: payload.qty_on_hand,
       trigger_qty: payload.trigger_qty,
       replenish_qty: payload.replenish_qty
