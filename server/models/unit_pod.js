@@ -181,6 +181,4 @@ return {
   remove: _remove,
   update: _update
 }
-
-
 }();
