@@ -125,7 +125,7 @@ module.exports = function(){
 	  // If sanitize fails prevent payload from touching the db
 	  if(!cleanData) return fail({ code:301 });
 
-	  //valudation:
+	  // Valudation:
 	  if(!cleanData.sku) return fail({ code:301 });
 
 	  unit_pod.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);

@@ -115,7 +115,7 @@ var _remove = function (payload, success, fail){
   // If sanitize fails prevent payload from touching the db
   if(!cleanData) return fail({ code:301 });
 
-  //valudation:
+  // Valudation:
   if(!cleanData.time_stamp) return fail({ code:301 });
 
   order.destroy({where: {time_stamp: cleanData.time_stamp}}).then(success).catch(fail);
