@@ -35,8 +35,14 @@ module.exports = function(){
         type: Sequelize.STRING,
         createdAt: true
       },
-      recipient: {
+      recipient_id: {
         type: Sequelize.STRING,
+      },
+      shipping_method: {
+        type: Sequelize.INTEGER,
+      },
+      shipping_tracking: {
+        type: Sequelize.INTEGER,
       }
     })
     // Create Units Table
@@ -64,13 +70,38 @@ module.exports = function(){
 
     })
 
+    // Create Order_Units Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var order_unit = sequelize.define('order_units', {
+      order_in: {
+        type: Sequelize.INTEGER,
+      },
+      sku: {
+        type: Sequelize.INTEGER,
+      },
+      qty: {
+        type: Sequelize.INTEGER,
+      }
+
+    })
+
+    // Create Unit_Issues Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var unit_issues = sequelize.define('unit_issues', {
+      sku: {
+        type: Sequelize.INTEGER,
+      },
+      issue_type: {
+        type: Sequelize.INTEGER,
+      },
+
+    })
+
+
     // Create Unit Issues Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    var worker = sequelize.define('workers', {
-      sku: {
-        type: Sequelize.STRING,
-      },
-      issue: {
+    var issue_type = sequelize.define('issue_types', {
+      issue_desc: {
         type: Sequelize.STRING,
       },
 
@@ -90,6 +121,9 @@ module.exports = function(){
       },
       status: {
         type: Sequelize.INTEGER,
+      },
+      pin:{
+        type: Sequelize.INTEGER,
       }
 
     })
@@ -106,6 +140,9 @@ module.exports = function(){
     // Create Pods Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     var pod = sequelize.define('pods', {
+      pod_id: {
+        type: Sequelize.INTEGER,
+      }
       current_weight: {
         type: Sequelize.INTEGER,
       },
@@ -114,6 +151,9 @@ module.exports = function(){
       },
       max_weight: {
         type: Sequelize.INTEGER,
+      },
+      last_maintain:{
+        createdAt: true,
       }
 
     })
@@ -143,6 +183,11 @@ module.exports = function(){
         type:Sequelize.INTEGER,
       }
     })
+
+    // Create Shipment Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var shipment_method = sequelize.define('shipment_methods', {})
+
     // Create unit_pods Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     var order_unit = sequelize.define('order_units', {
@@ -166,6 +211,9 @@ module.exports = function(){
       order_id: {
         type: Sequelize.INTEGER,
       },
+      pod_id: {
+        type: Sequelize.INTEGER,
+      }
 
     })
 
@@ -189,7 +237,7 @@ module.exports = function(){
       pkg_id:{
         type:Sequelize.INTEGER.
       },
-      unit_id:{
+      order_id:{
         type:Sequelize.INTEGER,
       },
       qty: {
@@ -199,7 +247,7 @@ module.exports = function(){
     })
      // Maintence Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    var maintenance = sequelize.define('maintenance', {
+    var maint_req = sequelize.define('maint_req', {
       pod_id:{
         type:Sequelize.INTEGER.
       },
