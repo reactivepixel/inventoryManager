@@ -1,5 +1,5 @@
 module.exports = function(){
-  var express     = require('express'),
+  var express     = require('express');
   var app         = express();
   var mysql       = require('mysql');
   var Sequelize   = require('sequelize');
@@ -11,7 +11,7 @@ module.exports = function(){
     var sequelize = new Sequelize(process.env.DB_NAME, process.env.MYSQL_NAME, process.env.MYSQL_PASS, {
       host: process.env.DB_HOST,
       dialect: 'mysql',
-      port:process.env.DB_PORT,
+      port:8889,
       pool: {
         max: 5,
         min: 0,
@@ -39,7 +39,6 @@ module.exports = function(){
         type: Sequelize.STRING,
       }
     })
-
     // Create Units Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     var unit = sequelize.define('units', {
@@ -47,7 +46,7 @@ module.exports = function(){
         type: Sequelize.STRING,
         primaryKey: true,
       },
-      qty_on_hand: {
+      availability_qty: {
         type: Sequelize.INTEGER,
       },
       trigger_qty: {
@@ -55,20 +54,41 @@ module.exports = function(){
       },
       replenish_qty: {
         type: Sequelize.INTEGER,
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
+      weight_lbs: {
+        type: Sequelize.INTEGER
       }
+
+    })
+
+    // Create Unit Issues Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var worker = sequelize.define('workers', {
+      sku: {
+        type: Sequelize.STRING,
+      },
+      issue: {
+        type: Sequelize.STRING,
+      },
 
     })
 
     // Create worker Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     var worker = sequelize.define('workers', {
-      qty_on_hand: {
+      name: {
+        type: Sequelize.STRING,
+      },
+      job_id: {
         type: Sequelize.INTEGER,
       },
-      trigger_qty: {
+      order_id: {
         type: Sequelize.INTEGER,
       },
-      replenish_qty: {
+      status: {
         type: Sequelize.INTEGER,
       }
 
@@ -79,7 +99,7 @@ module.exports = function(){
     var job = sequelize.define('jobs', {
       job_desc: {
         type: Sequelize.STRING
-      },
+      }
 
     })
 
@@ -87,14 +107,16 @@ module.exports = function(){
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     var pod = sequelize.define('pods', {
       current_weight: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
+      status: {
+        type: Sequelize.STRING,
+      },
+      max_weight: {
+        type: Sequelize.INTEGER,
+      }
 
     })
-
-    // Create job_relations Table
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    var job_relation = sequelize.define('job_relation', {})
 
     // Create status Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -104,24 +126,26 @@ module.exports = function(){
       }
     })
 
-    // Create unit_description Table
+    // Create Shipment Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    var unit_description = sequelize.define('unit_description', {
+    var shipment = sequelize.define('shipments', {})
+
+    //Create Shipment_Unit table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var shipment_unit = sequelize.define('shipment_units', {
+      ship_id: {
+        type: Sequelize.INTEGER,
+      }
       sku:{
         type:Sequelize.INTEGER,
-        primaryKey: true
       },
-      description:{
-        type: Sequelize.STRING
-      },
-      weight:{
-        type:Sequelize.INTEGER
+      qty:{
+        type:Sequelize.INTEGER,
       }
     })
-
     // Create unit_pods Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    var unit_pod = sequelize.define('unit_pods', {
+    var order_unit = sequelize.define('order_units', {
       sku:{
         type:Sequelize.INTEGER
       },
@@ -130,6 +154,87 @@ module.exports = function(){
       }
     })
 
+    // Inventory Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var inventory = sequelize.define('inventory', {
+      sku:{
+        type:Sequelize.INTEGER.
+      },
+      status:{
+        type:Sequelize.STRING,
+      },
+      order_id: {
+        type: Sequelize.INTEGER,
+      },
+
+    })
+
+    // Package Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var package = sequelize.define('packages', {
+      pkg_id:{
+        type:Sequelize.INTEGER.
+      },
+      order_id:{
+        type:Sequelize.STRING,
+      },
+      status: {
+        type: Sequelize.STRING,
+      },
+
+    })
+    // Package_Units Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var package_unit = sequelize.define('package_units', {
+      pkg_id:{
+        type:Sequelize.INTEGER.
+      },
+      unit_id:{
+        type:Sequelize.INTEGER,
+      },
+      qty: {
+        type: Sequelize.INTEGER,
+      },
+
+    })
+     // Maintence Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var maintenance = sequelize.define('maintenance', {
+      pod_id:{
+        type:Sequelize.INTEGER.
+      },
+      type:{
+        type:Sequelize.INTEGER,
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
+
+    })
+    // Recipients Table
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    var recipient = sequelize.define('recipients', {
+      name:{
+        type:Sequelize.INTEGER.
+      },
+      address:{
+        type:Sequelize.INTEGER,
+      },
+      city: {
+        type: Sequelize.STRING,
+      },
+      state: {
+        type: Sequelize.STRING,
+      },
+      zip: {
+        type: Sequelize.STRING,
+      },
+      phone: {
+        type: Sequelize.STRING,
+      }
+
+
+    })
     // Table Relations
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     job_relation.belongsTo(order);
