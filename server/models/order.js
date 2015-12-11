@@ -177,7 +177,6 @@ var _update = function(payload, update, success, fail){
         }).then(success).catch(fail)
       }).catch(fail);
 }
-_findAll();
 
 //_addOne({time_stamp:"k76GHY", recipient: "Brandy"});
 //_update({time_stamp:"k76GHY"}, {time_stamp:"k76GHY", recipient: "jeff"});
