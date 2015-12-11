@@ -30,6 +30,9 @@ app.use('/api/v1/unit', require('./server/routes/api/v1/unit/create.js')(express
 // Was told this is not the correct way to do this...Will be fixed
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipping.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipped.js')(express));
+app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/picking.js')(express));
+app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/packaging.js')(express));
+app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/inspecting.js')(express));
 
 
 // Start The Server
