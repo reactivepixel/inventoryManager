@@ -29,6 +29,7 @@ app.use('/api/v1/order', require('./server/routes/api/v1/order/list.js')(express
 // unit based routes
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/find.js')(express));
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/create.js')(express));
+app.use('/api/v1/unit', require('./server/routes/api/v1/unit/remove.js')(express));
 
 // app.use('/api/v1/order', require('./server/routes/api/v1/order/find.js')(express));
 // app.use('/api/v1/order', require('./server/routes/api/v1/status/picking.js')(express));
