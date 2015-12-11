@@ -1,4 +1,8 @@
 // Pulling all orders that are marked as 'shipped'
+/*
+* To test this enter {"statusId": 200}
+* and you should recieve back the data and total number of orders
+*/
 
 module.exports = function (express){
   var router = express.Router();
