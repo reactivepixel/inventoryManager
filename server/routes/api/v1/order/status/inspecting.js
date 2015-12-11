@@ -13,8 +13,8 @@ module.exports = function (express){
     order.find({statusId: statusInfo.statusId}, function(data){
       var status = statusInfo.statusId;
 
-      // Check if the status is 700, if so console.log the total orders.
-      if (status === 700){
+      // Check if the status is 600, if so console.log the total orders.
+      if (status === 600){
         console.log('Total orders: ' + data.length + '.');
         res.json({
           serverMessage: 'Your orders are: ',
