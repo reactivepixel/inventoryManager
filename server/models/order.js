@@ -49,6 +49,7 @@ module.exports = function (){
     // If Error on Adding run Fail Callback
     .catch(fail);
   }
+
   // Find All Orders
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
@@ -66,7 +67,6 @@ module.exports = function (){
     order.findAll().then(success).catch(fail);
     console.log(success);
   }
-
 
   // Find Orders
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

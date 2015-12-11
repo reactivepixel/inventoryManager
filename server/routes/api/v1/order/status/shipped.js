@@ -1,19 +1,19 @@
-// Pulling all orders that are marked as 'shipping'
+// Pulling all orders that are marked as 'shipped'
 
 module.exports = function (express){
   var router = express.Router();
   var order = require('../../../../../models/order.js');
 
-  // Route to '/shipping'
-  router.post('/shipping', function(req, res){
+  // Route to '/shipped'
+  router.post('/shipped', function(req, res){
     var statusInfo = req.body;
 
     // Find by status using the find model
     order.find({statusId: statusInfo.statusId}, function(data){
       var status = statusInfo.statusId;
 
-      // Check if the status is 700, if so console.log the total orders.
-      if (status === 700){
+      // Check if the status is 300, if so console.log the total orders.
+      if (status === 200){
         console.log('Total orders: ' + data.length + '.');
         res.json({
           serverMessage: 'Your orders are: ',
