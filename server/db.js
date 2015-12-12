@@ -11,7 +11,7 @@ module.exports = function(){
     var sequelize = new Sequelize(process.env.DB_NAME, process.env.MYSQL_NAME, process.env.MYSQL_PASS, {
       host: process.env.DB_HOST,
       dialect: 'mysql',
-      port: 8889,
+      port: process.env.PORT,
       pool: {
         max: 5,
         min: 0,
