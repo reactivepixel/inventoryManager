@@ -14,7 +14,7 @@ module.exports = function (express) {
 
     // Example of data in JSON format
     // {"qty_on_hand" : 7, "trigger_qty" : 10 : "replenish_qty" : 5}
-    unit.remove({qty_on_hand: clientUnitPost.qty_on_hand, trigger_qty: clientUnitPost.trigger_qty, replenish_qty: clientUnitPost.replenish_qty},
+    unit.create({qty_on_hand: clientUnitPost.qty_on_hand, trigger_qty: clientUnitPost.trigger_qty, replenish_qty: clientUnitPost.replenish_qty},
     function(data){
 
       // Server message of the request
