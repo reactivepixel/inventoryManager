@@ -25,6 +25,18 @@ describe('unitCRUD', function() {
     });
   });
 
+  // Find Test
+  it('findOne', function (done) {
+    unit.findOne({
+      sku: testingSku
+    }, function () {
+      done();
+    }, function (err){
+      console.log('err' + err);
+    });
+  });
+
+
   // Remove Test
   it('removeUnit', function (done) {
     unit.remove({
@@ -36,4 +48,3 @@ describe('unitCRUD', function() {
     });
   });
 });
-
