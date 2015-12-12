@@ -1,6 +1,7 @@
 // Gravity Application API | Sample Database for API Testing
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Our Sample Database for testing structure
+// FIXME: Remove this page
 var orderDatabase = {
   "j1f4f2a2aa2a92637a2629c9ff2fe083a" : {
     tracking : { status : 'Packing', timestamp : 'today'},

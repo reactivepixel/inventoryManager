@@ -1,6 +1,7 @@
 // Gravity Application API | function calls for API
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // add  var APIFunctions = require('./../functions.js'); to any page that needs these function calls
+// FIXME: Remove this page
 module.exports = function (){
   var APIFunctions = {
     idGenerator : function(){
