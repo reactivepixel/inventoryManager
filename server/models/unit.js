@@ -27,12 +27,11 @@ module.exports = function (){
   // Create Units Table
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var unit = sequelize.define('units', {
-
     sku: {
       type: Sequelize.STRING,
       primaryKey: true,
     },
-    qty_on_hand: {
+    availability_qty: {
       type: Sequelize.INTEGER,
     },
     trigger_qty: {
@@ -40,6 +39,12 @@ module.exports = function (){
     },
     replenish_qty: {
       type: Sequelize.INTEGER,
+    },
+    description: {
+      type: Sequelize.STRING,
+    },
+    weight_lbs: {
+      type: Sequelize.INTEGER
     }
 
   })
@@ -52,7 +57,7 @@ module.exports = function (){
   * @param {function} fail Callback function for execution on failed adding.
   * @example
   * // Add One Unit with Success and Failure. Note if a sku is not supplied, one is generated.
-  * unit.add({qty_on_hand: 3, trigger_qty:4, replenish_qty:5}, function(data){
+  * unit.add({availability_qty: 3, trigger_qty:4, replenish_qty:5, description: "pink", weight_lbs: 4}, function(data){
   *  console.log('Added Unit');
   * }, function(err){
   *  console.log('Adding Error-' + err);
@@ -64,9 +69,11 @@ module.exports = function (){
     // Parse payload to be applied to the defined properties
     unit.create({
       sku: payload.sku || APIFunctions.idGenerator(),
-      qty_on_hand: payload.qty_on_hand,
+      availability_qty: payload.availability_qty,
       trigger_qty: payload.trigger_qty,
-      replenish_qty: payload.replenish_qty
+      replenish_qty: payload.replenish_qty,
+      description: payload.description,
+      weight_lbs: payload.weight_lbs
     })
 
     // If Successful Adding run Success callback
@@ -158,7 +165,7 @@ var _remove = function (payload, success, fail){
 * @param {function} fail Callback function for execution on failed adding.
 * @example
 * // Update Unit with Success and Fail
-* unit.update({sku:'j14d158c64ece48fasd00ccee895b18b8bb6', qty_on_hand: 9}, function(data){
+* unit.update({sku:'j14d158c64ece48fasd00ccee895b18b8bb6', availability_qty: 9}, function(data){
 *     console.log(data);
 * }, function(err){
 *   console.log('Error Code: ' + err.code);
@@ -183,11 +190,12 @@ var _update = function(payload, success, fail){
 
         // Update the Atts of the returned row
         data.updateAttributes({
-
             // Unit's SKU should not change.
-            qty_on_hand: cleanData.qty_on_hand,
+            availability_qty: cleanData.qty_on_hand,
             trigger_qty: cleanData.trigger_qty,
-            replenish_qty: cleanData.replenish_qty
+            replenish_qty: cleanData.replenish_qty,
+            description: cleanData.description,
+            weight_lbs: cleanData.weight_lbs
         }).then(success).catch(fail)
       }).catch(fail);
 }
