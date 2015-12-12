@@ -43,4 +43,8 @@ app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/ins
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var server = app.listen(port, function() {
   console.log('Server Active on Port ' + port);
+  console.log('NOTICE ============');
+  console.log('check version in package.json. if you are below version 1.5.0 run the following');
+  console.log('npm install, drop gravity database, create gravity database, install mocha globally');
+  console.log('NOTICE ============');
 });
