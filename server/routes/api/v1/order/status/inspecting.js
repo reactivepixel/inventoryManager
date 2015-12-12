@@ -14,7 +14,7 @@ module.exports = function (express){
       var status = statusInfo.statusId;
 
       // Check if the status is 600, if so console.log the total orders
-  git 
+      // FIXME: res.json errors out due to bad object notation.
       if (status === 600){
         console.log('Total orders: ' + data.length + '.');
         res.json({
