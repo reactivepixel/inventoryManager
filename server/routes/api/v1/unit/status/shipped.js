@@ -6,23 +6,23 @@
 
 module.exports = function (express){
   var router = express.Router();
-  var order = require('../../../../../models/order.js');
+  var unit = require('../../../../../models/unit.js');
 
   // Route to '/shipped'
   router.post('/shipped', function(req, res){
     var statusInfo = req.body;
 
     // Find by status using the find model
-    order.find({statusId: statusInfo.statusId}, function(data){
+    unit.find({statusId: statusInfo.statusId}, function(data){
       var status = statusInfo.statusId;
 
       // Check if the status is 300, if so console.log the total orders.
       if (status === 200){
-        console.log('Total orders: ' + data.length + '.');
+        console.log('Total units: ' + data.length + '.');
         res.json({
-          serverMessage: 'Your orders are: ',
+          serverMessage: 'Your units are: ',
           orders: data,
-          serverResponse: 'Total orders: ' + data.length
+          serverResponse: 'Total units: ' + data.length
         });
       } else {
         res.json({

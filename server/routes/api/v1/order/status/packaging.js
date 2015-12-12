@@ -18,7 +18,7 @@ module.exports = function (express){
         console.log('Total orders: ' + data.length + '.');
         res.json({
           serverMessage: 'Your orders are: ',
-          data,
+          orders: data,
           serverResponse: 'Total orders: ' + data.length
         });
       } else {

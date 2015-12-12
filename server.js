@@ -27,12 +27,18 @@ app.use(bodyParser.urlencoded({
 // TODO: add passport to parameters
 app.use('/api/v1/order', require('./server/routes/api/v1/order/list.js')(express));
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/create.js')(express));
-// Was told this is not the correct way to do this...Will be fixed
+// Was told this is not the correct way to do this...Will be fixed -- Orders
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipping.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipped.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/picking.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/packaging.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/inspecting.js')(express));
+// These are for the Units
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/shipping.js')(express));
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/shipped.js')(express));
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/picking.js')(express));
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/packaging.js')(express));
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/inspecting.js')(express));
 
 
 // Start The Server

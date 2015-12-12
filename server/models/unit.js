@@ -108,6 +108,25 @@ module.exports = function (){
     unit.findOne({where:payload}).then(success).catch(fail);
   }
 
+  // Find Units
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  /**
+  * @param {obj} What to filter upon
+  * @param {function} success Callback function for execution on successful adding.
+  * @param {function} fail Callback function for execution on failed adding.
+  * @example
+  * // Return all units where it meets a certain requirement with Success and Failure
+  * unit.find({statusId: status.statusId}, function(data){
+  *   res.json(data);
+  * }, function(err){
+  *   console.log('err' + err);
+  * });
+  */
+  var _find = function (payload, success, fail){
+    unit.findAll({where:payload}).then(success).catch(fail);
+    console.log(success);
+  }
+
 // Remove One units
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 /**
@@ -183,6 +202,7 @@ return {
   all: _findAll,
   findOne: _findOne,
   remove: _remove,
-  update: _update
+  update: _update,
+  find: _find
 }
 }();
