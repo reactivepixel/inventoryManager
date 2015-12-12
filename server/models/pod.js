@@ -1,15 +1,18 @@
+// Gravity Application Models | Pod
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function(){
 	var db = require('../db.js')();
   var data = require('../../lib/sanitize.js');
   var Sequelize = require('sequelize');
   var sequelize = db.connection;
 
- var APIFunctions = {
-  idGenerator : function(){
-    function s4() {
-      // Handles making unqiue characters in sets of 4
-      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    }
+  // FIXME: shouldn't have this function here... call lib directory to include
+  var APIFunctions = {
+    idGenerator : function(){
+      function s4() {
+        // Handles making unqiue characters in sets of 4
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+      }
 
     // Combine and return a string of random characters several.
     // The first character MUST be a letter for id's to work. we've gone with "J"
@@ -17,9 +20,9 @@ module.exports = function(){
   	}
   };
 
-	var defaultFail = function(err, doc){console.log('err', err, doc); }
+	var defaultFail = function(err, doc){console.log('err', err, doc); };
 
-	var defaultSanitize = function (uncleanData){return uncleanData; }
+	var defaultSanitize = function (uncleanData){return uncleanData; };
 
   // Create unit_pods Table
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -30,7 +33,7 @@ module.exports = function(){
     qty:{
       type:Sequelize.INTEGER
     }
-  })
+  });
 
   // Add One Unit Pod to db
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -58,7 +61,7 @@ module.exports = function(){
 
     // If Error on Adding run Fail Callback
     .catch(fail);
-  }
+  };
   
   // Find All Unit Pods
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -76,7 +79,7 @@ module.exports = function(){
   var _findAll = function (success, fail){
     unit_pod.findAll().then(success).catch(fail);
     console.log(success);
-  }
+  };
   
   // Find One Unit Pod(s)
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -100,7 +103,7 @@ module.exports = function(){
     if(!cleanData) return fail({ code:301 });
 
     unit_pod.findOne({where:payload}).then(success).catch(fail);
-  }
+  };
 
 	// Remove One Unit Pod
 	// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -128,57 +131,57 @@ module.exports = function(){
 	  if(!cleanData.sku) return fail({ code:301 });
 
 	  unit_pod.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
-	}
+	};
 
-// Update One Unit Pod
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-/**
-* @param {obj} payload Requires 'sku' attribute
-* @param {function} success Callback function for execution on successful adding.
-* @param {function} fail Callback function for execution on failed adding.
-* @example
-* // Update Unit Pod with Success and Fail
-* unit_pod.update({sku:'j50611e7d5dd30b0d676654de47d6794d', qty: 220}, function(data){
-*     console.log(data);
-* }, function(err){
-*   console.log('Error Code: ' + err.code);
-* });
-*/
-var _update = function(payload,success, fail){
+  // Update One Unit Pod
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  /**
+  * @param {obj} payload Requires 'sku' attribute
+  * @param {function} success Callback function for execution on successful adding.
+  * @param {function} fail Callback function for execution on failed adding.
+  * @example
+  * // Update Unit Pod with Success and Fail
+  * unit_pod.update({sku:'j50611e7d5dd30b0d676654de47d6794d', qty: 220}, function(data){
+  *     console.log(data);
+  * }, function(err){
+  *   console.log('Error Code: ' + err.code);
+  * });
+  */
+  var _update = function(payload,success, fail){
 
-      // Run user data through sanitize.
-      cleanData = defaultSanitize(payload);
+        // Run user data through sanitize.
+        cleanData = defaultSanitize(payload);
 
-      // If sanitize fails prevent payload from touching the db
-      if(!cleanData) return fail({ code:301 });
+        // If sanitize fails prevent payload from touching the db
+        if(!cleanData) return fail({ code:301 });
 
 
-      // Valudation:
-      if(!cleanData.sku) return fail({ code:301 });
+        // Valudation:
+        if(!cleanData.sku) return fail({ code:301 });
 
-      unit_pod.find({where:{sku:cleanData.sku}}).then(function (data) {
+        unit_pod.find({where:{sku:cleanData.sku}}).then(function (data) {
 
-        // No data was found
-        if (!data) return fail({ code:302 });
+          // No data was found
+          if (!data) return fail({ code:302 });
 
-        // Update the Atts of the returned row
-        // Unit Pod sku will not change
-        data.updateAttributes({
-            qty: payload.qty
-        }).then(success).catch(fail)
-      }).catch(fail);
-}
+          // Update the Atts of the returned row
+          // Unit Pod sku will not change
+          data.updateAttributes({
+              qty: payload.qty
+          }).then(success).catch(fail)
+        }).catch(fail);
+  };
 
-//_findAll();
-//_addOne({qty:5});
-//_update({time_stamp:"k76GHY"}, {time_stamp:"k76GHY", recipient: "jeff"});
-//_remove({sku:'j046a146d960d0d340da09e62dddb61ac'})
-//_update({sku:'j046a146d960d0d340da09e62dddb61ac', qty: 19220});
-return {
-  add: _addOne,
-  all: _findAll,
-  findOne: _findOne,
-  remove: _remove,
-  update: _update
-}
+  //_findAll();
+  //_addOne({qty:5});
+  //_update({time_stamp:"k76GHY"}, {time_stamp:"k76GHY", recipient: "jeff"});
+  //_remove({sku:'j046a146d960d0d340da09e62dddb61ac'})
+  //_update({sku:'j046a146d960d0d340da09e62dddb61ac', qty: 19220});
+  return {
+    all: _findAll,
+    create: _addOne,
+    findOne: _findOne,
+    remove: _remove,
+    update: _update
+  }
 }();
