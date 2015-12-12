@@ -5,7 +5,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv').load();
 var mysql = require('mysql');
-var dotenv = require('dotenv').load();
 
 // Initialize Application
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -14,25 +13,29 @@ var port = process.env.PORT || 3000;
 
 // Middleware
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// for parsing application/json
+// For parsing application/json
 app.use(bodyParser.json());
 
-// for parsing application/x-www-form-urlencoded
+// For parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
 
 // Routes
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // TODO: add passport to parameters
 app.use('/api/v1/order', require('./server/routes/api/v1/order/list.js')(express));
+
+// unit based routes
+app.use('/api/v1/unit', require('./server/routes/api/v1/unit/find.js')(express));
+app.use('/api/v1/unit', require('./server/routes/api/v1/unit/create.js')(express));
+app.use('/api/v1/unit', require('./server/routes/api/v1/unit/remove.js')(express));
+
 // app.use('/api/v1/order', require('./server/routes/api/v1/order/find.js')(express));
 // app.use('/api/v1/order', require('./server/routes/api/v1/status/picking.js')(express));
 // app.use('/api/v1/order', require('./server/routes/api/v1/status/inspecting.js')(express));
 // app.use('/api/v1/order', require('./server/routes/api/v1/status/packaging.js')(express));
 // app.use('/api/v1/order', require('./server/routes/api/v1/status/shipping.js')(express));
-
 
 // Start The Server
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

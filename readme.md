@@ -30,7 +30,10 @@ $ brew install mysql
 login to your local mysql server create a database called gravity
 
 ```
+
+$ mysql.server start
 $ mysql -u root
+$ mysql.server restart
 
 mysql> create database gravity
 
@@ -676,9 +679,39 @@ The response contains all the new data on the unit after adding received units t
 ```
 
 ### Unit Receiving
-This might turn out to be what I wrote for Unit Qty Update above. Need feedback.
+(needs differentiation from previous endpoint)
 
-***
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/find` | `GET` | Not Started |
+
+A list of all units in receiving is retrieved.
+
+##### Request
+Units table is queried for records matching the status code indicating units have been recieved into inventory.
+
+```javascript
+  status: {
+    responseCode: 200
+  }
+```
+
+##### Response
+All units with the corresponding status code are returned.
+
+```javascript
+{
+  units: [{
+    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    quantity_on_hand: 8,
+    trigger_qty: 3,
+    replenish_qty: 5,
+    status: {
+      responseCode: 200
+    }
+  }]
+}
+```
 
 ### Unit Available
 | Endpoint | Method | Development Status |
@@ -887,6 +920,257 @@ Returns an object containing all units with the status code corresponding to shi
     {
       uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
       quantity: 1
+    }
+  ]
+}
+```
+
+## SKU Object Definitions
+
+### SKU Create
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `sku/create` | `POST` | Not Started |
+
+A sku is created/entered into the db (inventory table) when a JSON object that matches the supplied example is sent to the endpoint.
+
+##### Request
+An object is submitted to the db with all information about the sku.
+
+```javascript
+{
+  inventory: {
+    sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    desc: 'This widget is small and blue.',
+    pod_id: 'p801594f2c91',
+    status: {
+      responseCode: 200
+    }
+  }
+}
+```
+
+##### Response
+
+```javascript
+{
+  inventory: {
+    sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    desc: 'This widget is small and blue.'
+    pod_id: 'p801594f2c91',
+    status: {
+      responseCode: 200
+    }
+  }
+}
+```
+
+### SKU Find
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `sku/find` | `GET` | Not Started |
+
+A specific unit record is retrieved assisting in discerning the location of the unit in the warehouse based on status code and/or pod affiliation.
+
+##### Request
+Inventory table is queried for records matching the sku.
+
+```javascript
+{
+  sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+}
+```
+
+##### Response
+
+```javascript
+{
+  inventory: {
+    sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    desc: 'This widget is small and blue.'
+    pod_id: 'p801594f2c91',
+    status: {
+      responseCode: 200
+    }
+  }
+}
+```
+
+## Shipment Object Definitions
+
+### Shipment Create
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `shipment/create` | `POST` | Not Started |
+
+A shipment is created/entered into the db (shipments table) when a JSON object that matches the supplied example is sent to the endpoint. There should be logic in this model to check for the ship_id in the db before attempting to Create a new record.
+
+##### Request
+An object is submitted to the db with ship_id, associated pkg_id, order_id and default initial status.
+
+```javascript
+{
+  shipments: {
+    ship_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    pkg_id: 'package01',
+    order_id: 'order01',
+    status: {
+      responseCode: 200
+    }
+  }
+}
+```
+
+##### Response
+
+```javascript
+{
+  shipments: {
+    ship_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    pkg_id: 'package01',
+    order_id: 'order01',
+    units: [
+      {
+        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+        quantity: 10
+      }
+    ],
+    recipient: {
+      name: 'Jazy Jasilo',
+      address: '3300 University Blvd, Winter Park, FL 32792',
+      email: 'orange@fullsail.edu',
+      phone: '555-555-5555'
+    },
+    ship_method: 'method_id',
+    status: {
+      responseCode: 200
+    }
+  }
+}
+```
+
+### Shipment Find
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `shipment/find` | `GET` | Not Started |
+
+A specific shipment record is retrieved.
+
+##### Request
+Shipment table is queried for units matching the ship_id.
+
+```javascript
+{
+  ship_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+}
+```
+
+##### Response
+
+```javascript
+{
+  shipments: {
+    ship_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    pkg_id: 'package01',
+    order_id: 'order01',
+    units: [
+      {
+        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+        quantity: 10
+      }
+    ],
+    recipient: {
+      name: 'Jazy Jasilo',
+      address: '3300 University Blvd, Winter Park, FL 32792',
+      email: 'orange@fullsail.edu',
+      phone: '555-555-5555'
+    },
+    ship_method: 'method_id',
+    status: {
+      responseCode: 200
+    }
+  }
+}
+```
+
+### Shipment Loading
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `shipment/loading` | `GET` | Not Started |
+
+A list of all shipments being loaded on trucks is retrieved.
+
+##### Request
+Shipments table is queried for records matching the status code indicating package has passed all QA and is ready for departure.
+
+```javascript
+  status: {
+    responseCode: 200
+  }
+```
+
+##### Response
+
+```javascript
+{
+  shipments: [
+    {
+      ship_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      pkg_id: 'package01',
+      order_id: 'order01',
+      units: [
+        {
+          sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+          quantity: 10
+        }
+      ],
+      recipient: {
+        name: 'Jazy Jasilo',
+        address: '3300 University Blvd, Winter Park, FL 32792',
+        email: 'orange@fullsail.edu',
+        phone: '555-555-5555'
+      },
+      ship_method: 'method_id',
+      status: {
+        responseCode: 200
+      }
+    }
+  ]
+}
+```
+
+### Shipment Receiving
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `receiving/find` | `GET` | Not Started |
+
+A list of all shipments in receiving is retrieved.
+
+##### Request
+Shipments table is queried for records matching the status code indicating package has arrived at warehouse.
+
+```javascript
+  status: {
+    responseCode: 200
+  }
+```
+
+##### Response
+
+```javascript
+{
+  shipments: [
+    {
+      ship_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      units: [
+        {
+          sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+          quantity: 10
+        }
+      ],
+      status: {
+        responseCode: 200
+      }
     }
   ]
 }
