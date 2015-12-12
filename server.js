@@ -1,6 +1,6 @@
 // Gravity Application Server | NPM Modules
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// located in the node_modules [use npm install to update from package.json]
+// Located in the node_modules [use npm install to update from package.json]
 var express = require('express');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv').load();
@@ -23,19 +23,21 @@ app.use(bodyParser.urlencoded({
 
 // Routes
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// TODO: add passport to parameters
+// TODO: add passport to parameters, define separate route directory
 app.use('/api/v1/order', require('./server/routes/api/v1/order/list.js')(express));
 
-// unit based routes
+// Unit based routes
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/find.js')(express));
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/create.js')(express));
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/remove.js')(express));
 
-// app.use('/api/v1/order', require('./server/routes/api/v1/order/find.js')(express));
-// app.use('/api/v1/order', require('./server/routes/api/v1/status/picking.js')(express));
-// app.use('/api/v1/order', require('./server/routes/api/v1/status/inspecting.js')(express));
-// app.use('/api/v1/order', require('./server/routes/api/v1/status/packaging.js')(express));
-// app.use('/api/v1/order', require('./server/routes/api/v1/status/shipping.js')(express));
+// Unit based routes
+app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipping.js')(express));
+app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipped.js')(express));
+app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/picking.js')(express));
+app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/packaging.js')(express));
+app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/inspecting.js')(express));
+
 
 // Start The Server
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
