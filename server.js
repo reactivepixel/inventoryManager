@@ -31,12 +31,18 @@ app.use('/api/v1/unit', require('./server/routes/api/v1/unit/find.js')(express))
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/create.js')(express));
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/remove.js')(express));
 
-// Unit based routes
+// Was told this is not the correct way to do this...Will be fixed -- Orders
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipping.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipped.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/picking.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/packaging.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/inspecting.js')(express));
+// These are for the Units
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/shipping.js')(express));
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/shipped.js')(express));
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/picking.js')(express));
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/packaging.js')(express));
+app.use('/api/v1/units/status', require('./server/routes/api/v1/units/status/inspecting.js')(express));
 
 
 // Start The Server
