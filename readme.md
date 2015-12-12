@@ -13,7 +13,7 @@ npm install
 
 ### Configure Database
 
-make sure that mysql is installed 
+make sure that mysql is installed
 
 ```
 $ mysql --version
@@ -30,7 +30,7 @@ $ brew install mysql
 login to your local mysql server create a database called gravity
 
 ```
-$ mysql -u root 
+$ mysql -u root
 
 mysql> create database gravity
 
@@ -41,7 +41,7 @@ Next create a .env file for your local environment variables
 DB_HOST = 127.0.0.1
 DB_NAME = gravity
 MYSQL_NAME = {local user} // usually root
-MYSQL_PASS = {local password} // standard install set to blank 
+MYSQL_PASS = {local password} // standard install set to blank
 DB_PORT = {local port running mysql} //standard port is 3306
 
 ```
@@ -130,7 +130,7 @@ All routes should be prefixed with ```/api/v1```
 | [Unit Create](#unit-create) | Add a new Unit to the Database |
 | [Unit Find](#unit-find) | Find a Unit by Supplied Unit ID |
 | [Unit Update Inspect](#unit-update-inspect) | Update a Unit based upon Inspection |
-| [Unit Update Qty](#unit-update-qty) | Update Unit quantity during Receiving |
+| [Unit Replenish](#unit-replenish) | Update Unit quantity during Receiving |
 | [Unit Receiving](#unit-receiving) | Returns all Units that are in Receiving |
 | [Unit Available](#unit-available) | Returns all Units that are available for Picking |
 | [Unit Picking](#unit-picking) | Returns all Units that are currently being Picked |
@@ -175,9 +175,9 @@ All routes should be prefixed with ```/api/v1```
 
 ## Order Object Definitions
 ### Order Create
-| Endpoint | Method | Status |
-|---|---|---|
-| `order/create` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `order/create` | `POST` | Not Started |
 
 An order is created when a JSON object that matches the supplied example is sent to the endpoint.
 
@@ -193,7 +193,7 @@ An order is created when a JSON object that matches the supplied example is sent
   	  phone: '555-555-5555'
     },
     units: [{
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
   	  quantity: 4
     }]
   }
@@ -204,7 +204,10 @@ An order is created when a JSON object that matches the supplied example is sent
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+  available_qty: 5,
+  trigger_qty: 3,
+  replenish_qty: 5,
   status: {
     responseCode: 200
   }
@@ -212,9 +215,9 @@ An order is created when a JSON object that matches the supplied example is sent
 ```
 
 ### Order Find
-| Endpoint | Method | Status |
-|---|---|---|
-| `order/find` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `order/find` | `GET` | Not Started |
 
 An order is retrieved when a JSON object that contains an `uuid` is sent to the endpoint.
 
@@ -226,7 +229,7 @@ An order is retrieved when a JSON object that contains an `uuid` is sent to the 
 }
 ```
 
-##### Response
+##### Response Pass
 
 ```javascript
 {
@@ -243,12 +246,22 @@ An order is retrieved when a JSON object that contains an `uuid` is sent to the 
     }]
   }
 }
+
+```
+##### Response Fail
+
+```
+{
+  "serverResponse": "Searching for order: undefined",
+  "serverMessage": "orderId undefined doesn't exist.",
+  "statusMessage": {}
+}
 ```
 
 ### Order Update Inspect
-| Endpoint | Method | Status |
-|---|---|---|
-| `order/update/inspect` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `order/update/inspect` | `PUT` | Not Started |
 
 The status of an order is updated during the inspection process to either "shipping" or "failed."
 
@@ -272,9 +285,9 @@ The status of an order is updated during the inspection process to either "shipp
 ```
 
 ### Order Update Ship
-| Endpoint | Method | Status |
-|---|---|---|
-| `order/update/ship` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `order/update/ship` | `PUT` | Not Started |
 
 The status of an order is updated during the shipping process to either "shipped."  The shipping method and tracking number is added.
 
@@ -302,11 +315,11 @@ The status of an order is updated during the shipping process to either "shipped
 ```
 
 ### Order Picking
-| Endpoint | Method | Status |
-|---|---|---|
-| `order/picking` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `order/picking` | `POST` | Not Started |
 
-All orders with a status of "picking" are returned.  A total of all orders is also returned.
+All orders with a status of "picking" are returned.
 
 #### Request
 
@@ -322,17 +335,21 @@ All orders with a status of "picking" are returned.  A total of all orders is al
 
 ```javascript
 {
-  totalOrders: 300,
-  orders: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-  }]
+  orders: [
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    },
+    {
+      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    }
+  ]
 }
 ```
 
 ### Order Packaging
-| Endpoint | Method | Status |
-|---|---|---|
-| `order/packaging` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `order/packaging` | `POST` | Not Started |
 
 All orders with a status of "packaging" are returned.  A total of all orders is also returned.
 
@@ -358,9 +375,9 @@ All orders with a status of "packaging" are returned.  A total of all orders is 
 ```
 
 ### Order Inspecting
-| Enpoint | Method | Status |
-|---|---|---|
-| `order/inspecting` | `POST` | `STATUS` |
+| Enpoint | Method | Development Status |
+|---|---|:---:|
+| `order/inspecting` | `POST` | Not Started |
 
 All orders with a status of "inspecting" are returned.  A total of all orders is also returned.
 
@@ -387,9 +404,9 @@ All orders with a status of "inspecting" are returned.  A total of all orders is
 
 ### Order Shipping
 
-| Enpoint | Method | Status |
-|---|---|---|
-| `order/shipping` | `POST` | `STATUS` |
+| Enpoint | Method | Development Status |
+|---|---|:---:|
+| `order/shipping` | `POST` | Not Started |
 
 All orders with a status of "shipping" are returned.  A total of all orders is also returned.
 
@@ -415,9 +432,9 @@ All orders with a status of "shipping" are returned.  A total of all orders is a
 ```
 
 ### Order Shipped
-| Enpoint | Method | Status |
-|---|---|---|
-| `order/shipped` | `POST` | `STATUS` |
+| Enpoint | Method | Development Status |
+|---|---|:---:|
+| `order/shipped` | `POST` | Not Started |
 
 All orders with a status of "shipped" are returned.  A total of all orders is also returned.
 
@@ -444,9 +461,9 @@ All orders with a status of "shipped" are returned.  A total of all orders is al
 
 ## Package Object Definitions
 ### Package Create
-| Endpoint | Method | Status |
-|---|---|---|
-| `package/create` | ```POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `package/create` | ```POST` | Not Started |
 
 A package is created when a JSON object that matches the supplied example is sent to the endpoint.
 
@@ -487,9 +504,9 @@ A package is created when a JSON object that matches the supplied example is sen
 ```
 
 ### Package Find
-| Enpoint | Method | Status |
-|---|---|---|
-| `package/find` | `POST` | `STATUS` |
+| Enpoint | Method | Development Status |
+|---|---|:---:|
+| `package/find` | `POST` | Not Started |
 
 An order is retrieved when a JSON object that contains an `uuid` is sent to the endpoint.
 
@@ -529,9 +546,9 @@ An order is retrieved when a JSON object that contains an `uuid` is sent to the 
 ## Unit Object Definitions
 
 ### Unit Create
-| Endpoint | Method | Status |
-|---|---|---|
-| `unit/create` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/create` | `POST` | Not Started |
 
 A unit is created/entered into the db when a JSON object that matches the supplied example is sent to the endpoint. There should be logic in this model to check for the uuid in the db before attempting to Create a new record.
 
@@ -564,9 +581,9 @@ An object is submitted to the db with uuid, initial quantity and the intial stat
 ```
 
 ### Unit Find
-| Endpoint | Method | Status |
-|---|---|---|
-| `unit/find` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/find` | `POST` | Not Started |
 
 A specific unit record is retrieved assisting in discerning the location of the unit in the warehouse based on status code or pod affiliation.
 
@@ -597,9 +614,9 @@ Units table is queried for units matching the uuid.
 ```
 
 ### Unit Update Inspect
-| Endpoint | Method | Status |
-|---|---|---|
-| `unit/update/inspect` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/update/inspect` | `POST` | Not Started |
 
 The status of a unit is updated during the inspection process to either "passed" or "failed." Because there are two inspection areas in the workflow this endpoint might need to be split into two separate ones to correlate with the actual inspection versus a general inspection.
 
@@ -624,10 +641,10 @@ Returns an object containing the uuid queried and its' status code.
 }
 ```
 
-### Unit Update Qty
-| Endpoint | Method | Status |
-|---|---|---|
-| `unit/update/qty` | `POST` | `STATUS` |
+### Unit Replenish
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/replenish` | `POST` | Not Started |
 
 The quantity of a unit is updated during the receiving of units for replenishment.
 The model for this will likely be very similar to the find method in that it takes the single uuid as an argument and returns info on that sku alone.
@@ -664,9 +681,9 @@ This might turn out to be what I wrote for Unit Qty Update above. Need feedback.
 ***
 
 ### Unit Available
-| Endpoint | Method | Status |
-|---|---|---|
-| `unit/available` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/available` | `POST` | Not Started |
 
 Available units are returned for a particular uuid.
 
@@ -695,9 +712,9 @@ Returns an object containing the unit matching the uuid. Displays the `qty_on_ha
 ```
 
 ### Unit Picking
-| Endpoint | Method | Status |
-|---|---|---|
-| `unit/picking` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/picking` | `POST` | Not Started |
 
 #### Request
 Units table is queried for units with a status code that indicates 'picking'.
@@ -731,9 +748,9 @@ Returns an object containing all units with the status code corresponding to pic
 ```
 
 ### Unit Packaging
-| Endpoint | Method | Status |
-|---|---|---|
-| `unit/packaging` | `POST` | `STATUS` |
+| Endpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/packaging` | `POST` | Not Started |
 
 These units have passed through the post-picking inspection and are on their way to shipping.
 
@@ -767,9 +784,9 @@ Returns an object containing all units with the status code corresponding to pac
 ```
 
 ### Unit Inspecting
-| Enpoint | Method | Status |
-|---|---|---|
-| `unit/inspecting` | `POST` | `STATUS` |
+| Enpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/inspecting` | `POST` | Not Started |
 
 These units are involved in the receiving inspection or the post-picking inspection.
 
@@ -804,9 +821,9 @@ Returns an object containing all units with the status code corresponding to ins
 
 ### Unit Shipping
 
-| Enpoint | Method | Status |
-|---|---|---|
-| `unit/shipping` | `POST` | `STATUS` |
+| Enpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/shipping` | `POST` | Not Started |
 
 These units are involved in the shipping stage.
 
@@ -840,9 +857,9 @@ Returns an object containing all units with the status code corresponding to shi
 ```
 
 ### Unit Shipped
-| Enpoint | Method | Status |
-|---|---|---|
-| `unit/shipped` | `POST` | `STATUS` |
+| Enpoint | Method | Development Status |
+|---|---|:---:|
+| `unit/shipped` | `POST` | Not Started |
 
 These units have been sucessfully shipped from the warehouse.
 
