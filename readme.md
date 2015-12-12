@@ -104,6 +104,23 @@ TODO Write Me
 
 # API v1 Documentation
 
+## Status Codes
+| Status Code   | General Meaning | Reason                                  |
+| ------------- | --------------  | --------------------------------------- |
+| 100           | Picking         | Usually means 'continue' or 'processing'|
+| 200           | Shipped         | Usually a 'success' message             |
+| 300           | Packaging       | Usually means a 'redirect'              |
+| 301           | Info Not Supplied | When an endpoint is expecting some piece of data (SKU for Instance) and the POST request did not contain the expected data.
+| 400           | Not Found       | Usually an 'error'                      |
+| 500           | Unavailable     | Usually a 'bad request'                 |
+| 600           | Inspecting      |                                         |
+| 700           | Shipping        |                                         |
+| 800           | Incomplete      |                                         |
+| 900           | Retired         | After it is out of our hands            |
+
+
+* *This list can be changed, this is not set in stone. If you find that a status code would suit a different reason, let me know so that the proper changes can be made. The assigned status code decisions were made based on http status codes and somewhat an order in which they go through in the warehouse.*
+
 All routes should be prefixed with ```/api/v1```
 
 ## Routes
