@@ -11,7 +11,7 @@ module.exports = function (){
   var defaultFail = function(err, doc){ console.log('err' + err + doc); }
 
   // TODO Write a sanitize function once we see some bad data comeing through
-  var defaultSanitize = function(uncleanData){ return uncleanData; }
+  var defaultSanitize = function(uncleanData){ return uncleanData; };
 
   // Create Units Table
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -179,7 +179,7 @@ var _update = function(payload, success, fail){
 }
 
 return {
-  add: _addOne,
+  create: _addOne,
   all: _findAll,
   findOne: _findOne,
   remove: _remove,

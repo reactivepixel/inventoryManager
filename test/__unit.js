@@ -1,11 +1,11 @@
-var expect          = require("chai").expect,
-    assert          = require("assert"),
-    should          = require('should'),
-    unit            = require('../server/models/unit.js');
+var expect = require("chai").expect;
+var assert = require("assert");
+var should = require('should');
+var unit = require('../server/models/unit.js');
 
 describe('Unit', function() {
     it('Adds New', function (done) {
-        unit.add({
+        unit.create({
             qty_on_hand: 34,
             trigger_qty: 25,
             replenish_qty: 55
