@@ -14,12 +14,11 @@ module.exports = function (express){
       var status = statusInfo.statusId;
 
       // Check if the status is 300, if so console.log the total orders.
-      // FIXME: res.json errors out due to bad object notation.
       if (status === 300){
         console.log('Total orders: ' + data.length + '.');
         res.json({
           serverMessage: 'Your orders are: ',
-          data,
+          data: '',
           serverResponse: 'Total orders: ' + data.length
         });
       } else {
