@@ -8,7 +8,7 @@ module.exports = function (express){
   var router = express.Router();
   var order = require('../../../../../models/order.js');
 
-  // Route to '/shipped'
+  // Route to '/api/v1/order/status/shipped'
   router.post('/shipped', function(req, res){
     var statusInfo = req.body;
 
@@ -17,7 +17,7 @@ module.exports = function (express){
       var status = statusInfo.statusId;
 
       // Check if the status is 300, if so console.log the total orders.
-            if (status === 200){
+      if (status === 200){
         console.log('Total orders: ' + data.length + '.');
         res.json({
           serverMessage: 'Your orders are: ',

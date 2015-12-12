@@ -5,7 +5,7 @@ module.exports = function (express){
   var router = express.Router();
   var order = require('../../../../../models/order.js');
 
-  // Route to '/inspecting'
+  // Route to '/api/v1/order/status/inspecting'
   router.post('/inspecting', function(req, res){
     var statusInfo = req.body;
 
