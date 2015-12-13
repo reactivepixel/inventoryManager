@@ -170,7 +170,7 @@ module.exports = function(){
 
     // Package Table
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    var package = sequelize.define('packages', {
+    var pack = sequelize.define('packs', {
       order_id:{
         type:Sequelize.STRING,
       },
@@ -244,8 +244,8 @@ module.exports = function(){
     order.hasOne(shipping_method);
     order.hasOne(status);
     order.hasOne(order_unit);
-    package.hasOne(order);
-    package.hasOne(status);
+    pack.hasOne(order);
+    pack.hasOne(status);
     worker.hasOne(status);
     worker.hasOne(job);
     inventory.hasOne(status);
@@ -257,7 +257,7 @@ module.exports = function(){
     unit.hasOne(shipment_unit);
     shipment_unit.hasOne(shipment);
     package_unit.hasOne(unit);
-    package.hasOne(package_unit);
+    pack.hasOne(package_unit);
     pod.hasOne(maintenance);
     maintenance.hasOne(maint_type);
 

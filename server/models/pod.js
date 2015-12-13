@@ -172,7 +172,7 @@ var _update = function(payload,success, fail){
         data.updateAttributes({
             current_weight: payload.current_weight,
             max_weight: update.max_weight,
-            last_maintained: update.last_maintained
+            last_maintained: update.last_maintained,
         }).then(success).catch(fail)
       }).catch(fail);
 }
