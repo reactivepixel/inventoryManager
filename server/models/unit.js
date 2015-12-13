@@ -101,6 +101,25 @@ module.exports = function (){
     unit.findAll().then(success).catch(fail);
   };
 
+  // Find Units
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  /**
+  * @param {obj} What to filter upon
+  * @param {function} success Callback function for execution on successful adding.
+  * @param {function} fail Callback function for execution on failed adding.
+  * @example
+  * // Return all units where it meets a certain requirement with Success and Failure
+  * unit.find({statusId: status.statusId}, function(data){
+  *   res.json(data);
+  * }, function(err){
+  *   console.log('err' + err);
+  * });
+  */
+  var _find = function (payload, success, fail){
+    unit.findAll({where:payload}).then(success).catch(fail);
+    console.log(success);
+  }
+
   // Find One Unit(s)
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
@@ -126,7 +145,7 @@ module.exports = function (){
   };
 
 
-  // Find Units
+  // Find Units using where (returning more than one)
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
   * @param {obj} What to filter upon
@@ -220,6 +239,7 @@ module.exports = function (){
 
   return {
     create: _addOne,
+    find: _find,
     findAll: _findAll,
     findOne: _findOne,
     find: _find,
