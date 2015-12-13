@@ -1,4 +1,4 @@
-module.exports = function (){
+module.exports = function() {
   var db = require('../db.js')();
   var data = require('../../lib/sanitize.js');
   var Sequelize = require('sequelize');
@@ -28,17 +28,17 @@ module.exports = function (){
    * @param {function} fail Callback function for execution on failed adding.
    * @example
    * order.add({shipping_tracking: 1234}, function(data){
-    *  console.log('Added Order');
-    * }, function(err){
-    *  console.log('Adding Error-' + err);
-    * });
+   *  console.log('Added Order');
+   * }, function(err){
+   *  console.log('Adding Error-' + err);
+   * });
    */
 
   var _addOne = function(payload, success, fail){
     payload = defaultSanitize(payload);
     // Parse payload to be applied to the defined properties
     order.create({
-      shipping_tracking: payload.shipping_tracking,
+      shipping_tracking: payload.shipping_tracking
     })
 
       // If Successful Adding run Success callback
@@ -84,7 +84,7 @@ module.exports = function (){
   var _findOne = function (payload, success, fail){
 
     // Run user data through sanitize.
-    cleanData = defaultSanitize(payload);
+    var cleanData = defaultSanitize(payload);
 
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
@@ -110,7 +110,7 @@ module.exports = function (){
   var _find = function (payload, success, fail){
     order.findAll({where:payload}).then(success).catch(fail);
     console.log(success);
-  }
+  };
 
 
   // Remove One Order
@@ -122,10 +122,10 @@ module.exports = function (){
    * @example
    * // Remove Order with Success and Fail
    * order.remove({sku:AJK1500}, function(){
-    *   console.log('No more records remain with that time_stamp');
-    * }, function(err, doc){
-    *   console.log('err' + err + doc);
-    * });
+   *   console.log('No more records remain with that time_stamp');
+   * }, function(err, doc){
+   *   console.log('err' + err + doc);
+   * });
    */
   var _remove = function (payload, success, fail){
 
@@ -135,7 +135,7 @@ module.exports = function (){
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
 
-    //valudation:
+    //validation:
     if(!cleanData.time_stamp) return fail({ code:301 });
 
     order.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
@@ -152,16 +152,16 @@ module.exports = function (){
    * @example
    * // Update Unit with Success and Fail
    * order.update({shipping_tracking:1709}, function(data){
-    *     console.log(data);
-    * }, function(err){
-    *   console.log('Error Code: ' + err.code);
-    * });
+   *     console.log(data);
+   * }, function(err){
+   *   console.log('Error Code: ' + err.code);
+   * });
    */
 
   var _update = function(payload, update, success, fail){
 
     // Run user data through sanitize.
-    cleanData = defaultSanitize(payload);
+    var cleanData = defaultSanitize(payload);
 
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
@@ -182,10 +182,10 @@ module.exports = function (){
     }).catch(fail);
   };
   return {
+    find: _find,
     create: _addOne,
     findAll: _findAll,
     findOne: _findOne,
-    find: _find,
     remove: _remove,
     update: _update
   }

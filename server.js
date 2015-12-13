@@ -53,7 +53,14 @@ app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/avail
 var server = app.listen(port, function() {
   console.log('Server Active on Port ' + port);
   console.log('NOTICE ============');
-  console.log('check version in package.json. if you are below version 1.5.0 run the following');
-  console.log('npm install, drop gravity database, create gravity database, install mocha globally');
+  console.log('BUILD NEW DATABASE');
+  console.log('STEP 0: terminal: git pull origin master');
+  console.log('STEP 1: terminal: npm install');
+  console.log('STEP 2: terminal: mysql.server restart');
+  console.log('STEP 3: terminal: mysql -u root;');
+  console.log('STEP 4: terminalSQL: drop database gravity');
+  console.log('STEP 5: terminalSQL: create database gravity');
+  console.log('STEP 6: terminal: gulp dev');
+  console.log('STEP 7: terminal: npm start server.js');
   console.log('NOTICE ============');
 });

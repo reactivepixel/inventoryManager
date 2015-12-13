@@ -1,4 +1,4 @@
-module.exports = function (){
+module.exports = function() {
   var db = require('../db.js')();
   var data = require('../../lib/sanitize.js');
   var Sequelize = require('sequelize');
@@ -19,10 +19,10 @@ module.exports = function (){
   };
 
   // TODO Write a nice system wide defaultFail DB interaction Failure
-  var defaultFail = function(err, doc){ console.log('err' + err + doc); }
+  var defaultFail = function(err, doc){ console.log('err' + err + doc); };
 
   // TODO Write a sanitize function once we see some bad data comeing through
-  var defaultSanitize = function(uncleanData){ return uncleanData; }
+  var defaultSanitize = function(uncleanData){ return uncleanData; };
 
   // Create Units Table
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -115,10 +115,11 @@ module.exports = function (){
   *   console.log('err' + err);
   * });
   */
+  // FIXME: Not used?
   var _find = function (payload, success, fail){
     unit.findAll({where:payload}).then(success).catch(fail);
     console.log(success);
-  }
+  };
 
   // Find One Unit(s)
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -128,15 +129,15 @@ module.exports = function (){
    * @example
    * // Find One based on supplied obj, in this case just a sku with Success and Failure
    * unit.findOne({sku:'j50611e7d5dd30b0d676654de47d6794d'}, function(data){
-    *   res.json(data);
-    * }, function(err, doc){
-    *   console.log('err' + err + doc);
-    * });
+   *   res.json(data);
+   * }, function(err, doc){
+   *   console.log('err' + err + doc);
+   * });
    */
   var _findOne = function (payload, success, fail){
 
     // Run user data through sanitize.
-    cleanData = defaultSanitize(payload);
+    var cleanData = defaultSanitize(payload);
 
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
@@ -162,7 +163,7 @@ module.exports = function (){
   var _find = function (payload, success, fail){
     unit.findAll({where:payload}).then(success).catch(fail);
     console.log(success);
-  }
+  };
 
 
   // Remove One units
@@ -174,20 +175,20 @@ module.exports = function (){
    * @example
    * // Remove Unit with Success and Fail
    * unit.remove({sku:'j50611e7d5dd30b0d676654de47d6794d'}, function(){
-    *   console.log('No more records remain with that sku');
-    * }, function(err, doc){
-    *   console.log('err' + err + doc);
-    * });
+   *   console.log('No more records remain with that sku');
+   * }, function(err, doc){
+   *   console.log('err' + err + doc);
+   * });
    */
   var _remove = function (payload, success, fail){
 
     // Run user data through sanitize.
-    cleanData = defaultSanitize(payload);
+    var cleanData = defaultSanitize(payload);
 
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
 
-    //valudation:
+    //validation:
     if(!cleanData.sku) return fail({ code:301 });
 
     unit.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
@@ -203,21 +204,21 @@ module.exports = function (){
    * @example
    * // Update Unit with Success and Fail
    * unit.update({sku:'j14d158c64ece48fasd00ccee895b18b8bb6', availability_qty: 9}, function(data){
-    *     console.log(data);
-    * }, function(err){
-    *   console.log('Error Code: ' + err.code);
-    * });
+   *     console.log(data);
+   * }, function(err){
+   *   console.log('Error Code: ' + err.code);
+   * });
    */
   var _update = function(payload, success, fail){
 
     // Run user data through sanitize.
-    cleanData = defaultSanitize(payload);
+    var cleanData = defaultSanitize(payload);
 
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
 
 
-    //valudation:
+    //validation:
     if(!cleanData.sku) return fail({ code:301 });
 
     unit.find({where:{sku:cleanData.sku}}).then(function (data) {
@@ -238,11 +239,10 @@ module.exports = function (){
   };
 
   return {
-    create: _addOne,
     find: _find,
+    create: _addOne,
     findAll: _findAll,
     findOne: _findOne,
-    find: _find,
     remove: _remove,
     update: _update
   }
