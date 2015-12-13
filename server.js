@@ -31,12 +31,21 @@ app.use('/api/v1/unit', require('./server/routes/api/v1/unit/find.js')(express))
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/create.js')(express));
 app.use('/api/v1/unit', require('./server/routes/api/v1/unit/remove.js')(express));
 
-// Unit based routes
+// Order based routes
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipping.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/shipped.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/picking.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/packaging.js')(express));
 app.use('/api/v1/order/status', require('./server/routes/api/v1/order/status/inspecting.js')(express));
+
+// Unit based routes
+app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/shipping.js')(express));
+app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/shipped.js')(express));
+app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/picking.js')(express));
+app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/packaging.js')(express));
+app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/inspecting.js')(express));
+app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/receiving.js')(express));
+app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/available.js')(express));
 
 
 // Start The Server
