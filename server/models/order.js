@@ -112,9 +112,9 @@ var _remove = function (payload, success, fail){
   if(!cleanData) return fail({ code:301 });
 
   //valudation:
-  if(!cleanData.sku) return fail({ code:301 });
+  if(!cleanData.id) return fail({ code:301 });
 
-  order.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
+  order.destroy({where: {id: cleanData.id}}).then(success).catch(fail);
 }
 
 
@@ -122,7 +122,7 @@ var _remove = function (payload, success, fail){
 // Update One Order
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 /**
-* @param {obj} payload Requires 'sku' attribute
+* @param {obj} payload Requires 'id' attribute
 * @param {function} success Callback function for execution on successful adding.
 * @param {function} fail Callback function for execution on failed adding.
 * @example
@@ -133,7 +133,7 @@ var _remove = function (payload, success, fail){
 *   console.log('Error Code: ' + err.code);
 * });
 */
-var _update = function(payload, update, success, fail){
+var _update = function(payload, updateObj, success, fail){
 
       // Run user data through sanitize.
       cleanData = defaultSanitize(payload);
@@ -141,23 +141,22 @@ var _update = function(payload, update, success, fail){
       // If sanitize fails prevent payload from touching the db
       if(!cleanData) return fail({ code:301 });
 
-
       //valudation:
-      if(!cleanData.sku) return fail({ code:301 });
+      if(!cleanData.id) return fail({ code:301 });
 
-      order.find({where:{sku:cleanData.sku}}).then(function (data) {
-
+      order.find({where:{id:cleanData.id}}).then(function (data) {
+        //console.log('hello', data);
         // No data was found
-        if (!data) return fail({ code:302 });
-
+        if (!data) return fail({ code:309 });
         // Update the Atts of the returned row
         data.updateAttributes({
-            shipping_tracking: update.shipping_tracking,
+            shipping_tracking: updateObj.shipping_tracking
         }).then(success).catch(fail)
       }).catch(fail);
 }
+
 return {
-  add: _addOne,
+  create: _addOne,
   all: _findAll,
   findOne: _findOne,
   remove: _remove,

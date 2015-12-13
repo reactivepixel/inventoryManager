@@ -201,7 +201,7 @@ var _update = function(payload, success, fail){
 }
 
 return {
-  add: _addOne,
+  create: _addOne,
   all: _findAll,
   findOne: _findOne,
   remove: _remove,

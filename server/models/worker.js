@@ -156,7 +156,7 @@ var _update = function(payload, update, success, fail){
       }).catch(fail);
 }
 return {
-  add: _addOne,
+  create: _addOne,
   all: _findAll,
   findOne: _findOne,
   remove: _remove,
