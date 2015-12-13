@@ -108,7 +108,9 @@ TODO Write Me
 | Status Code   | General Meaning | Reason                                  |
 | ------------- | --------------  | --------------------------------------- |
 | 100           | Picking         | Usually means 'continue' or 'processing'|
+| 101           | Available       |                                         |
 | 200           | Shipped         | Usually a 'success' message             |
+| 201           | Received        |                                         |
 | 300           | Packaging       | Usually means a 'redirect'              |
 | 301           | Info Not Supplied | When an endpoint is expecting some piece of data (SKU for Instance) and the POST request did not contain the expected data.
 | 400           | Not Found       | Usually an 'error'                      |
