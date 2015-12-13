@@ -91,7 +91,7 @@ module.exports = function(){
 // Remove One Worker
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 /**
-* @param {obj} payload Requires 'name' attribute
+* @param {obj} payload Requires 'id' attribute
 * @param {function} success Callback function for execution on successful adding.
 * @param {function} fail Callback function for execution on failed adding.
 * @example
@@ -111,9 +111,9 @@ var _remove = function (payload, success, fail){
   if(!cleanData) return fail({ code:301 });
 
   //valudation:
-  if(!cleanData.name) return fail({ code:301 });
+  if(!cleanData.id) return fail({ code:301 });
 
-  worker.destroy({where: {name: cleanData.name}}).then(success).catch(fail);
+  worker.destroy({where: {id: cleanData.id}}).then(success).catch(fail);
 }
 
 
@@ -142,9 +142,9 @@ var _update = function(payload, update, success, fail){
 
 
       //valudation:
-      if(!cleanData.name) return fail({ code:301 });
+      if(!cleanData.id) return fail({ code:301 });
 
-      worker.find({where:{name:cleanData.name}}).then(function (data) {
+      worker.find({where:{id:cleanData.id}}).then(function (data) {
 
         // No data was found
         if (!data) return fail({ code:302 });
