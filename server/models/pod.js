@@ -53,7 +53,7 @@ module.exports = function(){
   var _addOne = function(payload, success, fail){
     payload = defaultSanitize(payload);
     // Parse payload to be applied to the defined properties
-    unit_pod.create({
+    pod.create({
       current_weight: payload.current_weight,
       max_weight: payload.max_weight,
       last_maintained: payload.last_maintained
@@ -130,9 +130,9 @@ module.exports = function(){
 	  if(!cleanData) return fail({ code:301 });
 
 	  //valudation:
-	  if(!cleanData.sku) return fail({ code:301 });
+	  if(!cleanData.id) return fail({ code:301 });
 
-	  pod.destroy({where: {pod_id: cleanData.pod_id}}).then(success).catch(fail);
+	  pod.destroy({where: {id: cleanData.id}}).then(success).catch(fail);
 	}
 
 
@@ -152,7 +152,7 @@ module.exports = function(){
 *   console.log('Error Code: ' + err.code);
 * });
 */
-var _update = function(payload,success, fail){
+var _update = function(payload,updateObj,success, fail){
 
       // Run user data through sanitize.
       cleanData = defaultSanitize(payload);
@@ -161,18 +161,18 @@ var _update = function(payload,success, fail){
       if(!cleanData) return fail({ code:301 });
 
       //valudation:
-      if(!cleanData.sku) return fail({ code:301 });
+      if(!cleanData.id) return fail({ code:301 });
 
-      pod.find({where:{pod_id:cleanData.pod_id}}).then(function (data) {
+      pod.find({where:{id:cleanData.id}}).then(function (data) {
 
         // No data was found
         if (!data) return fail({ code:302 });
 
         // Update the Atts of the returned row
         data.updateAttributes({
-            current_weight: payload.current_weight,
-            max_weight: update.max_weight,
-            last_maintained: update.last_maintained,
+            current_weight: updateObj.current_weight,
+            max_weight: updateObj.max_weight,
+            last_maintained: updateObj.last_maintained,
         }).then(success).catch(fail)
       }).catch(fail);
 }
