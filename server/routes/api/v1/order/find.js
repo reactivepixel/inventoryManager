@@ -2,31 +2,46 @@
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function (express) {
   var router = express.Router();
-  var database = require('./../database.js');
+  var order = require('../../../../models/order.js');
 
-  // http://localhost:3000/api/v1/order/find
+  // /api/v1/order/find
   router.post('/find', function(req, res) {
-    var serverMessage = '';
-    var statusMessage = {};
+    var serverMessage = "Your find request is being processed";
+    var serverResponse = "You've encountered an unknown error";
 
-    // Order request from client
-    var searchRequest = req.body;
-    var searchId = searchRequest.orderId;
+    // Request made from client
+    var clientFindPost = req.body;
 
-    // Checking for if the requestId exsists in the database
-    if(database[searchId] == "undefined" || database[searchId] == undefined){
-      serverMessage = "orderId " + searchId + " doesn't exist."
-    }else{
-      serverMessage = "orderId " + searchId + " located";
-      statusMessage = database[searchId].tracking.status
-    }
+    // Example of data in JSON format
+    // {shipping_tracking:1600}
+    order.findOne({shipping_tracking: clientFindPost.shipping_tracking},
+    function(data) {
 
-    res.json({
+      // Server message of the request
+      console.log('A find request has been made for order: ' + clientFindPost.shipping_tracking);
 
-      // JSON object sent back to client with details
-      serverResponse : 'Searching for order: ' + searchId,
-      serverMessage : serverMessage,
-      statusMessage : statusMessage
+      // Check data
+      if(data == null) {
+        // If data doesn't have a result
+        serverResponse = "Your find request for shipping tracking: " + clientFindPost.shipping_tracking + " was not found"
+      }else {
+        // If data returns positive
+        serverResponse = "Your find request for shipping tracking: " + clientFindPost.shipping_tracking + " was located"
+      }
+
+      res.json({
+        serverMessage: serverMessage,
+        serverResponse: serverResponse,
+        unitData: data
+      });
+    },
+
+    function(err){
+      res.json({
+        serverMessage: serverMessage,
+        serverResponse: serverResponse,
+        ServerError: err
+      });
     });
   });
 

@@ -1,25 +1,38 @@
 // Gravity Application API orderCreate | API for adding order to database
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-module.exports = function (router) {
+module.exports = function (express) {
+  var router = express.Router();
+  var order = require('../../../../models/order.js');
 
-  // TODO: fix this page
+  // /api/v1/order/create
   router.post('/create', function(req, res) {
-    var orderPlacement = req.body;
-    orderTracking = { status : 'packing', timestamp : 'today'};
-    orderRecipient = orderPlacement.order.recipient;
-    orderUnits = orderPlacement.order.units;
+    var serverMessage = "Your order is being created";
+    var serverResponse = "Your order was created successfully, your SKU is: ";
 
-    var placement = {};
-    placement.tracking = orderTracking;
-    placement.recipient = orderRecipient;
-    placement.unit = orderUnits;
+    // Request made from client
+    var clientOrderPost = req.body;
 
-    orderDatabase.push(placement);
-    console.log(placement);
+    // Example of data in JSON format
+    // order.add({shipping_tracking: 1234}
+    order.remove({shipping_tracking: clientOrderPost.shipping_tracking},
+    function(data){
 
-    res.json({
-      serverResponse : "Your placement is being processed",
-      orderDetails: placement
+      // Server message of the request
+      console.log('A order create request has been made');
+
+      res.json({
+        serverMessage: serverMessage,
+        serverResponse: serverResponse,
+        unitSKU: data.sku
+      });
+    },
+
+    function(err){
+      res.json({
+        serverMessage: serverMessage,
+        serverResponse: "You've encountered an unknown error",
+        serverError: err
+      });
     });
   });
 
