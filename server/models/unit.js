@@ -193,8 +193,6 @@ module.exports = function() {
 
     unit.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
   };
-
-
   // Update One units
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   /**
@@ -246,4 +244,5 @@ module.exports = function() {
     remove: _remove,
     update: _update
   }
+
 }();
