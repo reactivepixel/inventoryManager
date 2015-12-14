@@ -1,6 +1,6 @@
 {
   "name": "gravity",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Open Source Application to Manage the Inventory, Fulfillment, and Internal Tracking within a Material Handling Environment",
   "main": "server.js",
   "scripts": {
