@@ -1,5 +1,6 @@
 // Gravity Application API orderRemove| API showing the sample database
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+module.exports = function (express) {
   var router = express.Router();
   var order = require('../../../../models/order.js');
 

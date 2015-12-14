@@ -168,7 +168,7 @@ module.exports = function() {
         // If sanitize fails prevent payload from touching the db
         if(!cleanData) return fail({ code:301 });
 
-        //valudation:
+        //validation:
         if(!cleanData.id) return fail({ code:301 });
 
         pod.find({where:{id:cleanData.id}}).then(function (data) {
@@ -187,7 +187,7 @@ module.exports = function() {
 
   return {
     create: _addOne,
-    all: _findAll,
+    findAll: _findAll,
     findOne: _findOne,
     remove: _remove,
     update: _update

@@ -8,7 +8,7 @@ var worker = require('../server/models/worker.js');
 
 // Order model defines this function
 describe('workerCRUD', function() {
-  this.timeout(10000)
+  this.timeout(10000);
 
   var testingId = '';
 

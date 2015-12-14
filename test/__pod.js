@@ -17,7 +17,7 @@ describe('podCRUD', function() {
     pod.create({
       current_weight: 123,
       max_weight: 123,
-      last_maintained: 123,
+      last_maintained: 123
     }, function (data) {
     data.current_weight.should.equal(123);
     data.max_weight.should.equal(123);
