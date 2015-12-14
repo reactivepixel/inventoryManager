@@ -1,24 +1,24 @@
-// Gravity Application API orderCreate | API for adding order to database
+// Gravity Application API | Create a unit in the database
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function (express) {
   var router = express.Router();
-  var order = require('../../../../models/order.js');
+  var unit = require('../../../../models/unit.js');
 
-  // /api/v1/order/create
+  // /api/v1/unit/create
   router.post('/create', function(req, res) {
-    var serverMessage = "Your order is being created";
-    var serverResponse = "Your order was created successfully, your SKU is: ";
+    var serverMessage = "Your unit is being created";
+    var serverResponse = "Your unit was created successfully, your SKU is: ";
 
     // Request made from client
-    var clientOrderPost = req.body;
+    var clientUnitPost = req.body;
 
     // Example of data in JSON format
-    // order.add({shipping_tracking: 1234}
-    order.remove({shipping_tracking: clientOrderPost.shipping_tracking},
+    // {"qty_on_hand" : 7, "trigger_qty" : 10 : "replenish_qty" : 5}
+    unit.create({qty_on_hand: clientUnitPost.qty_on_hand, trigger_qty: clientUnitPost.trigger_qty, replenish_qty: clientUnitPost.replenish_qty},
     function(data){
 
       // Server message of the request
-      console.log('A order create request has been made');
+      console.log('A unit create request has been made');
 
       res.json({
         serverMessage: serverMessage,

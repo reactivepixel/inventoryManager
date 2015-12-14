@@ -1,10 +1,10 @@
-// Gravity Application API orderFind | API for locating an order by orderID
+// Gravity Application API | Find unit based on SKU
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function (express) {
   var router = express.Router();
-  var order = require('../../../../models/order.js');
+  var unit = require('../../../../models/unit.js');
 
-  // /api/v1/order/find
+  // /api/v1/unit/find
   router.post('/find', function(req, res) {
     var serverMessage = "Your find request is being processed";
     var serverResponse = "You've encountered an unknown error";
@@ -13,20 +13,20 @@ module.exports = function (express) {
     var clientFindPost = req.body;
 
     // Example of data in JSON format
-    // {shipping_tracking:1600}
-    order.findOne({shipping_tracking: clientFindPost.shipping_tracking},
+    // {"sku" : "j9fead89099de0cf88ce52bf794e5a47e"}
+    unit.findOne({sku: clientFindPost.sku},
     function(data) {
 
       // Server message of the request
-      console.log('A find request has been made for order: ' + clientFindPost.shipping_tracking);
+      console.log('A find request has been made for unit: ' + clientFindPost.sku);
 
       // Check data
       if(data == null) {
         // If data doesn't have a result
-        serverResponse = "Your find request for shipping tracking: " + clientFindPost.shipping_tracking + " was not found"
+        serverResponse = "Your find request for sku: " + clientFindPost.sku + " was not found"
       }else {
         // If data returns positive
-        serverResponse = "Your find request for shipping tracking: " + clientFindPost.shipping_tracking + " was located"
+        serverResponse = "Your find request for sku: " + clientFindPost.sku + " was located"
       }
 
       res.json({
