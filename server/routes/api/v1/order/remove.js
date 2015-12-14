@@ -1,10 +1,9 @@
-// Gravity Application API | Remove unit based on SKU
+// Gravity Application API orderRemove| API showing the sample database
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-module.exports = function (express) {
   var router = express.Router();
-  var unit = require('../../../../models/unit.js');
+  var order = require('../../../../models/order.js');
 
-  // /api/v1/unit/find
+  // /api/v1/order/remove
   router.post('/remove', function(req, res) {
     var serverMessage = "Your remove request is being processed";
     var serverResponse = "You've encountered an unknown error";
@@ -14,11 +13,11 @@ module.exports = function (express) {
 
     // Example of data in JSON format
     // {"sku" : "j9fead89099de0cf88ce52bf794e5a47e"}
-    unit.remove({sku: clientFindPost.sku},
+    order.remove({sku: clientFindPost.sku},
     function() {
 
       // Server message of the request
-      console.log('A remove request has been made for unit: ' + clientFindPost.sku);
+      console.log('A remove request has been made for order: ' + clientFindPost.sku);
       serverResponse = "Your remove request for sku: " + clientFindPost.sku + " was proceeded";
 
       res.json({
