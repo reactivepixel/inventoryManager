@@ -4,7 +4,7 @@ module.exports = function (express) {
   var router = express.Router();
   var unit = require('../../../../models/unit.js');
 
-  // /api/v1/unit/find
+  // /api/v1/unit/remove
   router.post('/remove', function(req, res) {
     var serverMessage = "Your remove request is being processed";
     var serverResponse = "You've encountered an unknown error";
