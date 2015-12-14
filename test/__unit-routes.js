@@ -28,4 +28,5 @@ request({
   }
 });
 
-console.log(body.units.status.responseCode);
+// FIXME: something went wrong here for test
+//console.log(body.units.status.responseCode);
