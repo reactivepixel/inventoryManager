@@ -12,7 +12,7 @@ request({
   url: url,
   json: true,
   headers: {
-    "content-type": "application/json",
+    "content-type": "application/json"
   },
   // body: JSON.stringify(unitCreateData)
   body: {
@@ -26,6 +26,6 @@ request({
       }
     ]
   }
-}),
+});
 
 console.log(body.units.status.responseCode);

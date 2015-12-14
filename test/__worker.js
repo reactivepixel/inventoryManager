@@ -15,7 +15,7 @@ describe('workerCRUD', function() {
   // Create test
   it('createWorker', function (done) {
     worker.create({
-      name: 'muffin man',
+      name: 'muffin man'
     }, function (data) {
      testingId = data.id;
       done();
@@ -57,7 +57,6 @@ describe('workerCRUD', function() {
       console.log('err' + err);
     });
   });
-
 });
 
 

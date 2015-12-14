@@ -8,14 +8,14 @@ var order = require('../server/models/order.js');
 
 // Order model defines this function
 describe('orderCRUD', function() {
-  this.timeout(10000)
+  this.timeout(10000);
 
   var testingId = '';
 
   // Create test
   it('createOrder', function (done) {
     order.create({
-      shipping_tracking: 34,
+      shipping_tracking: 34
     }, function (data) {
     data.shipping_tracking.should.equal(34);
      testingId = data.id;
@@ -58,7 +58,6 @@ describe('orderCRUD', function() {
       console.log('err' + err);
     });
   });
-
 });
 
 

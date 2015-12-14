@@ -244,5 +244,4 @@ module.exports = function() {
     remove: _remove,
     update: _update
   }
-
 }();

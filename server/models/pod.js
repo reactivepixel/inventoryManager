@@ -115,6 +115,7 @@ module.exports = function() {
     pod.findOne({where:payload}).then(success).catch(fail);
   };
 
+
 	// Remove One Pod
 	// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	/**
@@ -141,55 +142,54 @@ module.exports = function() {
 	  if(!cleanData.id) return fail({ code:301 });
 
 	  pod.destroy({where: {id: cleanData.id}}).then(success).catch(fail);
-	}
+	};
 
 
+  // Update One Pod
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  /**
+  * @param {obj} payload Requires 'pod_id' attribute
+  * @param {function} success Callback function for execution on successful adding.
+  * @param {function} fail Callback function for execution on failed adding.
+  * @example
+  * // Update Unit Pod with Success and Fail
+  * unit_pod.update({pod_id:'j5061', current_weight: 124, max_weight: 900, last_maintain: 1200
+  }, function(data){
+  *     console.log(data);
+  * }, function(err){
+  *   console.log('Error Code: ' + err.code);
+  * });
+  */
+  var _update = function(payload,updateObj,success, fail){
 
-// Update One Pod
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-/**
-* @param {obj} payload Requires 'pod_id' attribute
-* @param {function} success Callback function for execution on successful adding.
-* @param {function} fail Callback function for execution on failed adding.
-* @example
-* // Update Unit Pod with Success and Fail
-* unit_pod.update({pod_id:'j5061', current_weight: 124, max_weight: 900, last_maintain: 1200
-}, function(data){
-*     console.log(data);
-* }, function(err){
-*   console.log('Error Code: ' + err.code);
-* });
-*/
-var _update = function(payload,updateObj,success, fail){
+        // Run user data through sanitize.
+        cleanData = defaultSanitize(payload);
 
-      // Run user data through sanitize.
-      cleanData = defaultSanitize(payload);
+        // If sanitize fails prevent payload from touching the db
+        if(!cleanData) return fail({ code:301 });
 
-      // If sanitize fails prevent payload from touching the db
-      if(!cleanData) return fail({ code:301 });
+        //valudation:
+        if(!cleanData.id) return fail({ code:301 });
 
-      //valudation:
-      if(!cleanData.id) return fail({ code:301 });
+        pod.find({where:{id:cleanData.id}}).then(function (data) {
 
-      pod.find({where:{id:cleanData.id}}).then(function (data) {
+          // No data was found
+          if (!data) return fail({ code:302 });
 
-        // No data was found
-        if (!data) return fail({ code:302 });
+          // Update the Atts of the returned row
+          data.updateAttributes({
+              current_weight: updateObj.current_weight,
+              max_weight: updateObj.max_weight,
+              last_maintained: updateObj.last_maintained,
+          }).then(success).catch(fail)
+        }).catch(fail);
+  };
 
-        // Update the Atts of the returned row
-        data.updateAttributes({
-            current_weight: updateObj.current_weight,
-            max_weight: updateObj.max_weight,
-            last_maintained: updateObj.last_maintained,
-        }).then(success).catch(fail)
-      }).catch(fail);
-}
-return {
-  create: _addOne,
-  all: _findAll,
-  findOne: _findOne,
-  remove: _remove,
-  update: _update
-}
-
+  return {
+    create: _addOne,
+    all: _findAll,
+    findOne: _findOne,
+    remove: _remove,
+    update: _update
+  }
 }();

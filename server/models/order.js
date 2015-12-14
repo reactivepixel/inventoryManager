@@ -113,77 +113,76 @@ module.exports = function() {
   };
 
 
-// Remove One Order
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-/**
-* @param {obj} payload Requires 'sku' attribute
-* @param {function} success Callback function for execution on successful adding.
-* @param {function} fail Callback function for execution on failed adding.
-* @example
-* // Remove Order with Success and Fail
-* order.remove({sku:AJK1500}, function(){
-*   console.log('No more records remain with that time_stamp');
-* }, function(err, doc){
-*   console.log('err' + err + doc);
-* });
-*/
-var _remove = function (payload, success, fail){
+  // Remove One Order
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  /**
+  * @param {obj} payload Requires 'sku' attribute
+  * @param {function} success Callback function for execution on successful adding.
+  * @param {function} fail Callback function for execution on failed adding.
+  * @example
+  * // Remove Order with Success and Fail
+  * order.remove({sku:AJK1500}, function(){
+  *   console.log('No more records remain with that time_stamp');
+  * }, function(err, doc){
+  *   console.log('err' + err + doc);
+  * });
+  */
+  var _remove = function (payload, success, fail){
 
-  // Run user data through sanitize.
-  cleanData = defaultSanitize(payload);
+    // Run user data through sanitize.
+    cleanData = defaultSanitize(payload);
 
-  // If sanitize fails prevent payload from touching the db
-  if(!cleanData) return fail({ code:301 });
+    // If sanitize fails prevent payload from touching the db
+    if(!cleanData) return fail({ code:301 });
 
-  //valudation:
-  if(!cleanData.id) return fail({ code:301 });
+    //valudation:
+    if(!cleanData.id) return fail({ code:301 });
 
-  order.destroy({where: {id: cleanData.id}}).then(success).catch(fail);
-}
+    order.destroy({where: {id: cleanData.id}}).then(success).catch(fail);
+  };
 
 
 
-// Update One Order
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-/**
-* @param {obj} payload Requires 'id' attribute
-* @param {function} success Callback function for execution on successful adding.
-* @param {function} fail Callback function for execution on failed adding.
-* @example
-* // Update Unit with Success and Fail
-* order.update({shipping_tracking:1709}, function(data){
-*     console.log(data);
-* }, function(err){
-*   console.log('Error Code: ' + err.code);
-* });
-*/
-var _update = function(payload, updateObj, success, fail){
+  // Update One Order
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  /**
+  * @param {obj} payload Requires 'id' attribute
+  * @param {function} success Callback function for execution on successful adding.
+  * @param {function} fail Callback function for execution on failed adding.
+  * @example
+  * // Update Unit with Success and Fail
+  * order.update({shipping_tracking:1709}, function(data){
+  *     console.log(data);
+  * }, function(err){
+  *   console.log('Error Code: ' + err.code);
+  * });
+  */
+  var _update = function(payload, updateObj, success, fail){
+    // Run user data through sanitize.
+    cleanData = defaultSanitize(payload);
 
-      // Run user data through sanitize.
-      cleanData = defaultSanitize(payload);
+    // If sanitize fails prevent payload from touching the db
+    if(!cleanData) return fail({ code:301 });
 
-      // If sanitize fails prevent payload from touching the db
-      if(!cleanData) return fail({ code:301 });
+    //valudation:
+    if(!cleanData.id) return fail({ code:301 });
 
-      //valudation:
-      if(!cleanData.id) return fail({ code:301 });
+    order.find({where:{id:cleanData.id}}).then(function (data) {
+      //console.log('hello', data);
+      // No data was found
+      if (!data) return fail({ code:309 });
+      // Update the Atts of the returned row
+      data.updateAttributes({
+          shipping_tracking: updateObj.shipping_tracking
+      }).then(success).catch(fail)
+    }).catch(fail);
+  };
 
-      order.find({where:{id:cleanData.id}}).then(function (data) {
-        //console.log('hello', data);
-        // No data was found
-        if (!data) return fail({ code:309 });
-        // Update the Atts of the returned row
-        data.updateAttributes({
-            shipping_tracking: updateObj.shipping_tracking
-        }).then(success).catch(fail)
-      }).catch(fail);
-}
-
-return {
-  create: _addOne,
-  all: _findAll,
-  findOne: _findOne,
-  remove: _remove,
-  update: _update
-}
+  return {
+    create: _addOne,
+    all: _findAll,
+    findOne: _findOne,
+    remove: _remove,
+    update: _update
+  }
 }();
