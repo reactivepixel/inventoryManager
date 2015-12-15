@@ -31,7 +31,7 @@ module.exports = function() {
       type: Sequelize.STRING,
       primaryKey: true
     },
-    availability_qty: {
+    available_qty: {
       type: Sequelize.INTEGER
     },
     trigger_qty: {
@@ -69,7 +69,7 @@ module.exports = function() {
     // Parse payload to be applied to the defined properties
     unit.create({
       sku: payload.sku || APIFunctions.idGenerator(),
-      availability_qty: payload.availability_qty,
+      available_qty: payload.available_qty,
       trigger_qty: payload.trigger_qty,
       replenish_qty: payload.replenish_qty,
       description: payload.description,
@@ -208,7 +208,7 @@ module.exports = function() {
       // Update the Atts of the returned row
       data.updateAttributes({
         // Unit's SKU should not change.
-        availability_qty: cleanData.qty_on_hand,
+        available_qty: cleanData.available_qty,
         trigger_qty: cleanData.trigger_qty,
         replenish_qty: cleanData.replenish_qty,
         description: cleanData.description,

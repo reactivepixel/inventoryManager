@@ -15,7 +15,13 @@ describe('orderCRUD', function() {
   // Create test
   it('createOrder', function (done) {
     order.create({
-      shipping_tracking: 34
+      shipping_tracking: 34,
+      name:'muffin man',
+      address:'55 Cottonwood Trail',
+      city: 'Orlando',
+      state: 'FL',
+      zip: 32792,
+      phone: 5555555,
     }, function (data) {
     data.shipping_tracking.should.equal(34);
      testingId = data.id;
