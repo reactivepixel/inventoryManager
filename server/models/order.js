@@ -31,6 +31,9 @@ module.exports = function() {
     },
     phone: {
       type: Sequelize.STRING
+    },
+    status: {
+      type: Sequelize.STRING
     }
   });
 
