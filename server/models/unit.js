@@ -65,6 +65,7 @@ module.exports = function() {
   * }, function(err){
   *  console.log('Adding Error-' + err);
   * });
+
    */
 
   var _addOne = function(payload, success, fail){
@@ -96,10 +97,10 @@ module.exports = function() {
    * @example
    * // Return all Units with Success and Failure
    * unit.all(function(data){
-  *   res.json(data);
-  * }, function(err){
-  *   console.log('err' + err);
-  * });
+   *   res.json(data);
+   * }, function(err){
+   *   console.log('err' + err);
+   * });
    */
   var _findAll = function (success, fail){
     unit.findAll().then(success).catch(fail);
@@ -222,7 +223,6 @@ module.exports = function() {
     }).catch(fail);
   };
   return {
-    find: _find,
     create: _addOne,
     findAll: _findAll,
     findOne: _findOne,

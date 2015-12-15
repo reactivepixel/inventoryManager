@@ -18,6 +18,7 @@ module.exports = function (express) {
       replenish_qty: clientUnitPost.replenish_qty, description: clientUnitPost.description, 
       weight_lbs: clientUnitPost.weight_lbs},
     function (data) {
+
       // Server message of the request
       console.log('A unit create request has been made');
 

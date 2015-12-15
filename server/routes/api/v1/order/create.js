@@ -11,19 +11,26 @@ module.exports = function (express) {
 
     // Request made from client
     var clientOrderPost = req.body;
+    console.log(clientOrderPost);
 
     // Example of data in JSON format
-    // order.add({shipping_tracking: 1234}
-    order.add({shipping_tracking: clientOrderPost.shipping_tracking},
-    function(data){
+    // {"name" : "Jazy Jasilo", "address": "555 jazy lane","city": "Jazy Town","state": "JZ", "zip": 32730, "phone": 555555555}
 
+    order.create({
+      name: clientOrderPost.name,
+      address: clientOrderPost.address,
+      city: clientOrderPost.city,
+      state: clientOrderPost.state,
+      zip: clientOrderPost.zip,
+      phone: clientOrderPost.phone
+    }, function (data) {
       // Server message of the request
       console.log('A order create request has been made');
-
       res.json({
         serverMessage: serverMessage,
-        serverResponse: serverResponse
-      });
+        serverResponse: serverResponse,
+        orderId: data
+      })
     },
 
     function(err){

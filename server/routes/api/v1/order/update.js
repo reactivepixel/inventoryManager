@@ -22,7 +22,8 @@ module.exports = function (express) {
 
       res.json({
         serverMessage: serverMessage,
-        serverResponse: serverResponse
+        serverResponse: serverResponse,
+        orderData: data
       });
     },
 
