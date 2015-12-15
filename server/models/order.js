@@ -14,26 +14,23 @@ module.exports = function() {
   // Create Orders Table
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var order = sequelize.define('orders', {
-    shipping_tracking: {
-      type: Sequelize.INTEGER
-    },
     name:{
-      type:Sequelize.INTEGER,
+      type:Sequelize.STRING
     },
     address:{
-      type:Sequelize.INTEGER,
+      type:Sequelize.STRING
     },
     city: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     state: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     zip: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     phone: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     }
   });
 
@@ -56,7 +53,13 @@ module.exports = function() {
     payload = defaultSanitize(payload);
     // Parse payload to be applied to the defined properties
     order.create({
-      shipping_tracking: payload.shipping_tracking
+      shipping_tracking: payload.shipping_tracking,
+      name: payload.name,
+      address: payload.address,
+      state: payload.state,
+      city: payload.city,
+      zip: payload.zip,
+      phone: payload.name
     })
 
       // If Successful Adding run Success callback
@@ -197,7 +200,7 @@ module.exports = function() {
           city: updateObj.city,
           state: updateObj.state,
           zip: updateObj.zip,
-          phone: updateObj.phone,
+          phone: updateObj.phone
       }).then(success).catch(fail)
     }).catch(fail);
   };

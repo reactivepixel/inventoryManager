@@ -31,26 +31,23 @@ module.exports = function(){
   // Create order Tables
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var order = sequelize.define('orders', {
-    shipping_tracking:  {
-      type: Sequelize.INTEGER,
-    },
     name:{
-      type:Sequelize.INTEGER,
+      type:Sequelize.INTEGER
     },
     address:{
-      type:Sequelize.INTEGER,
+      type:Sequelize.INTEGER
     },
     city: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     state: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     zip: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     phone: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     }
   });
 
@@ -92,10 +89,10 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var worker = sequelize.define('workers', {
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     pin: {
-      type:Sequelize.INTEGER,
+      type:Sequelize.INTEGER
     }
   });
 
@@ -227,10 +224,10 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var maint_type = sequelize.define('maintenance', {
     maint_desc:{
-      type:Sequelize.STRING,
+      type:Sequelize.STRING
     },
     maint_types:{
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     }
   });
 
