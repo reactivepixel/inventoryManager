@@ -1,6 +1,7 @@
 # Sol
 The backend business logic for the **Sol Project**
 
+## Initial Project Setup Instructions
 ## Install Locally
 
 Clone the repo to your local machine
@@ -67,7 +68,25 @@ $ gulp
 
 Once you have this completed your server should run great!
 
-## Environments
+### Updating your database after any schema changes
+
+STEP 0: `git pull origin master`
+
+STEP 1: `npm install`
+
+STEP 2: `mysql.server restart`
+
+STEP 3: `mysql -u root;`
+
+STEP 4: `mysql> drop database gravity;`
+
+STEP 5: `mysql> create database gravity;`
+
+STEP 6: `gulp dev`
+
+STEP 7: `npm start server.js`
+
+## Server Environments
 Here are links to all Environments.
 
 ### Development
