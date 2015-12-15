@@ -36,7 +36,7 @@ module.exports = function (express) {
       });
     },
 
-    function(err){
+    function(err) {
       res.json({
         serverMessage: serverMessage,
         serverResponse: serverResponse,

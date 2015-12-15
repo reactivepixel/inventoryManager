@@ -1,24 +1,24 @@
-// Gravity Application API | Update a unit in the database
+// Gravity Application API | Update a worker in the database
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function (express) {
   var router = express.Router();
-  var unit = require('../../../../models/unit.js');
+  var worker = require('../../../../models/worker.js');
 
-  // /api/v1/unit/update
+  // /api/v1/worker/update
   router.post('/update', function(req, res) {
     var serverMessage = "Your update is being processed";
-    var serverResponse = "Your unit was updated successfully";
+    var serverResponse = "Your worker was updated successfully";
 
     // Request made from client
-    var clientUnitPost = req.body;
+    var clientPodPost = req.body;
 
     // Example of data in JSON format
-    // unit.update({availability_qty: j14d158c64ece48fasd00ccee895b18b8bb6, availability_qty: 3}
-    unit.update({sku: clientUnitPost.sku, availability_qty: clientUnitPost.availability_qty},
-    function(data) {
+    // worker.update({name:'Muffin Man'}
+    worker.update({name: clientPodPost.name},
+    function(data){
 
       // Server message of the request
-      console.log('A unit update request has been made');
+      console.log('A worker update request has been made');
 
       res.json({
         serverMessage: serverMessage,
@@ -26,7 +26,7 @@ module.exports = function (express) {
       });
     },
 
-    function(err) {
+    function(err){
       res.json({
         serverMessage: serverMessage,
         serverResponse: "You've encountered an unknown error",
