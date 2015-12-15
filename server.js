@@ -51,7 +51,7 @@ app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/p
 app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/packaging.js')(express));
 app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/inspecting.js')(express));
 app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/occupied.js')(express));
-app.use('/api/v1/unit/status', require('./server/routes/api/v1/worker/status/available.js')(express));
+app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/available.js')(express));
 
 // TODO: Not all routes defined dev team
 // TODO: add passport to parameters, define separate route directory
