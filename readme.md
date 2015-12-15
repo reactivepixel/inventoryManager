@@ -178,7 +178,7 @@ All routes should be prefixed with ```/api/v1```
 ### Routes - Workers
 | Event | Definition |
 |---|---|
-| [Worker Find](#worker-find) | Find a Worker by Supplied Worker ID |
+| [Worker Find](#worker-find) | Returns a record of an individual Worker by workerId |
 | [Worker Available](#worker-available) | Returns all Workers that are available for Jobs |
 | [Worker Occupied](#worker-occupied) | Returns all assigned Workers and any associated orders |
 | [Worker Inspecting](#worker-inspection) | Returns all Workers assigned to Inspecting and their current Status |
@@ -189,8 +189,8 @@ All routes should be prefixed with ```/api/v1```
 ### Routes - Pods
 | Event | Definition |
 |---|---|
-| [Pod Find](#pod-find) | Find a Pod by Supplied Pod ID |
-| [Pod Available](#pod-available) | Returns all Pods that are available for Units |
+| [Pod Find](#pod-find) | Returns a record of an individual Pod by podId |
+| [Pod Available](#pod-available) | Returns all Pods with payload availability |
 | [Pod Loading](#pod-loading) | Returns all Pods that being Loaded |
 | [Pod Picking](#pod-picking) | Returns all Pods assigned to Picking |
 | [Pod Maintenance](#pod-maintenance) | Returns all Pods in Maintenance |
@@ -201,7 +201,7 @@ All routes should be prefixed with ```/api/v1```
 |---|---|:---:|
 | `order/create` | `POST` | Not Started |
 
-An order is created when a JSON object that matches the supplied example is sent to the endpoint.
+Add a new Order to the Database.
 
 ##### Request
 
@@ -241,7 +241,7 @@ An order is created when a JSON object that matches the supplied example is sent
 |---|---|:---:|
 | `order/find` | `POST` | Not Started |
 
-An order is retrieved when a JSON object that contains an `uuid` is sent to the endpoint.
+Returns a record of an individual Order by order_id.
 
 ##### Request
 
@@ -530,7 +530,7 @@ A package is created when a JSON object that matches the supplied example is sen
 |---|---|:---:|
 | `package/find` | `POST` | Not Started |
 
-An order is retrieved when a JSON object that contains an `uuid` is sent to the endpoint.
+Returns a record of an individual package by pkg_id.
 
 ##### Request
 
@@ -607,10 +607,9 @@ An object is submitted to the db with uuid, initial quantity and the intial stat
 |---|---|:---:|
 | `unit/find` | `POST` | Not Started |
 
-A specific unit record is retrieved assisting in discerning the location of the unit in the warehouse based on status code or pod affiliation.
+Returns a record of an individual Unit by sku.
 
 ##### Request
-Units table is queried for units matching the uuid.
 
 ```javascript
 {
@@ -702,7 +701,7 @@ The response contains all the new data on the unit after adding received units t
 
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `unit/find` | `POST` | Not Started |
+| `unit/receiving` | `POST` | Not Started |
 
 A list of all units in receiving is retrieved.
 
@@ -989,7 +988,7 @@ An object is submitted to the db with all information about the sku.
 |---|---|:---:|
 | `sku/find` | `POST` | Not Started |
 
-A specific unit record is retrieved assisting in discerning the location of the unit in the warehouse based on status code and/or pod affiliation.
+Returns any records related to a specific sku.
 
 ##### Request
 Inventory table is queried for records matching the sku.
@@ -1073,7 +1072,7 @@ An object is submitted to the db with ship_id, associated pkg_id, order_id and d
 |---|---|:---:|
 | `shipment/find` | `POST` | Not Started |
 
-A specific shipment record is retrieved.
+Returns a record of an individual Shipment by ship_id.
 
 ##### Request
 Shipment table is queried for units matching the ship_id.
@@ -1161,7 +1160,7 @@ Shipments table is queried for records matching the status code indicating packa
 ### Shipment Receiving
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `receiving/find` | `POST` | Not Started |
+| `shipment/receiving` | `POST` | Not Started |
 
 A list of all shipments in receiving is retrieved.
 
@@ -1201,13 +1200,15 @@ Shipments table is queried for records matching the status code indicating packa
 |---|---|:---:|
 | `worker/find` | `POST` | Not Started |
 
-Returns a record of an individual Worker by workerID.
+Returns a record of an individual Worker by worker_id.
 
 ##### Request
 
 ```javascript
 {
-  workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  workers: {
+    workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  }
 }
 ```
 
@@ -1313,8 +1314,10 @@ All workers with a status of "inspecting" are returned.
 
 ```javascript
 {
-  status: {
-    responseCode: 600
+  workers: {
+    status: {
+      statusCode: 101
+    }
   }
 }
 ```
@@ -1339,14 +1342,16 @@ All workers with a status of "inspecting" are returned.
 |---|---|:---:|
 | `worker/picking` | `POST` | Not Started |
 
-All orders with a status of "picking" are returned.
+All workers with a status of "picking" are returned.
 
 #### Request
 
 ```javascript
 {
-  status: {
-    responseCode: 100
+  workers: {
+    status: {
+      statusCode: 101
+    }
   }
 }
 ```
@@ -1371,14 +1376,16 @@ All orders with a status of "picking" are returned.
 |---|---|:---:|
 | `worker/packaging` | `POST` | Not Started |
 
-All orders with a status of "packaging" are returned.  A total of all orders is also returned.
+All workers with a status of "packaging" are returned.
 
 #### Request
 
 ```javascript
 {
-  status: {
-    responseCode: 300
+  workers: {
+    status: {
+      statusCode: 101
+    }
   }
 }
 ```
@@ -1404,14 +1411,16 @@ All orders with a status of "packaging" are returned.  A total of all orders is 
 |---|---|:---:|
 | `worker/shipping` | `POST` | Not Started |
 
-All orders with a status of "shipping" are returned.  A total of all orders is also returned.
+All workers with a status of "shipping" are returned.
 
 #### Request
 
 ```javascript
 {
-  status: {
-    responseCode: 700
+  workers: {
+    status: {
+      statusCode: 101
+    }
   }
 }
 ```
@@ -1435,16 +1444,15 @@ All orders with a status of "shipping" are returned.  A total of all orders is a
 ### Pod Find
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `unit/find` | `POST` | Not Started |
+| `pod/find` | `POST` | Not Started |
 
-A specific unit record is retrieved assisting in discerning the location of the unit in the warehouse based on status code or pod affiliation.
+Returns a record of an individual Pod by pod_id.
 
 ##### Request
-Units table is queried for units matching the uuid.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
@@ -1452,93 +1460,108 @@ Units table is queried for units matching the uuid.
 
 ```javascript
 {
-  units: [
-    {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 10,
-      status: {
-        responseCode: 200
-      },
-      pod: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  pods: {
+    podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    payload: 40,
+    status: {
+      responseCode: 500 - 503
     }
-  ]
+  }
 }
 ```
 
 ### Pod Available
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `unit/available` | `POST` | Not Started |
+| `pod/available` | `POST` | Not Started |
 
-Available units are returned for a particular uuid.
+Returns all Pods with payload availability.
 
 #### Request
-Units table is queried for records matching the uuid.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  status: {
+    responseCode: 500
+  }
 }
 ```
 
 #### Response
-Returns an object containing the unit matching the uuid. Displays the `qty_on_hand`.
 
 ```javascript
 {
-  units: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    qty_on_hand: 7
-    status: {
-      responseCode: 200
+  pods: [
+    {
+      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 40,
+      status: {
+        responseCode: 500
+      }
+    },
+    {
+      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 25,
+      status: {
+        responseCode: 500
+      }
     }
-  }]
+  ]
 }
 ```
 ### Pod Loading
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `unit/available` | `POST` | Not Started |
+| `pod/loading` | `POST` | Not Started |
 
-Available units are returned for a particular uuid.
+Returns all pods being loaded.
 
 #### Request
-Units table is queried for records matching the uuid.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  status: {
+    responseCode: 501
+  }
 }
 ```
 
 #### Response
-Returns an object containing the unit matching the uuid. Displays the `qty_on_hand`.
 
 ```javascript
 {
-  units: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    qty_on_hand: 7
-    status: {
-      responseCode: 200
+  pods: [
+    {
+      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 40,
+      status: {
+        responseCode: 501
+      }
+    },
+    {
+      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 25,
+      status: {
+        responseCode: 501
+      }
     }
-  }]
+  ]
 }
 ```
 
 ### Pod Picking
 | Enpoint | Method | Development Status |
 |---|---|:---:|
-| `order/inspecting` | `POST` | Not Started |
+| `pod/picking` | `POST` | Not Started |
 
-All orders with a status of "inspecting" are returned.  A total of all orders is also returned.
+Returns all pods with a status of Picking.
 
 #### Request
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 502
   }
 }
 ```
@@ -1547,26 +1570,38 @@ All orders with a status of "inspecting" are returned.  A total of all orders is
 
 ```javascript
 {
-  totalOrders: 300,
-  orders: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-  }]
+  pods: [
+    {
+      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 40,
+      status: {
+        responseCode: 502
+      }
+    },
+    {
+      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 25,
+      status: {
+        responseCode: 502
+      }
+    }
+  ]
 }
 ```
 
 ### Pod Maintenance
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `order/picking` | `POST` | Not Started |
+| `pod/maintenance` | `POST` | Not Started |
 
-All orders with a status of "picking" are returned.
+Returns all pods with a status of Maintenance.
 
 #### Request
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 503
   }
 }
 ```
@@ -1575,12 +1610,20 @@ All orders with a status of "picking" are returned.
 
 ```javascript
 {
-  orders: [
+  pods: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 40,
+      status: {
+        responseCode: 503
+      }
     },
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 25,
+      status: {
+        responseCode: 503
+      }
     }
   ]
 }
