@@ -1,4 +1,4 @@
-// Gravity Application Test | Test CRDU for a unit
+// Gravity Application Test | order CRUD test for a orders
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var expect = require("chai").expect;
 var assert = require("assert");
@@ -7,59 +7,55 @@ var order = require('../server/models/order.js');
 
 
 // Order model defines this function
-describe('orderCRUD', function() {
+describe('order CRUD Test', function() {
   this.timeout(10000);
 
   var testingId = '';
 
   // Create test
-  it('createOrder', function (done) {
+  it('create-order-test', function (done) {
     order.create({
-      shipping_tracking: 34,
-      name:'muffin man',
-      address:'55 Cottonwood Trail',
+      name:'Testing User',
+      address:'555 Testing Address',
       city: 'Orlando',
       state: 'FL',
       zip: 32792,
-      phone: 5555555,
+      phone: 5555555
     }, function (data) {
-    data.shipping_tracking.should.equal(34);
-     testingId = data.id;
+      testingId = data.id;
+      console.log('================');
+      console.log('create order Id: ' + data.id + " created successfully");
+      console.log('================');
       done();
     }, function (err){
       console.log('err' + err);
     });
   });
 
+
   // Find Test
-  it('findOne', function (done) {
+  it('find-order-test', function (done) {
     order.findOne({
       id: testingId
     }, function () {
+      console.log('================');
+      console.log('find order Id: ' + testingId + " located successfully");
+      console.log('================');
       done();
     }, function (err){
       console.log('err' + err);
     });
   });
-  
-//Update Test
-  it("updateOrder", function (done){
-    order.update({id: testingId}, {shipping_tracking:99}, function (data) {
-
-      expect(data.shipping_tracking).to.be.equal(99);
-      done();
-    }, function (err){
-      console.log('err' + err);
-    });
-  });
-
 
 
   // Remove Test
-  it('removeOrder', function (done) {
+  it('remove-order-test', function (done) {
     order.remove({
       id: testingId
     }, function () {
+      console.log('================');
+      console.log('remove order Id: ' + testingId + " removed successfully");
+      console.log('================');
       done();
     }, function (err){
       console.log('err' + err);
