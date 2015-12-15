@@ -1,24 +1,24 @@
-// Gravity Application API | Create a pod in the database
+// Gravity Application API | Create a worker in the database
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function (express) {
   var router = express.Router();
-  var pod = require('../../../../models/pod.js');
+  var worker = require('../../../../models/worker.js');
 
-  // /api/v1/pod/create
+  // /api/v1/worker/create
   router.post('/create', function(req, res) {
-    var serverMessage = "Your pod is being created";
-    var serverResponse = "Your pod was created successfully";
+    var serverMessage = "Your worker is being created";
+    var serverResponse = "Your worker was created successfully";
 
     // Request made from client
-    var clientPodPost = req.body;
+    var clientWorkerPost = req.body;
 
     // Example of data in JSON format
-    // pod.add({current_weight: 124, max_weight: 900, last_maintain: 1200}
-    pod.add({current_weight: clientPodPost.current_weight, max_weight: clientPodPost.max_weight, last_maintain: clientPodPost.last_maintain},
+    // worker.add({name: 'Muffin Man'}
+    worker.add({name: clientWorkerPost.name},
     function(data){
 
       // Server message of the request
-      console.log('A pod create request has been made');
+      console.log('A worker create request has been made');
 
       res.json({
         serverMessage: serverMessage,
