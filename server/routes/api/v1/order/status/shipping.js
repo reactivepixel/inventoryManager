@@ -13,7 +13,7 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find by status using the find model
-    order.find({statusId: statusInfo.status}, function(data){
+    order.find({status: statusInfo.status}, function(data){
       var status = statusInfo.status;
 
       // Check if the status is 105, if so console.log the total orders.
