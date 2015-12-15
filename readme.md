@@ -154,7 +154,7 @@ All routes should be prefixed with ```/api/v1```
 | [Unit Create](#unit-create) | Add a new Unit to the Database |
 | [Unit Find](#unit-find) | Find a Unit by Supplied Unit ID |
 | [Unit Update Inspect](#unit-update-inspect) | Update a Unit based upon Inspection |
-| [Unit Replenish](#unit-replenish) | Update Unit quantity during Receiving |
+| [Unit Update Replenish](#unit-update-replenish) | Update Unit quantity during Receiving |
 | [Unit Receiving](#unit-receiving) | Returns all Units that are in Receiving |
 | [Unit Available](#unit-available) | Returns all Units that are available for Picking |
 | [Unit Picking](#unit-picking) | Returns all Units that are currently being Picked |
@@ -162,12 +162,6 @@ All routes should be prefixed with ```/api/v1```
 | [Unit Inspecting](#unit-inspecting) | Returns all Units that are currently being Inspected |
 | [Unit Shipping](#unit-shipping) | Returns all Units that are currently being Shipped |
 | [Unit Shipped](#unit-shipped) | Returns all Units that are have been Shipped |
-
-### Routes - SKUs
-| Event | Definition |
-|---|---|
-| [SKU Create](#sku-freate) | Add a new SKU to the Database |
-| [SKU Find](#sku-find) | Find a SKU by Supplied SKU |
 
 ### Routes - Shipments
 | Event | Definition |
@@ -210,7 +204,7 @@ Add a new Order to the Database.
 ```javascript
 {
   orders: {
-    recipient: {
+    recipients: {
   	  name: 'Jazy Jasilo',
   	  address: '3300 University Blvd',
       city: 'Winter Park',
@@ -239,9 +233,7 @@ Add a new Order to the Database.
     shipping_method: shipCode,
     createdAt: 'timestamp',
     updatedAt: 'timestamp',
-    status: {
-      responseCode: 200
-    }
+    success: TRUE or FALSE
   }
 }
 ```
@@ -274,9 +266,7 @@ Returns a record of an individual Order by order_id.
     shipping_method: shipCode,
     createdAt: 'timestamp',
     updatedAt: 'timestamp',
-    status: {
-      responseCode: 200
-    }
+    success: TRUE or FALSE
   }
 }
 ```
@@ -301,11 +291,9 @@ The status of an order is updated during the inspection process to either "shipp
 ```javascript
 {
   orders: {
-    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    status: {
-      responseCode: 200
-    }
-  }
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  },
+  success: TRUE or FALSE
 }
 ```
 
@@ -332,10 +320,8 @@ The status of an order is updated during the shipping process to "shipped." The 
     order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
     shipping_method:  'UPS',
     shipping_tracking: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-    status: {
-      responseCode: 200
-    }
-  }
+  },
+  success: TRUE or FALSE
 }
 ```
 
@@ -350,9 +336,7 @@ Returns all orders with a status of "picking" by status code.
 
 ```javascript
 {
-  status: {
-    responseCode: 102
-  }
+  status: 102
 }
 ```
 
@@ -360,6 +344,7 @@ Returns all orders with a status of "picking" by status code.
 
 ```javascript
 {
+  totalOrders: 2,
   orders: [
     {
       order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
@@ -382,9 +367,7 @@ Returns all orders with a status of "packaging" by status code.  A total of all 
 
 ```javascript
 {
-  status: {
-    responseCode: 103
-  }
+  status: 103
 }
 ```
 
@@ -410,9 +393,7 @@ Returns all orders with a status of "inspecting" by status code.  A total of all
 
 ```javascript
 {
-  status: {
-    responseCode: 104
-  }
+  status: 104
 }
 ```
 
@@ -439,9 +420,7 @@ Returns all orders with a status of "shipping" by status code.  A total of all o
 
 ```javascript
 {
-  status: {
-    responseCode: 105
-  }
+  status: 105
 }
 ```
 
@@ -467,9 +446,7 @@ Returns all orders with a status of "shipped" by status code.  A total of all or
 
 ```javascript
 {
-  status: {
-    responseCode: 106
-  }
+  status: 106
 }
 ```
 
@@ -496,22 +473,7 @@ A package is created when a JSON object that matches the supplied example is sen
 
 ```javascript
 {
-  packages: {
-    orders: {
-      recipient: {
-        name: 'Jazy Jasilo',
-        address: '3300 University Blvd',
-        city: 'Winter Park',
-        state: 'FL',
-        zip: '32792',
-        phone: '555-555-5555'
-      },
-      units: [{
-        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      }],
-      shipping_method: shipCode
-    }
-  }
+  order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
@@ -519,25 +481,13 @@ A package is created when a JSON object that matches the supplied example is sen
 
 ```javascript
 {
-  packages: {
+  pkgs: {
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     pkg_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    orders: {
-      recipient: {
-        name: 'Jazy Jasilo',
-        address: '3300 University Blvd',
-        city: 'Winter Park',
-        state: 'FL',
-        zip: '32792',
-        phone: '555-555-5555'
-      },
-      units: [{
-        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      }],
-      shipping_method: shipCode,
-      status: {
-        responseCode: 200
-      }
-    }
+    pkg_units: [{
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    }],
+    success: TRUE or FALSE
   }
 }
 ```
@@ -561,25 +511,12 @@ Returns a record of an individual package by pkg_id.
 
 ```javascript
 {
-  packages: {
+  pkgs: {
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     pkg_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    orders: {
-      recipient: {
-        name: 'Jazy Jasilo',
-        address: '3300 University Blvd',
-        city: 'Winter Park',
-        state: 'FL',
-        zip: '32792',
-        phone: '555-555-5555'
-      },
-      units: [{
-        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      }],
-      shipping_method: shipCode,
-      status: {
-        responseCode: 200
-      }
-    }
+    pkg_units: [{
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    }]
   }
 }
 ```
@@ -599,15 +536,11 @@ Add a new Unit to the Database
 {
   units: [
     {
-      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
       available_qty: NULL,
       trigger_qty: 3,
       replenish_qty: 5,
       description: 'Blah, Blah, Blah',
-      weight_lbs: 2,
-      status: {
-        responseCode: 200
-      }
+      weight_lbs: 2
     }
   ]
 }
@@ -627,9 +560,7 @@ Add a new Unit to the Database
       weight_lbs: 2,
       createdAt: 'timestamp',
       updatedAt: 'timestamp',
-      status: {
-        responseCode: 200
-      }
+      success: TRUE or FALSE
     }
   ]
 }
@@ -664,9 +595,7 @@ Returns a record of an individual Unit by sku.
       weight_lbs: 2,
       createdAt: 'timestamp',
       updatedAt: 'timestamp',
-      status: {
-        responseCode: 200
-      }
+      status: 200 - 206
     }
   ]
 }
@@ -701,18 +630,16 @@ The status of a unit is updated during the inspection process to either "passed"
       weight_lbs: 2,
       createdAt: 'timestamp',
       updatedAt: 'timestamp',
-      status: {
-        responseCode: 200
-      }
     }
-  ]
+  ],
+  success: TRUE or FALSE
 }
 ```
 
-### Unit Replenish
+### Unit Update Replenish
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `unit/replenish` | `POST` | Not Started |
+| `unit/update/replenish` | `POST` | Not Started |
 
 The quantity of a unit is updated during the receiving of units for replenishment.
 The model for this will likely be very similar to the find method in that it takes the single sku as an argument and returns info on that sku alone.
@@ -738,12 +665,10 @@ The model for this will likely be very similar to the find method in that it tak
       description: 'Blah, Blah, Blah',
       weight_lbs: 2,
       createdAt: 'timestamp',
-      updatedAt: 'timestamp',
-      status: {
-        responseCode: 201
-      }
+      updatedAt: 'timestamp'
     }
-  ]
+  ],
+  success: TRUE or FALSE
 }
 ```
 
@@ -759,28 +684,20 @@ Returns all units with a status of receiving by status code.
 ##### Request
 
 ```javascript
-  status: {
-    responseCode: 202
-  }
+  status: 200
 ```
 
 ##### Response
 
 ```javascript
 {
+  totalUnits: 2,
   units: [
     {
-      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      available_qty: 5,
-      trigger_qty: 3,
-      replenish_qty: 5,
-      description: 'Blah, Blah, Blah',
-      weight_lbs: 2,
-      createdAt: 'timestamp',
-      updatedAt: 'timestamp',
-      status: {
-        responseCode: 202
-      }
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    },
+    {
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     }
   ]
 }
@@ -815,9 +732,7 @@ Returns all available units by sku.
       weight_lbs: 2,
       createdAt: 'timestamp',
       updatedAt: 'timestamp',
-      status: {
-        responseCode: 203
-      }
+      status: 201
     }
   ]
 }
@@ -828,14 +743,14 @@ Returns all available units by sku.
 |---|---|:---:|
 | `unit/picking` | `POST` | Not Started |
 
+Returns all units with a status of picking by status code.
+
 #### Request
 
 ```javascript
 {
   units: {
-    status: {
-      responseCode: 204
-    }
+    status: 202
   }
 }
 ```
@@ -853,10 +768,7 @@ Returns all available units by sku.
       description: 'Blah, Blah, Blah',
       weight_lbs: 2,
       createdAt: 'timestamp',
-      updatedAt: 'timestamp',
-      status: {
-        responseCode: 204
-      }
+      updatedAt: 'timestamp'
     }
   ]
 }
@@ -873,9 +785,7 @@ Returns all units with a status of packaging by status code. These units have pa
 
 ```javascript
 {
-  status: {
-    responseCode: 205
-  }
+  status: 203
 }
 ```
 
@@ -892,10 +802,7 @@ Returns all units with a status of packaging by status code. These units have pa
       description: 'Blah, Blah, Blah',
       weight_lbs: 2,
       createdAt: 'timestamp',
-      updatedAt: 'timestamp',
-      status: {
-        responseCode: 205
-      }
+      updatedAt: 'timestamp'
     }
   ]
 }
@@ -912,9 +819,7 @@ Returns all units with the status of inspecting by status code. These units are 
 
 ```javascript
 {
-  status: {
-    responseCode: 206
-  }
+  status: 204
 }
 ```
 
@@ -931,10 +836,7 @@ Returns all units with the status of inspecting by status code. These units are 
       description: 'Blah, Blah, Blah',
       weight_lbs: 2,
       createdAt: 'timestamp',
-      updatedAt: 'timestamp',
-      status: {
-        responseCode: 205
-      }
+      updatedAt: 'timestamp'
     }
   ]
 }
@@ -949,13 +851,10 @@ Returns all units with the status of inspecting by status code. These units are 
 Returns all units with a status of shipping by status code.
 
 #### Request
-Units table is queried for all units with a status corresponding to shipping.
 
 ```javascript
 {
-  status: {
-    responseCode: 207
-  }
+  status: 205
 }
 ```
 
@@ -972,10 +871,7 @@ Units table is queried for all units with a status corresponding to shipping.
       description: 'Blah, Blah, Blah',
       weight_lbs: 2,
       createdAt: 'timestamp',
-      updatedAt: 'timestamp',
-      status: {
-        responseCode: 207
-      }
+      updatedAt: 'timestamp'
     }
   ]
 }
@@ -992,9 +888,7 @@ Returns all units with a status of shipped by status code. These units have been
 
 ```javascript
 {
-  status: {
-    responseCode: 208
-  }
+  status: 206
 }
 ```
 
@@ -1011,83 +905,9 @@ Returns all units with a status of shipped by status code. These units have been
       description: 'Blah, Blah, Blah',
       weight_lbs: 2,
       createdAt: 'timestamp',
-      updatedAt: 'timestamp',
-      status: {
-        responseCode: 208
-      }
+      updatedAt: 'timestamp'
     }
   ]
-}
-```
-
-## SKU Object Definitions
-
-### SKU Create
-| Endpoint | Method | Development Status |
-|---|---|:---:|
-| `sku/create` | `POST` | Not Started |
-
-A sku is created/entered into the db (inventory table) when a JSON object that matches the supplied example is sent to the endpoint.
-
-##### Request
-An object is submitted to the db with all information about the sku.
-
-```javascript
-{
-  inventory: {
-    sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    desc: 'This widget is small and blue.',
-    pod_id: 'p801594f2c91',
-    status: {
-      responseCode: 200
-    }
-  }
-}
-```
-
-##### Response
-
-```javascript
-{
-  inventory: {
-    sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    desc: 'This widget is small and blue.'
-    pod_id: 'p801594f2c91',
-    status: {
-      responseCode: 200
-    }
-  }
-}
-```
-
-### SKU Find
-| Endpoint | Method | Development Status |
-|---|---|:---:|
-| `sku/find` | `POST` | Not Started |
-
-Returns any records related to a specific sku.
-
-##### Request
-Inventory table is queried for records matching the sku.
-
-```javascript
-{
-  sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
-}
-```
-
-##### Response
-
-```javascript
-{
-  inventory: {
-    sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    desc: 'This widget is small and blue.'
-    pod_id: 'p801594f2c91',
-    status: {
-      responseCode: 200
-    }
-  }
 }
 ```
 
@@ -1108,10 +928,7 @@ An object is submitted to the db with ship_id, associated pkg_id, order_id and d
   shipments: {
     ship_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
     pkg_id: 'package01',
-    order_id: 'order01',
-    status: {
-      responseCode: 200
-    }
+    order_id: 'order01'
   }
 }
 ```
@@ -1137,9 +954,7 @@ An object is submitted to the db with ship_id, associated pkg_id, order_id and d
       phone: '555-555-5555'
     },
     ship_method: 'method_id',
-    status: {
-      responseCode: 200
-    }
+    success: TRUE or FALSE
   }
 }
 ```
@@ -1181,9 +996,7 @@ Shipment table is queried for units matching the ship_id.
       phone: '555-555-5555'
     },
     ship_method: 'method_id',
-    status: {
-      responseCode: 200
-    }
+    status: 300 - 301
   }
 }
 ```
@@ -1199,9 +1012,7 @@ A list of all shipments being loaded on trucks is retrieved.
 Shipments table is queried for records matching the status code indicating package has passed all QA and is ready for departure.
 
 ```javascript
-  status: {
-    responseCode: 200
-  }
+  status: 300
 ```
 
 ##### Response
@@ -1225,10 +1036,7 @@ Shipments table is queried for records matching the status code indicating packa
         email: 'orange@fullsail.edu',
         phone: '555-555-5555'
       },
-      ship_method: 'method_id',
-      status: {
-        responseCode: 200
-      }
+      ship_method: 'method_id'
     }
   ]
 }
@@ -1245,9 +1053,7 @@ A list of all shipments in receiving is retrieved.
 Shipments table is queried for records matching the status code indicating package has arrived at warehouse.
 
 ```javascript
-  status: {
-    responseCode: 200
-  }
+  status: 301
 ```
 
 ##### Response
@@ -1262,10 +1068,7 @@ Shipments table is queried for records matching the status code indicating packa
           sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
           quantity: 10
         }
-      ],
-      status: {
-        responseCode: 200
-      }
+      ]
     }
   ]
 }
@@ -1284,7 +1087,7 @@ Returns a record of an individual Worker by worker_id.
 ```javascript
 {
   workers: {
-    workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }
 }
 ```
@@ -1294,15 +1097,13 @@ Returns a record of an individual Worker by worker_id.
 ```javascript
 {
   workers: {
-    workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    status: {
-      statusCode: 101
-    },
-    assigned: {
+    worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    status: 400 - 401,
+    job_id: {
       statusCode: NEED TO CREATE A CODE FOR UNASSIGNED STATUS AND ALLOW FOR IT HERE
     },
     orders: {
-      orderID: ... THIS CAN BE POPULATED OR EMPTY DEPENDING
+      order_id: ... THIS CAN BE POPULATED OR EMPTY DEPENDING
     }
   }
 }
@@ -1320,9 +1121,7 @@ Returns a list of all Workers that are available for assignment.
 ```javascript
 {
   workers: {
-    status: {
-      statusCode: 101
-    }
+    status: 400
   }
 }
 ```
@@ -1333,10 +1132,10 @@ Returns a list of all Workers that are available for assignment.
 {
   workers: [
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     },
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     }
   ]
 }
@@ -1354,9 +1153,7 @@ Returns all assigned Workers and any associated orders.
 ```javascript
 {
   workers: {
-    status: {
-      statusCode: 102
-    }
+    status: 401
   }
 }
 ```
@@ -1366,15 +1163,12 @@ Returns all assigned Workers and any associated orders.
 ```javascript
 {
   workers: {
-    workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    status: {
-      statusCode: 101
-    },
-    assigned: {
-      statusCode: 700
-    },
+    worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    name: 'giberish',
+    status: 402 - 405,
+    job_id: THIS COULD BE UNDERSTOOD BY STATUS,
     orders: {
-      orderID: ...
+      order_id: ...
     }
   }
 }
@@ -1392,9 +1186,7 @@ All workers with a status of "inspecting" are returned.
 ```javascript
 {
   workers: {
-    status: {
-      statusCode: 101
-    }
+    status: 402
   }
 }
 ```
@@ -1405,10 +1197,10 @@ All workers with a status of "inspecting" are returned.
 {
   workers: [
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     },
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     }
   ]
 }
@@ -1426,9 +1218,7 @@ All workers with a status of "picking" are returned.
 ```javascript
 {
   workers: {
-    status: {
-      statusCode: 101
-    }
+    status: 403
   }
 }
 ```
@@ -1439,10 +1229,10 @@ All workers with a status of "picking" are returned.
 {
   workers: [
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     },
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     }
   ]
 }
@@ -1460,9 +1250,7 @@ All workers with a status of "packaging" are returned.
 ```javascript
 {
   workers: {
-    status: {
-      statusCode: 101
-    }
+    status: 404
   }
 }
 ```
@@ -1473,10 +1261,10 @@ All workers with a status of "packaging" are returned.
 {
   workers: [
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     },
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     }
   ]
 }
@@ -1495,9 +1283,7 @@ All workers with a status of "shipping" are returned.
 ```javascript
 {
   workers: {
-    status: {
-      statusCode: 101
-    }
+    status: 405
   }
 }
 ```
@@ -1508,10 +1294,10 @@ All workers with a status of "shipping" are returned.
 {
   workers: [
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     },
     {
-      workerId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      worker_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     }
   ]
 }
@@ -1538,11 +1324,9 @@ Returns a record of an individual Pod by pod_id.
 ```javascript
 {
   pods: {
-    podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
     payload: 40,
-    status: {
-      responseCode: 500 - 503
-    }
+    status: 500 - 503
   }
 }
 ```
@@ -1558,9 +1342,7 @@ Returns all Pods with payload availability.
 
 ```javascript
 {
-  status: {
-    responseCode: 500
-  }
+  status: 500
 }
 ```
 
@@ -1570,18 +1352,12 @@ Returns all Pods with payload availability.
 {
   pods: [
     {
-      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      payload: 40,
-      status: {
-        responseCode: 500
-      }
+      pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 40
     },
     {
-      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      payload: 25,
-      status: {
-        responseCode: 500
-      }
+      pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 25
     }
   ]
 }
@@ -1597,9 +1373,7 @@ Returns all pods being loaded.
 
 ```javascript
 {
-  status: {
-    responseCode: 501
-  }
+  status: 501
 }
 ```
 
@@ -1609,18 +1383,12 @@ Returns all pods being loaded.
 {
   pods: [
     {
-      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      payload: 40,
-      status: {
-        responseCode: 501
-      }
+      pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 40
     },
     {
-      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      payload: 25,
-      status: {
-        responseCode: 501
-      }
+      pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 25
     }
   ]
 }
@@ -1637,9 +1405,7 @@ Returns all pods with a status of Picking.
 
 ```javascript
 {
-  status: {
-    responseCode: 502
-  }
+  status: 502
 }
 ```
 
@@ -1649,18 +1415,12 @@ Returns all pods with a status of Picking.
 {
   pods: [
     {
-      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      payload: 40,
-      status: {
-        responseCode: 502
-      }
+      pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 40
     },
     {
-      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      payload: 25,
-      status: {
-        responseCode: 502
-      }
+      pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 25
     }
   ]
 }
@@ -1677,9 +1437,7 @@ Returns all pods with a status of Maintenance.
 
 ```javascript
 {
-  status: {
-    responseCode: 503
-  }
+  status: 503
 }
 ```
 
@@ -1689,18 +1447,12 @@ Returns all pods with a status of Maintenance.
 {
   pods: [
     {
-      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      payload: 40,
-      status: {
-        responseCode: 503
-      }
+      pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 40
     },
     {
-      podId: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      payload: 25,
-      status: {
-        responseCode: 503
-      }
+      pod_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      payload: 25
     }
   ]
 }
