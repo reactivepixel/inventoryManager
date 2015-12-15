@@ -48,6 +48,9 @@ describe('order CRUD Test', function() {
   });
 
 
+  // Update Test
+  // Change Testing user to Updated user then print to the console
+
   // Remove Test
   it('remove-order-test', function (done) {
     order.remove({
