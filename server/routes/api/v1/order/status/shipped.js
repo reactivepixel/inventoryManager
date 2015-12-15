@@ -1,6 +1,6 @@
 // Pulling all orders that are marked as 'shipped'
 /*
-* To test this enter {"statusId": 200}
+* To test this enter {"status": 106}
 * and you should recieve back the data and total number of orders
 */
 
@@ -13,11 +13,11 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find by status using the find model
-    order.find({statusId: statusInfo.statusId}, function(data){
-      var status = statusInfo.statusId;
+    order.find({status: statusInfo.status}, function(data){
+      var status = statusInfo.status;
 
-      // Check if the status is 300, if so console.log the total orders.
-      if (status === 200){
+      // Check if the status is 106, if so console.log the total orders.
+      if (status === 106){
         console.log('Total orders: ' + data.length + '.');
         res.json({
           serverMessage: 'Your orders are: ',

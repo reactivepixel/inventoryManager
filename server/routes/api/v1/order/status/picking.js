@@ -1,7 +1,7 @@
 // Gravity Application API status/picking | API for returning orders with status picking
 // Pulling all units that are marked as 'picking'
 /*
-* To test this enter {"statusId": 100}
+* To test this enter {"status": 102}
 * and you should recieve back the data and total number of units
 */
 module.exports = function (express){
@@ -13,11 +13,11 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find by status using the find model
-    order.find({statusId: statusInfo.statusId}, function(data){
-      var status = statusInfo.statusId;
+    order.find({status: statusInfo.status}, function(data){
+      var status = statusInfo.status;
 
-      // Check if the status is 100, if so console.log the total orders.
-      if (status === 100){
+      // Check if the status is 102, if so console.log the total orders.
+      if (status === 102){
         console.log('Total orders: ' + data.length + '.');
         res.json({
           serverMessage: 'Your orders are: ',
