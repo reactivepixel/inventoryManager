@@ -111,11 +111,13 @@ TODO Write Me
 | 101           | Available       |                                         |
 | 200           | Shipped         | Usually a 'success' message             |
 | 201           | Received        |                                         |
+| 202           | Loading         |                                         |
 | 300           | Packaging       | Usually means a 'redirect'              |
 | 301           | Info Not Supplied | When an endpoint is expecting some piece of data (SKU for Instance) and the POST request did not contain the expected data.
 | 400           | Not Found       | Usually an 'error'                      |
 | 500           | Unavailable     | Usually a 'bad request'                 |
 | 600           | Inspecting      |                                         |
+| 601           | Maintenance     |                                         |
 | 700           | Shipping        |                                         |
 | 800           | Incomplete      |                                         |
 | 900           | Retired         | After it is out of our hands            |
