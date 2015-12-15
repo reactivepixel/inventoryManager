@@ -1,4 +1,3 @@
-
 module.exports = function(){
   var express = require('express');
   var mysql = require('mysql');
@@ -15,53 +14,9 @@ module.exports = function(){
   var sequelize = new Sequelize(process.env.DB_NAME, process.env.MYSQL_NAME, process.env.MYSQL_PASS, {
     host: process.env.DB_HOST,
     dialect: 'mysql',
-    port: process.env.PORT,
+    port: process.env.DB_PORT,
     pool: {max: 5, min: 0, idle: 10000}
   });
-
-  // Checking connection status
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var test = sequelize.authenticate().then(function(){
-      console.log("connected");
-    }).catch(function(err){
-      console.log("something goofed", err);
-    })
-    .done();
-
-  // Create order Tables
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var order = sequelize.define('orders', {
-    shipping_tracking:  {
-      type: Sequelize.INTEGER
-    }
-
-  });
-
-  // Create Units Table
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var unit = sequelize.define('units', {
-    sku: {
-      type: Sequelize.STRING,
-      primaryKey: true
-    },
-    availability_qty: {
-      type: Sequelize.INTEGER
-    },
-    trigger_qty: {
-      type: Sequelize.INTEGER
-    },
-    replenish_qty: {
-      type: Sequelize.INTEGER
-    },
-    description: {
-      type: Sequelize.STRING
-    },
-    weight_lbs: {
-      type: Sequelize.INTEGER
-    }
-  });
-
-
 
   // Checking connection status
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -119,7 +74,10 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var worker = sequelize.define('workers', {
     name: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+    },
+    pin: {
+      type:Sequelize.INTEGER,
     }
   });
 
@@ -169,7 +127,7 @@ module.exports = function(){
 
   // Create Shipment Table
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var shipment = sequelize.define('shipment', {});
+  var replenishment = sequelize.define('replenishments', {});
 
 
   // Create Shipping_method Table
@@ -264,7 +222,10 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var maint_type = sequelize.define('maintenance', {
     maint_desc:{
-      type:Sequelize.STRING
+      type:Sequelize.STRING,
+    },
+    maint_types:{
+      type: Sequelize.STRING,
     }
   });
 
@@ -294,27 +255,28 @@ module.exports = function(){
 
   // Table Relations
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  order.hasOne(recipient);
-  order.hasOne(shipping_method);
-  order.hasOne(status);
   order.hasOne(order_unit);
-  pack.hasOne(order);
   pack.hasOne(status);
-  worker.hasOne(status);
-  worker.hasOne(job);
-  inventory.hasOne(status);
-  inventory.hasOne(order);
-  inventory.hasOne(unit);
-  inventory.hasOne(pod);
-  unit.hasOne(unit_issue);
-  unit_issue.hasOne(issue_type);
-  unit.hasOne(shipment_unit);
-  shipment_unit.hasOne(shipment);
-  package_unit.hasOne(unit);
-  pack.hasOne(package_unit);
-  pod.hasOne(maintenance);
-  maintenance.hasOne(maint_type);
-
+  job.hasOne(worker, {foreignKey: 'job_id'});
+  unit.hasOne(inventory, {foreignKey: 'inventoryId'});
+  unit.hasOne(shipment_unit, {foreignKey: 'sku'});
+  shipment_unit.hasOne(replenishment, {foreignKey: 'ship_id'});
+  order.hasOne(shipping_method, {foreignKey: 'orderId'});
+  pod.hasOne(maintenance, {foreignKey: 'pod_id'});
+  status.hasOne(pod, {foreignKey: 'status'});
+  status.hasOne(maintenance, {foreignKey: 'status'});
+  order.hasOne(worker, {foreignKey: 'order_id'});
+  status.hasOne(worker, {foreignKey: 'status'});
+  status.hasOne(inventory, {foreignKey:'status'});
+  order.hasOne(inventory, {foreignKey: 'order_id'});
+  status.hasOne(inventory, {foreignKey: 'status'});
+  order.hasOne(order_unit, {foreignKey: 'orderId'});
+  pack.hasOne(package_unit, {foreignKey:'pkg_id'});
+  inventory.hasOne(package_unit, {foreignKey: 'unit_id'});
+  pack.hasOne(order, {foreignKey: 'packId'});
+  recipient.hasOne(order, {foreignKey: 'recipient_id'});
+  status.hasOne(order, {foreignKey: 'status'});
+  inventory.hasOne(issue, {foreignKey: ''})
 
   // Creating all the tables in the proper orders
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

@@ -35,6 +35,18 @@ describe('orderCRUD', function() {
       console.log('err' + err);
     });
   });
+  
+//Update Test
+  it("updateOrder", function (done){
+    order.update({id: testingId}, {shipping_tracking:99}, function (data) {
+
+      expect(data.shipping_tracking).to.be.equal(99);
+      done();
+    }, function (err){
+      console.log('err' + err);
+    });
+  });
+
 
 
   // Remove Test
@@ -47,19 +59,8 @@ describe('orderCRUD', function() {
       console.log('err' + err);
     });
   });
-
-  //Update Test
-  it("updateOrder", function (done){
-    order.update({id: 7}, {shipping_tracking:99}, function (data) {
-
-      expect(data.shipping_tracking).to.be.equal(99);
-      done();
-    }, function (err){
-      console.log('err' + err);
-    });
-  });
 });
-
+  
 
 
 
