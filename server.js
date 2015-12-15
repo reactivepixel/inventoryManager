@@ -89,6 +89,5 @@ var server = app.listen(port, function() {
   console.log('STEP 4: terminalSQL: drop database gravity;');
   console.log('STEP 5: terminalSQL: create database gravity;');
   console.log('STEP 6: terminal: gulp dev');
-  console.log('STEP 7: terminal: npm start server.js');
   console.log('NOTICE ============');
 });

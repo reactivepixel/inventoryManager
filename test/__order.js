@@ -15,7 +15,13 @@ describe('orderCRUD', function() {
   // Create test
   it('createOrder', function (done) {
     order.create({
-      shipping_tracking: 34
+      shipping_tracking: 34,
+      name:'muffin man',
+      address:'55 Cottonwood Trail',
+      city: 'Orlando',
+      state: 'FL',
+      zip: 32792,
+      phone: 5555555,
     }, function (data) {
     data.shipping_tracking.should.equal(34);
      testingId = data.id;
@@ -35,6 +41,18 @@ describe('orderCRUD', function() {
       console.log('err' + err);
     });
   });
+  
+//Update Test
+  it("updateOrder", function (done){
+    order.update({id: testingId}, {shipping_tracking:99}, function (data) {
+
+      expect(data.shipping_tracking).to.be.equal(99);
+      done();
+    }, function (err){
+      console.log('err' + err);
+    });
+  });
+
 
 
   // Remove Test
@@ -47,19 +65,8 @@ describe('orderCRUD', function() {
       console.log('err' + err);
     });
   });
-
-  //Update Test
-  it("updateOrder", function (done){
-    order.update({id: 7}, {shipping_tracking:99}, function (data) {
-
-      expect(data.shipping_tracking).to.be.equal(99);
-      done();
-    }, function (err){
-      console.log('err' + err);
-    });
-  });
 });
-
+  
 
 
 

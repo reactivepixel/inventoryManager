@@ -35,6 +35,18 @@ describe('workerCRUD', function() {
     });
   });
 
+  //Update Test
+  it("updateWorker", function (done){
+    worker.update({id: testingId}, {name:'Brandy Bergh'}, function (data) {
+
+      //expect(data.shipping_tracking).to.be.equal(99);
+      done();
+    }, function (err){
+      console.log('err' + err);
+    });
+  });
+
+
 
   // Remove Test
   it('removeWorker', function (done) {
@@ -47,17 +59,7 @@ describe('workerCRUD', function() {
     });
   });
 
-  //Update Test
-  it("updateWorker", function (done){
-    worker.update({id: 1}, {name:'Brandy Bergh'}, function (data) {
-
-      //expect(data.shipping_tracking).to.be.equal(99);
-      done();
-    }, function (err){
-      console.log('err' + err);
-    });
-  });
-});
+ }); 
 
 
 

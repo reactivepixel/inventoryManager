@@ -16,6 +16,24 @@ module.exports = function() {
   var order = sequelize.define('orders', {
     shipping_tracking: {
       type: Sequelize.INTEGER
+    },
+    name:{
+      type:Sequelize.INTEGER,
+    },
+    address:{
+      type:Sequelize.INTEGER,
+    },
+    city: {
+      type: Sequelize.STRING,
+    },
+    state: {
+      type: Sequelize.STRING,
+    },
+    zip: {
+      type: Sequelize.STRING,
+    },
+    phone: {
+      type: Sequelize.STRING,
     }
   });
 
@@ -173,7 +191,13 @@ module.exports = function() {
       if (!data) return fail({ code:309 });
       // Update the Atts of the returned row
       data.updateAttributes({
-          shipping_tracking: updateObj.shipping_tracking
+          shipping_tracking: updateObj.shipping_tracking,
+          name:updateObj.name,
+          address:updateObj.address,
+          city: updateObj.city,
+          state: updateObj.state,
+          zip: updateObj.zip,
+          phone: updateObj.phone,
       }).then(success).catch(fail)
     }).catch(fail);
   };
