@@ -44,6 +44,13 @@ app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/inspe
 app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/receiving.js')(express));
 app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/available.js')(express));
 
+// Pod based routes
+app.use('/api/v1/pod/status', require('./server/routes/api/v1/pod/status/available.js')(express));
+app.use('/api/v1/pod/status', require('./server/routes/api/v1/pod/status/loading.js')(express));
+app.use('/api/v1/pod/status', require('./server/routes/api/v1/pod/status/maintenace.js')(express));
+app.use('/api/v1/pod/status', require('./server/routes/api/v1/pod/status/picking.js')(express));
+
+
 // TODO: Not all routes defined dev team
 // TODO: add passport to parameters, define separate route directory
 
