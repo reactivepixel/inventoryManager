@@ -1,7 +1,7 @@
 // Gravity Application API  status/occupied | API for returning workers with status of occupied
 /*
 * To test this enter {"statusId": 102 }
-* and you should recieve back the data and total number of units
+* and you should recieve back the data and total number of occupied workers
 */
 
 module.exports = function (express){

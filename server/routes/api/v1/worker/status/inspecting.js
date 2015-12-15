@@ -1,7 +1,7 @@
 // Gravity Application API  status/inspecting | API for returning workers with status of inspecting
 /*
 * To test this enter {"statusId": 600 }
-* and you should recieve back the data and total number of units
+* and you should recieve back the data and total number of workers in inspecting
 */
 
 module.exports = function (express){

@@ -1,7 +1,7 @@
 // Gravity Application API  status/packaging | API for returning workers with status of packaging
 /*
 * To test this enter {"statusId": 300 }
-* and you should recieve back the data and total number of units
+* and you should recieve back the data and total number of workers in packaging
 */
 
 module.exports = function (express){

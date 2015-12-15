@@ -1,7 +1,7 @@
 // Gravity Application API  status/shipping | API for returning workers with status of shipping
 /*
 * To test this enter {"statusId": 700 }
-* and you should recieve back the data and total number of units
+* and you should recieve back the data and total number of workers in shipping
 */
 
 module.exports = function (express){

@@ -1,7 +1,7 @@
 // Gravity Application API  status/picking | API for returning workers with status of picking
 /*
 * To test this enter {"statusId": 100 }
-* and you should recieve back the data and total number of units
+* and you should recieve back the data and total number of workers in picking
 */
 
 module.exports = function (express){
