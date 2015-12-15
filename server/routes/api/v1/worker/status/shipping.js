@@ -1,6 +1,6 @@
 // Gravity Application API  status/shipping | API for returning workers with status of shipping
 /*
-* To test this enter {"statusId": 700 }
+* To test this enter {"statusId": 405 }
 * and you should recieve back the data and total number of workers in shipping
 */
 
@@ -13,11 +13,11 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find status using the find model
-    worker.find({statusId: statusInfo.statusId}, function(data){
-      var status = statusInfo.statusId;
+    worker.find({statusId: statusInfo.status}, function(data){
+      var status = statusInfo.status;
 
-      // Check if the status is 700, if so console.log the total workers
-      if (status === 700){
+      // Check if the status is 405, if so console.log the total workers
+      if (status === 405){
         console.log('Total workers in Shipping: ' + data.length + '.');
         res.json({
           serverMessage: 'Workers: ',

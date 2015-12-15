@@ -1,6 +1,6 @@
 // Gravity Application API  status/occupied | API for returning workers with status of occupied
 /*
-* To test this enter {"statusId": 102 }
+* To test this enter {"statusId": 401 }
 * and you should recieve back the data and total number of occupied workers
 */
 
@@ -13,11 +13,11 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find status using the find model
-    worker.find({statusId: statusInfo.statusId}, function(data){
-      var status = statusInfo.statusId;
+    worker.find({statusId: statusInfo.status}, function(data){
+      var status = statusInfo.status;
 
-      // Check if the status is 102, if so console.log the total workers
-      if (status === 102){
+      // Check if the status is 401, if so console.log the total workers
+      if (status === 401){
         console.log('Total workers occupied: ' + data.length + '.');
         res.json({
           serverMessage: 'Workers: ',

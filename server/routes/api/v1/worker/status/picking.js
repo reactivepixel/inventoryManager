@@ -1,6 +1,6 @@
 // Gravity Application API  status/picking | API for returning workers with status of picking
 /*
-* To test this enter {"statusId": 100 }
+* To test this enter {"statusId": 403 }
 * and you should recieve back the data and total number of workers in picking
 */
 
@@ -13,11 +13,11 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find status using the find model
-    worker.find({statusId: statusInfo.statusId}, function(data){
-      var status = statusInfo.statusId;
+    worker.find({statusId: statusInfo.status}, function(data){
+      var status = statusInfo.status;
 
-      // Check if the status is 100, if so console.log the total workers
-      if (status === 100){
+      // Check if the status is 403, if so console.log the total workers
+      if (status === 403){
         console.log('Total workers in picking: ' + data.length + '.');
         res.json({
           serverMessage: 'Workers: ',

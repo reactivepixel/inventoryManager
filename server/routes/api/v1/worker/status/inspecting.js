@@ -1,6 +1,6 @@
 // Gravity Application API  status/inspecting | API for returning workers with status of inspecting
 /*
-* To test this enter {"statusId": 600 }
+* To test this enter {"statusId": 402 }
 * and you should recieve back the data and total number of workers in inspecting
 */
 
@@ -13,11 +13,11 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find status using the find model
-    worker.find({statusId: statusInfo.statusId}, function(data){
-      var status = statusInfo.statusId;
+    worker.find({statusId: statusInfo.status}, function(data){
+      var status = statusInfo.status;
 
-      // Check if the status is 600, if so console.log the total workers
-      if (status === 600){
+      // Check if the status is 402, if so console.log the total workers
+      if (status === 402){
         console.log('Total workers in Inspecting: ' + data.length + '.');
         res.json({
           serverMessage: 'Workers: ',

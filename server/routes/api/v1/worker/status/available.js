@@ -1,6 +1,6 @@
 // Gravity Application API  status/available | API for returning workers with status of available
 /*
-* To test this enter {"statusId": 101 }
+* To test this enter {"statusId": 400 }
 * and you should recieve back the data and total number of available workers
 */
 
@@ -13,11 +13,11 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find status using the find model
-    worker.find({statusId: statusInfo.statusId}, function(data){
-      var status = statusInfo.statusId;
+    worker.find({statusId: statusInfo.status}, function(data){
+      var status = statusInfo.status;
 
-      // Check if the status is 101, if so console.log the total workers
-      if (status === 101){
+      // Check if the status is 400, if so console.log the total workers
+      if (status === 400){
         console.log('Total workers available: ' + data.length + '.');
         res.json({
           serverMessage: 'Workers: ',
