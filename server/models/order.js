@@ -4,10 +4,8 @@ module.exports = function() {
   var Sequelize = require('sequelize');
   var sequelize = db.connection;
 
-  // TODO Write a nice system wide defaultFail DB interaction Failure
   var defaultFail = function(err, doc){ console.log('err' + err + doc); };
 
-  // TODO Write a sanitize function once we see some bad data comeing through
   var defaultSanitize = function(uncleanData){ return uncleanData; };
 
 
@@ -159,7 +157,7 @@ module.exports = function() {
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
 
-    //validation:
+    // Validation:
     if(!cleanData.id) return fail({ code:301 });
 
     order.destroy({where: {id: cleanData.id}}).then(success).catch(fail);
@@ -188,11 +186,11 @@ module.exports = function() {
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
 
-    //validation:
+    // Validation:
     if(!cleanData.id) return fail({ code:301 });
 
     order.find({where:{id:cleanData.id}}).then(function (data) {
-      //console.log('hello', data);
+      // Console.log('hello', data);
       // No data was found
       if (!data) return fail({ code:309 });
       // Update the Atts of the returned row

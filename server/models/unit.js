@@ -4,16 +4,15 @@ module.exports = function() {
   var Sequelize = require('sequelize');
   var sequelize = db.connection;
 
-  // TODO make a utility for more than just the API out of the ID Generator
   var APIFunctions = {
     idGenerator : function(){
       function s4() {
-        // handles making unique characters in sets of 4
+        // Handles making unique characters in sets of 4
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
       }
 
-      // combine and return a string of random characters several.
-      // the first character MUST be a letter for id's to work. we've gone with "J"
+      // Combine and return a string of random characters several.
+      // The first character MUST be a letter for id's to work. we've gone with "J"
       return "j" + s4() + s4() +  s4() +  s4() +  s4() + s4() + s4() + s4();
     }
   };
@@ -174,7 +173,7 @@ module.exports = function() {
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
 
-    //validation:
+    // Validation:
     if(!cleanData.sku) return fail({ code:301 });
 
     unit.destroy({where: {sku: cleanData.sku}}).then(success).catch(fail);
@@ -202,7 +201,7 @@ module.exports = function() {
     if(!cleanData) return fail({ code:301 });
 
 
-    //validation:
+    // Validation:
     if(!cleanData.sku) return fail({ code:301 });
 
     unit.find({where:{sku:cleanData.sku}}).then(function (data) {
@@ -224,6 +223,7 @@ module.exports = function() {
   };
   return {
     create: _addOne,
+    find: _find,
     findAll: _findAll,
     findOne: _findOne,
     remove: _remove,

@@ -214,11 +214,9 @@ module.exports = function(){
   status.hasOne(pack, {foreignKey: 'status'});
   job.hasOne(worker, {foreignKey: 'job_id'});
   unit.hasOne(inventory, {foreignKey: 'sku'});
-  //unit.hasOne(package_unit, {foreignKey: 'sku'});
   replenishment_unit.hasOne(replenishment, {foreignKey: 'replenishment_id'});
   shipping_method.hasOne(order, {foreignKey: 'orderId'});
   status.hasOne(pod, {foreignKey: 'status'});
-  //status.hasOne(maintenance, {foreignKey: 'status'});
   order.hasOne(worker, {foreignKey: 'order_id'});
   status.hasOne(worker, {foreignKey: 'status'});
   status.hasOne(inventory, {foreignKey:'status'});

@@ -13,7 +13,7 @@ module.exports = function (express) {
     var clientWorkerPost = req.body;
 
     // Example of data in JSON format
-    // worker.add({name: 'Muffin Man'}
+    // Worker.add({name: 'Muffin Man'}
     worker.create({name: clientWorkerPost.name},
     function(data){
 

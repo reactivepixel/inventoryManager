@@ -71,11 +71,6 @@ app.use('/api/v1/pod/status', require('./server/routes/api/v1/pod/status/mainten
 app.use('/api/v1/pod/status', require('./server/routes/api/v1/pod/status/picking.js')(express));
 
 
-
-
-// TODO: Not all routes defined dev team
-// TODO: add passport to parameters, define separate route directory
-
 // Start The Server
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 var server = app.listen(port, function() {

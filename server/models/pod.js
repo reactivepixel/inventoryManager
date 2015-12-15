@@ -1,27 +1,23 @@
 module.exports = function() {
   var db = require('../db.js')();
-  // FIXME data isnt being used why is it here?
   var data = require('../../lib/sanitize.js');
 
-  // FIXME: variables are same 1 is capital. this can cause issues
   var Sequelize = require('sequelize');
   var sequelize = db.connection;
 
-  // FIXME: This have been moved to lib directory fix accordingly
   var APIFunctions = {
     idGenerator : function(){
       function s4() {
-        // handles making unique characters in sets of 4
+        // Handles making unique characters in sets of 4
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
       }
 
-      // combine and return a string of random characters several.
-      // the first character MUST be a letter for id's to work. we've gone with "J"
+      // Combine and return a string of random characters several.
+      // The first character MUST be a letter for id's to work. we've gone with "J"
       return "j" + s4() + s4() +  s4() +  s4() +  s4() + s4() + s4() + s4();
     }
   };
 
-  // FIXME: defaultFail never used
   var defaultFail = function(err, doc){console.log('err', err, doc); };
   var defaultSanitize = function (uncleanData){return uncleanData; };
 
@@ -187,7 +183,7 @@ module.exports = function() {
         // If sanitize fails prevent payload from touching the db
         if(!cleanData) return fail({ code:301 });
 
-        //validation:
+        // Validation:
         if(!cleanData.id) return fail({ code:301 });
 
         pod.find({where:{id:cleanData.id}}).then(function (data) {
@@ -206,6 +202,7 @@ module.exports = function() {
 
   return {
     create: _addOne,
+    find: _find,
     findAll: _findAll,
     findOne: _findOne,
     remove: _remove,

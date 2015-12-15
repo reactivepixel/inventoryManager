@@ -6,7 +6,6 @@ module.exports = function(){
 
   var defaultFail = function(err, doc){ console.log('err' + err + doc); };
 
-  // TODO Write a sanitize function once we see some bad data coming through
   var defaultSanitize = function(uncleanData){ return uncleanData; };
 
 
@@ -113,7 +112,7 @@ module.exports = function(){
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
 
-    //validation:
+    // Validation:
     if(!cleanData.id) return fail({ code:301 });
 
     worker.destroy({where: {id: cleanData.id}}).then(success).catch(fail);
@@ -144,7 +143,7 @@ module.exports = function(){
         if(!cleanData) return fail({ code:301 });
 
 
-        //validation:
+        // Validation:
         if(!cleanData.id) return fail({ code:301 });
 
         worker.find({where:{id:cleanData.id}}).then(function (data) {
