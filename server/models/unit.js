@@ -58,10 +58,10 @@ module.exports = function() {
    * @example
    * // Add One Unit with Success and Failure. Note if a sku is not supplied, one is generated.
    * unit.add({availability_qty: 3, trigger_qty:4, replenish_qty:5, description: "pink", weight_lbs: 4}, function(data){
-  *  console.log('Added Unit');
-  * }, function(err){
-  *  console.log('Adding Error-' + err);
-  * });
+   *  console.log('Added Unit');
+   * }, function(err){
+   *  console.log('Adding Error-' + err);
+   * });
    */
 
   var _addOne = function(payload, success, fail){
@@ -92,10 +92,10 @@ module.exports = function() {
    * @example
    * // Return all Units with Success and Failure
    * unit.all(function(data){
-  *   res.json(data);
-  * }, function(err){
-  *   console.log('err' + err);
-  * });
+   *   res.json(data);
+   * }, function(err){
+   *   console.log('err' + err);
+   * });
    */
   var _findAll = function (success, fail){
     unit.findAll().then(success).catch(fail);

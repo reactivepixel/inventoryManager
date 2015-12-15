@@ -57,10 +57,10 @@ module.exports = function() {
    * @example
    * // Return all Orders with Success and Failure
    * order.all(function(data){
-    *   res.json(data);
-    * }, function(err){
-    *   console.log('err' + err);
-    * });
+   *   res.json(data);
+   * }, function(err){
+   *   console.log('err' + err);
+   * });
    */
   var _findAll = function (success, fail){
     order.findAll().then(success).catch(fail);
@@ -76,10 +76,10 @@ module.exports = function() {
    * @example
    * // Find One based on supplied obj, in this case just a time_stamp or ID with Success and Failure
    * order.findOne({shipping_tracking:1600}, function(data){
-    *   res.json(data);
-    * }, function(err, doc){
-    *   console.log('err' + err + doc);
-    * });
+   *   res.json(data);
+   * }, function(err, doc){
+   *   console.log('err' + err + doc);
+   * });
    */
   var _findOne = function (payload, success, fail){
 
