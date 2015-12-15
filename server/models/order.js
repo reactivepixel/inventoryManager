@@ -130,7 +130,7 @@ module.exports = function() {
   var _remove = function (payload, success, fail){
 
     // Run user data through sanitize.
-    cleanData = defaultSanitize(payload);
+    var cleanData = defaultSanitize(payload);
 
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });

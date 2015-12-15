@@ -218,7 +218,6 @@ module.exports = function() {
   };
 
   return {
-    find: _find,
     create: _addOne,
     findAll: _findAll,
     findOne: _findOne,

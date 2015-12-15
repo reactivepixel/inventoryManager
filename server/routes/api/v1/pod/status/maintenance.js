@@ -14,7 +14,7 @@ module.exports = function (express){
     var statusInfo = req.body;
 
     // Find by status using the find model
-    pod.find({statusId: statusInfo.statusId}, function(data){
+    pod.findOne({statusId: statusInfo.statusId}, function(data){
       var status = statusInfo.statusId;
 
       // Check if the status is 601, if so console.log the total pods

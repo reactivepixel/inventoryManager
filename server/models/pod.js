@@ -199,7 +199,7 @@ module.exports = function() {
           data.updateAttributes({
               current_weight: updateObj.current_weight,
               max_weight: updateObj.max_weight,
-              last_maintained: updateObj.last_maintained,
+              last_maintained: updateObj.last_maintained
           }).then(success).catch(fail)
         }).catch(fail);
   };
@@ -208,7 +208,6 @@ module.exports = function() {
     create: _addOne,
     findAll: _findAll,
     findOne: _findOne,
-    find: _find,
     remove: _remove,
     update: _update
   }

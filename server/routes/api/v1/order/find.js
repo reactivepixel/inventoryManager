@@ -14,7 +14,7 @@ module.exports = function (express) {
 
     // Example of data in JSON format
     // {shipping_tracking:1600}
-    order.find({shipping_tracking: clientFindPost.shipping_tracking},
+    order.findOne({shipping_tracking: clientFindPost.shipping_tracking},
     function(data) {
 
       // Server message of the request
