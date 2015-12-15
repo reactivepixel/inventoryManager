@@ -1,10 +1,10 @@
-// Gravity Application API | Remove pod based on SKU
+// Gravity Application API | Remove worker based on SKU
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function (express) {
   var router = express.Router();
-  var pod = require('../../../../models/pod.js');
+  var worker = require('../../../../models/worker.js');
 
-  // /api/v1/pod/remove
+  // /api/v1/worker/remove
   router.post('/remove', function(req, res) {
     var serverMessage = "Your remove request is being processed";
     var serverResponse = "You've encountered an unknown error";
@@ -13,13 +13,13 @@ module.exports = function (express) {
     var clientFindPost = req.body;
 
     // Example of data in JSON format
-    // {"pod_id" : "j9fead89099de0cf88ce52bf794e5a47e"}
-    pod.remove({pod_id: clientFindPost.pod_id},
+    // {name:'Muffin Man'}
+    worker.remove({name: clientFindPost.name},
     function() {
 
       // Server message of the request
-      console.log('A remove request has been made for pod: ' + clientFindPost.pod_id);
-      serverResponse = "Your remove request for pod id: " + clientFindPost.pod_id + " was proceeded";
+      console.log('A remove request has been made for worker: ' + clientFindPost.name);
+      serverResponse = "Your remove request for worker id: " + clientFindPost.name + " was proceeded";
 
       res.json({
         serverMessage: serverMessage,
@@ -27,7 +27,7 @@ module.exports = function (express) {
       });
     },
 
-    function(err, doc) {
+    function(err, doc){
       res.json({
         serverMessage: serverMessage,
         serverResponse: serverResponse,

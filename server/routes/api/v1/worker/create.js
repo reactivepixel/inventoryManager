@@ -1,29 +1,28 @@
-// Gravity Application API orderUpdate | API for adding order to database
+// Gravity Application API | Create a worker in the database
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 module.exports = function (express) {
   var router = express.Router();
-  var order = require('../../../../models/order.js');
+  var worker = require('../../../../models/worker.js');
 
-  // /api/v1/order/update
-  router.post('/update', function(req, res) {
-    var serverMessage = "Your update is being processed";
-    var serverResponse = "Your order was updated successfully";
+  // /api/v1/worker/create
+  router.post('/create', function(req, res) {
+    var serverMessage = "Your worker is being created";
+    var serverResponse = "Your worker was created successfully";
 
     // Request made from client
-    var clientOrderPost = req.body;
+    var clientWorkerPost = req.body;
 
     // Example of data in JSON format
-    // order.update({shipping_tracking:1709}
-    order.update({shipping_tracking: clientOrderPost.shipping_tracking},
+    // worker.add({name: 'Muffin Man'}
+    worker.create({name: clientWorkerPost.name},
     function(data){
 
       // Server message of the request
-      console.log('A order update request has been made');
+      console.log('A worker create request has been made');
 
       res.json({
         serverMessage: serverMessage,
         serverResponse: serverResponse,
-        orderData: data
       });
     },
 

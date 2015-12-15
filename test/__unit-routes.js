@@ -7,6 +7,7 @@ var request = require('request');
 var url = 'http://localhost:3000/api/v1/unit/create';
 
 // unitCreate Test
+console.log('Post application remove on hit');
 request({
   method: "POST",
   url: url,

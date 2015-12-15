@@ -115,6 +115,25 @@ module.exports = function() {
     pod.findOne({where:payload}).then(success).catch(fail);
   };
 
+  // Find Units using where (returning more than one)
+  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  /**
+  * @param {obj} What to filter upon
+  * @param {function} success Callback function for execution on successful adding.
+  * @param {function} fail Callback function for execution on failed adding.
+  * @example
+  * // Return all units where it meets a certain requirement with Success and Failure
+  * pod.find({statusId: status.statusId}, function(data){
+  *   res.json(data);
+  * }, function(err){
+  *   console.log('err' + err);
+  * });
+  */
+  var _find = function (payload, success, fail){
+    pod.findAll({where:payload}).then(success).catch(fail);
+    console.log(success);
+  };
+
 
 	// Remove One Pod
 	// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -180,7 +199,7 @@ module.exports = function() {
           data.updateAttributes({
               current_weight: updateObj.current_weight,
               max_weight: updateObj.max_weight,
-              last_maintained: updateObj.last_maintained,
+              last_maintained: updateObj.last_maintained
           }).then(success).catch(fail)
         }).catch(fail);
   };
