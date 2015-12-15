@@ -14,7 +14,7 @@ module.exports = function (express) {
 
     // Example of data in JSON format
     // worker.add({name: 'Muffin Man'}
-    worker.add({name: clientWorkerPost.name},
+    worker.create({name: clientWorkerPost.name},
     function(data){
 
       // Server message of the request
