@@ -151,7 +151,7 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var replenishment_unit = sequelize.define('replenishment_units', {
     sku:{
-      type:Sequelize.INTEGER
+      type:Sequelize.STRING
     },
     qty:{
       type:Sequelize.INTEGER
@@ -163,7 +163,7 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var order_unit = sequelize.define('order_units', {
     sku:{
-      type:Sequelize.INTEGER
+      type:Sequelize.STRING
     },
     qty:{
       type:Sequelize.INTEGER
@@ -175,7 +175,7 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var inventory = sequelize.define('inventory', {
     sku:{
-      type:Sequelize.INTEGER
+      type:Sequelize.STRING
     },
     order_id: {
       type: Sequelize.INTEGER
