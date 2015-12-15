@@ -207,17 +207,19 @@ Add a new Order to the Database.
 
 ```javascript
 {
-  order: {
+  orders: {
     recipient: {
   	  name: 'Jazy Jasilo',
-  	  address: '3300 University Blvd, Winter Park, FL 32792',
-  	  email: 'orange@fullsail.edu',
+  	  address: '3300 University Blvd',
+      city: 'Winter Park',
+      state: 'FL',
+      zip: '32792',
   	  phone: '555-555-5555'
     },
     units: [{
       sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-  	  quantity: 4
-    }]
+    }],
+    shipping_method: shipCode
   }
 }
 ```
@@ -226,12 +228,18 @@ Add a new Order to the Database.
 
 ```javascript
 {
-  sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-  available_qty: 5,
-  trigger_qty: 3,
-  replenish_qty: 5,
-  status: {
-    responseCode: 200
+  orders: {
+    order_id: 'giberish',
+    recipient_id: 'giberish',
+    units: [{
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    }],
+    shipping_method: shipCode,
+    createdAt: 'timestamp',
+    updatedAt: 'timestamp',
+    status: {
+      responseCode: 200
+    }
   }
 }
 ```
@@ -247,43 +255,34 @@ Returns a record of an individual Order by order_id.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
-##### Response Pass
+##### Response
 
 ```javascript
 {
-  order: {
-    recipient: {
-  	  name: 'Jazy Jasilo',
-  	  address: '3300 University Blvd, Winter Park, FL 32792',
-  	  email: 'orange@fullsail.edu',
-  	  phone: '555-555-5555'
-    },
+  orders: {
+    order_id: 'giberish',
+    recipient_id: 'giberish',
     units: [{
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-  	  quantity: 4
-    }]
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    }],
+    shipping_method: shipCode,
+    createdAt: 'timestamp',
+    updatedAt: 'timestamp',
+    status: {
+      responseCode: 200
+    }
   }
-}
-
-```
-##### Response Fail
-
-```
-{
-  "serverResponse": "Searching for order: undefined",
-  "serverMessage": "orderId undefined doesn't exist.",
-  "statusMessage": {}
 }
 ```
 
 ### Order Update Inspect
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `order/update/inspect` | `PUT` | Not Started |
+| `order/update/inspect` | `POST` | Not Started |
 
 The status of an order is updated during the inspection process to either "shipping" or "failed."
 
@@ -291,7 +290,7 @@ The status of an order is updated during the inspection process to either "shipp
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
@@ -299,9 +298,11 @@ The status of an order is updated during the inspection process to either "shipp
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-  status: {
-    responseCode: 200
+  orders: {
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    status: {
+      responseCode: 200
+    }
   }
 }
 ```
@@ -309,15 +310,15 @@ The status of an order is updated during the inspection process to either "shipp
 ### Order Update Ship
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `order/update/ship` | `PUT` | Not Started |
+| `order/update/ship` | `POST` | Not Started |
 
-The status of an order is updated during the shipping process to either "shipped."  The shipping method and tracking number is added.
+The status of an order is updated during the shipping process to "shipped." The shipping method and tracking number is added to the record.
 
 #### Request
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
@@ -325,13 +326,13 @@ The status of an order is updated during the shipping process to either "shipped
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-  status: {
-    responseCode: 200
-  },
-  shipping:{
-    method:  'UPS',
-    trackingNum: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  orders: {
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    shipping_method:  'UPS',
+    shipping_tracking: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    status: {
+      responseCode: 200
+    }
   }
 }
 ```
@@ -341,14 +342,14 @@ The status of an order is updated during the shipping process to either "shipped
 |---|---|:---:|
 | `order/picking` | `POST` | Not Started |
 
-All orders with a status of "picking" are returned.
+Returns all orders with a status of "picking" by status code.
 
 #### Request
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 102
   }
 }
 ```
@@ -359,10 +360,10 @@ All orders with a status of "picking" are returned.
 {
   orders: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     },
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
     }
   ]
 }
@@ -373,14 +374,14 @@ All orders with a status of "picking" are returned.
 |---|---|:---:|
 | `order/packaging` | `POST` | Not Started |
 
-All orders with a status of "packaging" are returned.  A total of all orders is also returned.
+Returns all orders with a status of "packaging" by status code.  A total of all orders is also returned.
 
 #### Request
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 103
   }
 }
 ```
@@ -391,7 +392,7 @@ All orders with a status of "packaging" are returned.  A total of all orders is 
 {
   totalOrders: 300,
   orders: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
@@ -401,14 +402,14 @@ All orders with a status of "packaging" are returned.  A total of all orders is 
 |---|---|:---:|
 | `order/inspecting` | `POST` | Not Started |
 
-All orders with a status of "inspecting" are returned.  A total of all orders is also returned.
+Returns all orders with a status of "inspecting" by status code.  A total of all orders is also returned.
 
 #### Request
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 104
   }
 }
 ```
@@ -419,7 +420,7 @@ All orders with a status of "inspecting" are returned.  A total of all orders is
 {
   totalOrders: 300,
   orders: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
@@ -430,14 +431,14 @@ All orders with a status of "inspecting" are returned.  A total of all orders is
 |---|---|:---:|
 | `order/shipping` | `POST` | Not Started |
 
-All orders with a status of "shipping" are returned.  A total of all orders is also returned.
+Returns all orders with a status of "shipping" by status code.  A total of all orders is also returned.
 
 #### Request
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 105
   }
 }
 ```
@@ -448,7 +449,7 @@ All orders with a status of "shipping" are returned.  A total of all orders is a
 {
   totalOrders: 300,
   orders: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
@@ -458,14 +459,14 @@ All orders with a status of "shipping" are returned.  A total of all orders is a
 |---|---|:---:|
 | `order/shipped` | `POST` | Not Started |
 
-All orders with a status of "shipped" are returned.  A total of all orders is also returned.
+Returns all orders with a status of "shipped" by status code.  A total of all orders is also returned.
 
 #### Request
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 106
   }
 }
 ```
@@ -476,7 +477,7 @@ All orders with a status of "shipped" are returned.  A total of all orders is al
 {
   totalOrders: 300,
   orders: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+    order_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
   }]
 }
 ```
