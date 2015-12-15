@@ -49,7 +49,7 @@ app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/inspe
 app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/receiving.js')(express));
 app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/available.js')(express));
 
-<<<<<<< HEAD
+
 
 // Worker based routes
 app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/shipping.js')(express));
@@ -58,7 +58,7 @@ app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/p
 app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/inspecting.js')(express));
 app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/occupied.js')(express));
 app.use('/api/v1/worker/status', require('./server/routes/api/v1/worker/status/available.js')(express));
-=======
+
 // Pod based routes
 app.use('/api/v1/pod', require('./server/routes/api/v1/pod/find.js')(express));
 app.use('/api/v1/pod', require('./server/routes/api/v1/pod/create.js')(express));
@@ -71,7 +71,7 @@ app.use('/api/v1/pod/status', require('./server/routes/api/v1/pod/status/mainten
 app.use('/api/v1/pod/status', require('./server/routes/api/v1/pod/status/picking.js')(express));
 
 
->>>>>>> 5437cd2374212727a0f88cc9de660863c9d49c7a
+
 
 // TODO: Not all routes defined dev team
 // TODO: add passport to parameters, define separate route directory

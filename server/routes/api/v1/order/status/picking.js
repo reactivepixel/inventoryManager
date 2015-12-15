@@ -1,7 +1,7 @@
 // Gravity Application API status/picking | API for returning orders with status picking
 // Pulling all units that are marked as 'picking'
 /*
-* To test this enter {"statusId": 102}
+* To test this enter {"status": 102}
 * and you should recieve back the data and total number of units
 */
 module.exports = function (express){

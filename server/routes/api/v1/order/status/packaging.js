@@ -1,7 +1,7 @@
 // Gravity Application API status/packaging | API for returning orders with status of packaging
 // Pulling all units that are marked as 'packaging'
 /*
-* To test this enter {"statusId": 103}
+* To test this enter {"status": 103}
 * and you should recieve back the data and total number of units
 */
 

@@ -1,7 +1,7 @@
 // Gravity Application API  status/inspecting | API for returning orders with status of inspecting
 // Pulling all units that are marked as 'inspecting'
 /*
-* To test this enter {"statusId": 102}
+* To test this enter {"status": 102}
 * and you should recieve back the data and total number of units
 */
 

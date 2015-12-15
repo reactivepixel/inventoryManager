@@ -206,6 +206,7 @@ module.exports = function() {
     create: _addOne,
     findAll: _findAll,
     findOne: _findOne,
+    find: _find,
     remove: _remove,
     update: _update
   }

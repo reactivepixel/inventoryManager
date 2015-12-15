@@ -1,6 +1,6 @@
 // Pulling all orders that are marked as 'shipping'
 /*
-* To test this enter {"statusId": 105}
+* To test this enter {"status": 105}
 * and you should recieve back the data and total number of orders
 */
 
