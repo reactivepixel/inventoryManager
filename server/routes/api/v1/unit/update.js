@@ -15,7 +15,7 @@ module.exports = function (express) {
     // Example of data in JSON format
     // unit.update({availability_qty: j14d158c64ece48fasd00ccee895b18b8bb6, availability_qty: 3}
     unit.update({sku: clientUnitPost.sku, availability_qty: clientUnitPost.availability_qty},
-    function(data){
+    function(data) {
 
       // Server message of the request
       console.log('A unit update request has been made');
@@ -26,7 +26,7 @@ module.exports = function (express) {
       });
     },
 
-    function(err){
+    function(err) {
       res.json({
         serverMessage: serverMessage,
         serverResponse: "You've encountered an unknown error",

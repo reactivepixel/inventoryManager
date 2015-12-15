@@ -15,18 +15,18 @@ module.exports = function (express) {
     // Example of data in JSON format
     // pod.add({current_weight: 124, max_weight: 900, last_maintain: 1200}
     pod.create({current_weight: clientPodPost.current_weight, max_weight: clientPodPost.max_weight, last_maintain: clientPodPost.last_maintain},
-    function(data){
+    function(data) {
 
       // Server message of the request
       console.log('A pod create request has been made');
 
       res.json({
         serverMessage: serverMessage,
-        serverResponse: serverResponse,
+        serverResponse: serverResponse
       });
     },
 
-    function(err){
+    function(err) {
       res.json({
         serverMessage: serverMessage,
         serverResponse: "You've encountered an unknown error",

@@ -27,7 +27,7 @@ module.exports = function (express) {
       });
     },
 
-    function(err, doc){
+    function(err, doc) {
       res.json({
         serverMessage: serverMessage,
         serverResponse: serverResponse,
