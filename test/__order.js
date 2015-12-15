@@ -15,17 +15,15 @@ describe('order CRUD Test', function() {
   // Create test
   it('create-order-test', function (done) {
     order.create({
-      name:'Testing User',
-      address:'555 Testing Address',
+      name:'muffin man',
+      address:'55 Cottonwood Trail',
       city: 'Orlando',
       state: 'FL',
       zip: 32792,
       phone: 5555555
     }, function (data) {
-      testingId = data.id;
-      console.log('================');
-      console.log('create order Id: ' + data.id + " created successfully");
-      console.log('================');
+    data.name.should.equal('muffin man');
+     testingId = data.id;
       done();
     }, function (err){
       console.log('err' + err);
@@ -38,9 +36,18 @@ describe('order CRUD Test', function() {
     order.findOne({
       id: testingId
     }, function () {
-      console.log('================');
-      console.log('find order Id: ' + testingId + " located successfully");
-      console.log('================');
+      done();
+    }, function (err){
+      console.log('err' + err);
+    });
+  });
+  
+//Update Test
+  it("updateOrder", function (done){
+    order.update({id: testingId}, {name:'whatever'}, function (data) {
+
+      expect(data.name).to.be.equal('whatever');
+
       done();
     }, function (err){
       console.log('err' + err);
