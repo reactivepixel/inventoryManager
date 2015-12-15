@@ -52,7 +52,7 @@ app.use('/api/v1/unit/status', require('./server/routes/api/v1/unit/status/avail
 var server = app.listen(port, function() {
   console.log('Server Active on Port ' + port);
   console.log('NOTICE ============');
-  console.log('BUILD NEW DATABASE Version 1.6.0');
+  console.log('BUILD NEW DATABASE Version 1.6.1');
   console.log('STEP 0: terminal: git pull origin master');
   console.log('STEP 1: terminal: npm install');
   console.log('STEP 2: terminal: mysql.server restart');

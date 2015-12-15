@@ -13,11 +13,13 @@ describe('unitCRUD', function() {
   // Create test
   it('createUnit', function (done) {
     unit.create({
-      qty_on_hand: 34,
+      availability_qty: 34,
       trigger_qty: 25,
-      replenish_qty: 55
+      replenish_qty: 55,
+      description: "bald",
+      weight_lb: 44
     }, function (data) {
-      data.qty_on_hand.should.equal(34);
+      data.availability_qty.should.equal(34);
       testingSku = data.sku;
       done();
     }, function (err){

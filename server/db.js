@@ -15,53 +15,9 @@ module.exports = function(){
   var sequelize = new Sequelize(process.env.DB_NAME, process.env.MYSQL_NAME, process.env.MYSQL_PASS, {
     host: process.env.DB_HOST,
     dialect: 'mysql',
-    port: process.env.PORT,
+    port: process.env.DB_PORT,
     pool: {max: 5, min: 0, idle: 10000}
   });
-
-  // Checking connection status
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var test = sequelize.authenticate().then(function(){
-      console.log("connected");
-    }).catch(function(err){
-      console.log("something goofed", err);
-    })
-    .done();
-
-  // Create order Tables
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var order = sequelize.define('orders', {
-    shipping_tracking:  {
-      type: Sequelize.INTEGER
-    }
-
-  });
-
-  // Create Units Table
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var unit = sequelize.define('units', {
-    sku: {
-      type: Sequelize.STRING,
-      primaryKey: true
-    },
-    availability_qty: {
-      type: Sequelize.INTEGER
-    },
-    trigger_qty: {
-      type: Sequelize.INTEGER
-    },
-    replenish_qty: {
-      type: Sequelize.INTEGER
-    },
-    description: {
-      type: Sequelize.STRING
-    },
-    weight_lbs: {
-      type: Sequelize.INTEGER
-    }
-  });
-
-
 
   // Checking connection status
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
