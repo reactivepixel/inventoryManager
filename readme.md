@@ -494,22 +494,20 @@ A package is created when a JSON object that matches the supplied example is sen
 
 ```javascript
 {
-  package: {
-    order: {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      status: {
-        responseCode: 200
-      },
+  packages: {
+    orders: {
       recipient: {
         name: 'Jazy Jasilo',
-        address: '3300 University Blvd, Winter Park, FL 32792',
-        email: 'orange@fullsail.edu',
+        address: '3300 University Blvd',
+        city: 'Winter Park',
+        state: 'FL',
+        zip: '32792',
         phone: '555-555-5555'
       },
       units: [{
-        uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-        quantity: 4
-      }]
+        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      }],
+      shipping_method: shipCode
     }
   }
 }
@@ -519,9 +517,25 @@ A package is created when a JSON object that matches the supplied example is sen
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-  status: {
-    responseCode: 200
+  packages: {
+    pkg_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    orders: {
+      recipient: {
+        name: 'Jazy Jasilo',
+        address: '3300 University Blvd',
+        city: 'Winter Park',
+        state: 'FL',
+        zip: '32792',
+        phone: '555-555-5555'
+      },
+      units: [{
+        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      }],
+      shipping_method: shipCode,
+      status: {
+        responseCode: 200
+      }
+    }
   }
 }
 ```
@@ -537,7 +551,7 @@ Returns a record of an individual package by pkg_id.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  pkg_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
@@ -545,22 +559,24 @@ Returns a record of an individual package by pkg_id.
 
 ```javascript
 {
-  package: {
-    order: {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      status: {
-        responseCode: 200
-      },
+  packages: {
+    pkg_id: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+    orders: {
       recipient: {
         name: 'Jazy Jasilo',
-        address: '3300 University Blvd, Winter Park, FL 32792',
-        email: 'orange@fullsail.edu',
+        address: '3300 University Blvd',
+        city: 'Winter Park',
+        state: 'FL',
+        zip: '32792',
         phone: '555-555-5555'
       },
       units: [{
-        uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-        quantity: 4
-      }]
+        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      }],
+      shipping_method: shipCode,
+      status: {
+        responseCode: 200
+      }
     }
   }
 }
@@ -573,17 +589,20 @@ Returns a record of an individual package by pkg_id.
 |---|---|:---:|
 | `unit/create` | `POST` | Not Started |
 
-A unit is created/entered into the db when a JSON object that matches the supplied example is sent to the endpoint. There should be logic in this model to check for the uuid in the db before attempting to Create a new record.
+Add a new Unit to the Database
 
 ##### Request
-An object is submitted to the db with uuid, initial quantity and the intial status code.
 
 ```javascript
 {
   units: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 4,
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: NULL,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
       status: {
         responseCode: 200
       }
@@ -596,10 +615,21 @@ An object is submitted to the db with uuid, initial quantity and the intial stat
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-  status: {
-    responseCode: 200
-  }
+  units: [
+    {
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 200
+      }
+    }
+  ]
 }
 ```
 
@@ -614,7 +644,7 @@ Returns a record of an individual Unit by sku.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
@@ -624,12 +654,17 @@ Returns a record of an individual Unit by sku.
 {
   units: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 10,
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
       status: {
         responseCode: 200
-      },
-      pod: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+      }
     }
   ]
 }
@@ -643,23 +678,32 @@ Returns a record of an individual Unit by sku.
 The status of a unit is updated during the inspection process to either "passed" or "failed." Because there are two inspection areas in the workflow this endpoint might need to be split into two separate ones to correlate with the actual inspection versus a general inspection.
 
 #### Request
-Units table is queried for units matching the uuid.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
 #### Response
-Returns an object containing the uuid queried and its' status code.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-  status: {
-    responseCode: 200
-  }
+  units: [
+    {
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 200
+      }
+    }
+  ]
 }
 ```
 
@@ -669,31 +713,35 @@ Returns an object containing the uuid queried and its' status code.
 | `unit/replenish` | `POST` | Not Started |
 
 The quantity of a unit is updated during the receiving of units for replenishment.
-The model for this will likely be very similar to the find method in that it takes the single uuid as an argument and returns info on that sku alone.
+The model for this will likely be very similar to the find method in that it takes the single sku as an argument and returns info on that sku alone.
 
 #### Request
-Units table is queried for units matching the uuid.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
 #### Response
-The response contains all the new data on the unit after adding received units to inventory.
 
 ```javascript
 {
-  units: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    quantity_on_hand: 8,
-    trigger_qty: 3,
-    replenish_qty: 5,
-    status: {
-      responseCode: 200
+  units: [
+    {
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 201
+      }
     }
-  }]
+  ]
 }
 ```
 
@@ -704,31 +752,35 @@ The response contains all the new data on the unit after adding received units t
 |---|---|:---:|
 | `unit/receiving` | `POST` | Not Started |
 
-A list of all units in receiving is retrieved.
+Returns all units with a status of receiving by status code.
 
 ##### Request
-Units table is queried for records matching the status code indicating units have been recieved into inventory.
 
 ```javascript
   status: {
-    responseCode: 200
+    responseCode: 202
   }
 ```
 
 ##### Response
-All units with the corresponding status code are returned.
 
 ```javascript
 {
-  units: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    quantity_on_hand: 8,
-    trigger_qty: 3,
-    replenish_qty: 5,
-    status: {
-      responseCode: 200
+  units: [
+    {
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 202
+      }
     }
-  }]
+  ]
 }
 ```
 
@@ -737,29 +789,35 @@ All units with the corresponding status code are returned.
 |---|---|:---:|
 | `unit/available` | `POST` | Not Started |
 
-Available units are returned for a particular uuid.
+Returns all available units by sku.
 
 #### Request
-Units table is queried for records matching the uuid.
 
 ```javascript
 {
-  uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
+  sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91'
 }
 ```
 
 #### Response
-Returns an object containing the unit matching the uuid. Displays the `qty_on_hand`.
 
 ```javascript
 {
-  units: [{
-    uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    qty_on_hand: 7
-    status: {
-      responseCode: 200
+  units: [
+    {
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 203
+      }
     }
-  }]
+  ]
 }
 ```
 
@@ -769,31 +827,34 @@ Returns an object containing the unit matching the uuid. Displays the `qty_on_ha
 | `unit/picking` | `POST` | Not Started |
 
 #### Request
-Units table is queried for units with a status code that indicates 'picking'.
 
 ```javascript
 {
   units: {
     status: {
-      responseCode: 200
+      responseCode: 204
     }
   }
 }
 ```
 
 #### Response
-Returns an object containing all units with the status code corresponding to picking.
 
 ```javascript
 {
   units: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 2
-    },
-    {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 1
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 204
+      }
     }
   ]
 }
@@ -804,32 +865,35 @@ Returns an object containing all units with the status code corresponding to pic
 |---|---|:---:|
 | `unit/packaging` | `POST` | Not Started |
 
-These units have passed through the post-picking inspection and are on their way to shipping.
+Returns all units with a status of packaging by status code. These units have passed through the post-picking inspection and are on their way to shipping.
 
 #### Request
-Units table is queried for all units with a status corresponding to packaging.
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 205
   }
 }
 ```
 
 #### Response
-Returns an object containing all units with the status code corresponding to packaging.
 
 ```javascript
 {
   units: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 1
-    },
-    {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 2
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 205
+      }
     }
   ]
 }
@@ -840,32 +904,35 @@ Returns an object containing all units with the status code corresponding to pac
 |---|---|:---:|
 | `unit/inspecting` | `POST` | Not Started |
 
-These units are involved in the receiving inspection or the post-picking inspection.
+Returns all units with the status of inspecting by status code. These units are involved in the receiving inspection or the post-picking inspection.
 
 #### Request
-Units table is queried for all units with a status corresponding to inspection.
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 206
   }
 }
 ```
 
 #### Response
-Returns an object containing all units with the status code corresponding to inspection.
 
 ```javascript
 {
   units: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 3
-    },
-    {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 1
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 205
+      }
     }
   ]
 }
@@ -877,7 +944,7 @@ Returns an object containing all units with the status code corresponding to ins
 |---|---|:---:|
 | `unit/shipping` | `POST` | Not Started |
 
-These units are involved in the shipping stage.
+Returns all units with a status of shipping by status code.
 
 #### Request
 Units table is queried for all units with a status corresponding to shipping.
@@ -885,24 +952,28 @@ Units table is queried for all units with a status corresponding to shipping.
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 207
   }
 }
 ```
 
 #### Response
-Returns an object containing all units with the status code corresponding to shipping.
 
 ```javascript
 {
   units: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 3
-    },
-    {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 1
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 207
+      }
     }
   ]
 }
@@ -913,32 +984,35 @@ Returns an object containing all units with the status code corresponding to shi
 |---|---|:---:|
 | `unit/shipped` | `POST` | Not Started |
 
-These units have been sucessfully shipped from the warehouse.
+Returns all units with a status of shipped by status code. These units have been sucessfully shipped from the warehouse.
 
 #### Request
-Units table is queried for all units with a status corresponding to shipped.
 
 ```javascript
 {
   status: {
-    responseCode: 200
+    responseCode: 208
   }
 }
 ```
 
 #### Response
-Returns an object containing all units with the status code corresponding to shipping.
 
 ```javascript
 {
   units: [
     {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 3
-    },
-    {
-      uuid: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: 1
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      available_qty: 5,
+      trigger_qty: 3,
+      replenish_qty: 5,
+      description: 'Blah, Blah, Blah',
+      weight_lbs: 2,
+      createdAt: 'timestamp',
+      updatedAt: 'timestamp',
+      status: {
+        responseCode: 208
+      }
     }
   ]
 }
