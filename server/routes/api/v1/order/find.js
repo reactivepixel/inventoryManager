@@ -13,20 +13,20 @@ module.exports = function (express) {
     var clientFindPost = req.body;
 
     // Example of data in JSON format
-    // {shipping_tracking:1600}
-    order.findOne({shipping_tracking: clientFindPost.shipping_tracking},
+    // {id:168769858}
+    order.findOne({id: clientFindPost.id},
     function(data) {
 
       // Server message of the request
-      console.log('A find request has been made for order: ' + clientFindPost.shipping_tracking);
+      console.log('A find request has been made for order: ' + clientFindPost.id);
 
       // Check data
       if(data == null) {
         // If data doesn't have a result
-        serverResponse = "Your find request for shipping tracking: " + clientFindPost.shipping_tracking + " was not found"
+        serverResponse = "Your find request for shipping tracking: " + clientFindPost.id + " was not found"
       }else {
         // If data returns positive
-        serverResponse = "Your find request for shipping tracking: " + clientFindPost.shipping_tracking + " was located"
+        serverResponse = "Your find request for shipping tracking: " + clientFindPost.id + " was located"
       }
 
       res.json({
