@@ -31,6 +31,9 @@ module.exports = function() {
       type: Sequelize.STRING,
       primaryKey: true
     },
+    statusId: {
+      type: Sequelize.INTEGER,
+    },
     available_qty: {
       type: Sequelize.INTEGER
     },
@@ -57,7 +60,7 @@ module.exports = function() {
    * @param {function} fail Callback function for execution on failed adding.
    * @example
    * // Add One Unit with Success and Failure. Note if a sku is not supplied, one is generated.
-   * unit.add({availability_qty: 3, trigger_qty:4, replenish_qty:5, description: "pink", weight_lbs: 4}, function(data){
+   * unit.create({availability_qty: 3, trigger_qty:4, replenish_qty:5, description: "pink", weight_lbs: 4}, function(data){
   *  console.log('Added Unit');
   * }, function(err){
   *  console.log('Adding Error-' + err);
@@ -69,6 +72,7 @@ module.exports = function() {
     // Parse payload to be applied to the defined properties
     unit.create({
       sku: payload.sku || APIFunctions.idGenerator(),
+      statusId: payload.statusId,
       available_qty: payload.available_qty,
       trigger_qty: payload.trigger_qty,
       replenish_qty: payload.replenish_qty,
@@ -208,6 +212,7 @@ module.exports = function() {
       // Update the Atts of the returned row
       data.updateAttributes({
         // Unit's SKU should not change.
+        statusId:cleanData.statusId,
         available_qty: cleanData.available_qty,
         trigger_qty: cleanData.trigger_qty,
         replenish_qty: cleanData.replenish_qty,
@@ -216,7 +221,6 @@ module.exports = function() {
       }).then(success).catch(fail)
     }).catch(fail);
   };
-
   return {
     find: _find,
     create: _addOne,

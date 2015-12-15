@@ -13,10 +13,11 @@ module.exports = function (express) {
     var clientUnitPost = req.body;
 
     // Example of data in JSON format
-    // unit.add({availability_qty: 3, trigger_qty:4, replenish_qty:5, description: "pink", weight_lbs: 4}
-    unit.create({availability_qty: clientUnitPost.availability_qty, trigger_qty: clientUnitPost.trigger_qty, replenish_qty: clientUnitPost.replenish_qty, description: clientUnitPost.description, weight_lbs: clientUnitPost.weight_lbs},
-    function(data) {
-
+    //unit.create({available_qty: 3, trigger_qty:4, replenish_qty:5, description: "pink", weight_lbs: 4});
+    unit.create({statusId:clientUnitPost.statusId, available_qty: clientUnitPost.available_qty, trigger_qty: clientUnitPost.trigger_qty, 
+      replenish_qty: clientUnitPost.replenish_qty, description: clientUnitPost.description, 
+      weight_lbs: clientUnitPost.weight_lbs},
+    function (data) {
       // Server message of the request
       console.log('A unit create request has been made');
 

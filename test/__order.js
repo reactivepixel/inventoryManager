@@ -15,7 +15,6 @@ describe('orderCRUD', function() {
   // Create test
   it('createOrder', function (done) {
     order.create({
-      shipping_tracking: 34,
       name:'muffin man',
       address:'55 Cottonwood Trail',
       city: 'Orlando',
@@ -23,7 +22,7 @@ describe('orderCRUD', function() {
       zip: 32792,
       phone: 5555555,
     }, function (data) {
-    data.shipping_tracking.should.equal(34);
+    data.name.should.equal('muffin man');
      testingId = data.id;
       done();
     }, function (err){
@@ -44,9 +43,9 @@ describe('orderCRUD', function() {
   
 //Update Test
   it("updateOrder", function (done){
-    order.update({id: testingId}, {shipping_tracking:99}, function (data) {
+    order.update({id: testingId}, {name:'whatever'}, function (data) {
 
-      expect(data.shipping_tracking).to.be.equal(99);
+      expect(data.name).to.be.equal('whatever');
       done();
     }, function (err){
       console.log('err' + err);

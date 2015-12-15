@@ -14,26 +14,23 @@ module.exports = function() {
   // Create Orders Table
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var order = sequelize.define('orders', {
-    shipping_tracking: {
-      type: Sequelize.INTEGER
-    },
     name:{
-      type:Sequelize.INTEGER,
+      type:Sequelize.STRING
     },
     address:{
-      type:Sequelize.INTEGER,
+      type:Sequelize.STRING
     },
     city: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     state: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     zip: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     phone: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     }
   });
 
@@ -56,7 +53,13 @@ module.exports = function() {
     payload = defaultSanitize(payload);
     // Parse payload to be applied to the defined properties
     order.create({
-      shipping_tracking: payload.shipping_tracking
+      shipping_tracking: payload.shipping_tracking,
+      name: payload.name,
+      address: payload.address,
+      state: payload.state,
+      city: payload.city,
+      zip: payload.zip,
+      phone: payload.name
     })
 
       // If Successful Adding run Success callback
@@ -75,10 +78,10 @@ module.exports = function() {
    * @example
    * // Return all Orders with Success and Failure
    * order.all(function(data){
-    *   res.json(data);
-    * }, function(err){
-    *   console.log('err' + err);
-    * });
+   *   res.json(data);
+   * }, function(err){
+   *   console.log('err' + err);
+   * });
    */
   var _findAll = function (success, fail){
     order.findAll().then(success).catch(fail);
@@ -94,10 +97,10 @@ module.exports = function() {
    * @example
    * // Find One based on supplied obj, in this case just a time_stamp or ID with Success and Failure
    * order.findOne({shipping_tracking:1600}, function(data){
-    *   res.json(data);
-    * }, function(err, doc){
-    *   console.log('err' + err + doc);
-    * });
+   *   res.json(data);
+   * }, function(err, doc){
+   *   console.log('err' + err + doc);
+   * });
    */
   var _findOne = function (payload, success, fail){
 
@@ -148,7 +151,7 @@ module.exports = function() {
   var _remove = function (payload, success, fail){
 
     // Run user data through sanitize.
-    cleanData = defaultSanitize(payload);
+    var cleanData = defaultSanitize(payload);
 
     // If sanitize fails prevent payload from touching the db
     if(!cleanData) return fail({ code:301 });
@@ -197,7 +200,7 @@ module.exports = function() {
           city: updateObj.city,
           state: updateObj.state,
           zip: updateObj.zip,
-          phone: updateObj.phone,
+          phone: updateObj.phone
       }).then(success).catch(fail)
     }).catch(fail);
   };
@@ -210,3 +213,4 @@ module.exports = function() {
     update: _update
   }
 }();
+

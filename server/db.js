@@ -31,26 +31,23 @@ module.exports = function(){
   // Create order Tables
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var order = sequelize.define('orders', {
-    shipping_tracking:  {
-      type: Sequelize.INTEGER,
-    },
     name:{
-      type:Sequelize.INTEGER,
+      type:Sequelize.INTEGER
     },
     address:{
-      type:Sequelize.INTEGER,
+      type:Sequelize.INTEGER
     },
     city: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     state: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     zip: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     phone: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     }
   });
 
@@ -59,8 +56,11 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var unit = sequelize.define('units', {
     sku: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       primaryKey: true
+    },
+    statusId: {
+      type:Sequelize.INTEGER,
     },
     available_qty: {
       type: Sequelize.INTEGER
@@ -92,10 +92,10 @@ module.exports = function(){
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   var worker = sequelize.define('workers', {
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     pin: {
-      type:Sequelize.INTEGER,
+      type:Sequelize.INTEGER
     }
   });
 
@@ -208,44 +208,17 @@ module.exports = function(){
   });
 
 
-  // Maintenance Table
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var maintenance = sequelize.define('maintenance', {
-    pod_id:{
-      type:Sequelize.INTEGER
-    },
-    type:{
-      type:Sequelize.INTEGER
-    },
-    description: {
-      type: Sequelize.STRING
-    }
-  });
-
-
-  // Maintenance type
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var maint_type = sequelize.define('maintenance', {
-    maint_desc:{
-      type:Sequelize.STRING,
-    },
-    maint_types:{
-      type: Sequelize.STRING,
-    }
-  });
-
   // Table Relations
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   
   status.hasOne(pack, {foreignKey: 'status'});
   job.hasOne(worker, {foreignKey: 'job_id'});
   unit.hasOne(inventory, {foreignKey: 'sku'});
-  unit.hasOne(package_unit, {foreignKey: 'sku'});
+  //unit.hasOne(package_unit, {foreignKey: 'sku'});
   replenishment_unit.hasOne(replenishment, {foreignKey: 'replenishment_id'});
   shipping_method.hasOne(order, {foreignKey: 'orderId'});
-  pod.hasOne(maintenance, {foreignKey: 'pod_id'});
   status.hasOne(pod, {foreignKey: 'status'});
-  status.hasOne(maintenance, {foreignKey: 'status'});
+  //status.hasOne(maintenance, {foreignKey: 'status'});
   order.hasOne(worker, {foreignKey: 'order_id'});
   status.hasOne(worker, {foreignKey: 'status'});
   status.hasOne(inventory, {foreignKey:'status'});
@@ -257,7 +230,7 @@ module.exports = function(){
   pack.hasOne(order, {foreignKey: 'packId'});
   status.hasOne(order, {foreignKey: 'status'});
   inventory.hasOne(issue, {foreignKey: 'inventoryId'});
-  pod.hasOne(maintenance, {foreignKey: 'pod_id'});
+  //pod.hasOne(maintenance, {foreignKey: 'pod_id'});
   unit.hasOne(order_unit, {foreignKey: 'sku'});
   status.hasOne(order, {foreignKey: 'status'});
   shipping_method.hasOne(order, {foreignKey:'shipping_method'});
