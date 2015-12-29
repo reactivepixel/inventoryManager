@@ -1,26 +1,28 @@
 // Gravity Application GULP | Gulp dependency file for production
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
-var gutil = require('gulp-util');
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var webpackConfig = require('./webpack.config.js');
-var stream = require('webpack-stream');
-var nodemon = require('gulp-nodemon');
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
-var chalk = require('chalk');
+var gulp              = require('gulp');
+var gutil             = require('gulp-util');
+
+var jshint            = require('gulp-jshint');
+var stylish           = require('jshint-stylish');
+var concat            = require('gulp-concat');
+var uglify            = require('gulp-uglify');
+var sourcemaps        = require('gulp-sourcemaps');
+
+var webpack           = require('webpack');
+var webpackConfig     = require('./webpack.config.js');
+var WebpackDevServer  = require('webpack-dev-server');
+var stream            = require('webpack-stream');
+var nodemon           = require('gulp-nodemon');
+var chalk             = require('chalk');
 
 // NOTIFY MESSAGE VARIABLES
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Color codes for terminal messages
-var redError = chalk.black.bgRed.bold;
-var yelloWarning = chalk.black.bgYellow.bold;
-var greenSuccess = chalk.black.bgGreen.bold;
-var cyanWatch = chalk.black.bgCyan.bold;
+var redError          = chalk.black.bgRed.bold;
+var yelloWarning      = chalk.black.bgYellow.bold;
+var greenSuccess      = chalk.black.bgGreen.bold;
+var cyanWatch         = chalk.black.bgCyan.bold;
 
 gulp.task('default', ['webpack-dev-server']);
 

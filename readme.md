@@ -68,23 +68,25 @@ $ gulp
 
 Once you have this completed your server should run great!
 
-### Updating your database after any schema changes
+### Updating your database after any schema changes in only 7 steps
 
-STEP 0: `git pull origin master`
+STEP 1: `git pull origin master`
 
-STEP 1: `npm install`
+STEP 2: `npm install`
 
-STEP 2: `mysql.server restart`
+STEP 3: `mysql.server restart`
 
-STEP 3: `mysql -u root;`
+STEP 4: `mysql -u root;`
 
-STEP 4: `mysql> drop database gravity;`
+STEP 5: `mysql> drop database gravity;`
 
-STEP 5: `mysql> create database gravity;`
+STEP 6: `mysql> create database gravity;`
 
-STEP 6: `gulp dev`
+STEP 7: `gulp dev`
 
-STEP 7: `npm start server.js`
+#### Or you can update your database in 1 step
+
+run `bash db_update.sh` in your local repo and watch the magic happen!
 
 ## Server Environments
 Here are links to all Environments.
