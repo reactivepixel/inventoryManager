@@ -4,7 +4,7 @@ module.exports = function(){
   var Sequelize = require('sequelize');
   var dotenv = require('dotenv').load();
 
-  // FIXME: app should be defined and passed in with express in te module.export
+  // FIXME: app should be defined and passed in with express in the module.export
   var app = express();
 
 
@@ -20,12 +20,12 @@ module.exports = function(){
 
   // Checking connection status
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  var test = sequelize.authenticate().then(function(){
-      console.log("connected");
-    }).catch(function(err){
-      console.log("something goofed", err);
-    })
-    .done();
+  // var test = sequelize.authenticate().then(function() {
+  //   console.log("connected");
+  // }).catch(function(err){
+  //   console.log("something goofed", err);
+  // })
+  // .done();
 
 
   // Create order Tables
@@ -210,7 +210,7 @@ module.exports = function(){
 
   // Table Relations
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  
+
   status.hasOne(pack, {foreignKey: 'status'});
   job.hasOne(worker, {foreignKey: 'job_id'});
   unit.hasOne(inventory, {foreignKey: 'sku'});

@@ -54,6 +54,7 @@
     "react-hot-loader": "1.3.0",
     "request": "2.67.0",
     "should": "7.1.1",
+    "supertest": "^1.1.0",
     "webpack": "1.12.9",
     "webpack-dev-server": "1.14.0",
     "webpack-stream": "2.2.0"
