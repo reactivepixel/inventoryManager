@@ -17,8 +17,14 @@ Create a new order
  ```javascript
  {
    orders: {
-     sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-     quantity: 1,
+     items: [
+       {
+       sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+       quantity: 1},
+       {
+       sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+       quantity: 1}
+     ],
      recipients: {
        name: 'John Doe',
        address:{
@@ -40,8 +46,14 @@ Create a new order
  {
    orders: {
      uuid: 'assigned id',
-     sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-     quantity: 1,
+     items: [
+       {
+       sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+       quantity: 1},
+       {
+       sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+       quantity: 1}
+     ],
      recipients: {
        name: 'John Doe',
        address:{
