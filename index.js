@@ -25,9 +25,9 @@ const json = {
 }
 
 let i;
-for(i = 0; i < 10; i++) {
+for(i = 0; i < 1000; i++) {
   request({
-    uri: 'https://www.reddit.com/',
+    uri: 'http://info.cern.ch/hypertext/WWW/TheProject.html',
     method: 'GET',
   }, function(error, response, body) {
     if(error) {
