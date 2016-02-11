@@ -24,17 +24,20 @@ const json = {
   }
 }
 
-request({
-  uri: 'https://www.reddit.com/order',
-  method: 'PUT',
-  json: json,
-  headers: {
-    'Content-Type':'application/json'
-  }
-}, function(error, response, body) {
-  if(error) {
-    console.log(error);
-  } else {
-    console.log(response.statusCode, body);
-  }
-});
+let i;
+for(i = 0; i < 10; i++) {
+  request({
+    uri: 'https://www.reddit.com/order',
+    method: 'PUT',
+    json: json,
+    headers: {
+      'Content-Type':'application/json'
+    }
+  }, function(error, response, body) {
+    if(error) {
+      console.log(error);
+    } else {
+      console.log(response.statusCode, body);
+    }
+  });
+}
