@@ -8,6 +8,9 @@ Thumbs.db
 .env
 .idea
 
+# local dev environment helper scripts
+db_update.sh
+
 #########
 # Github's recommended Node .gitignore items (https://github.com/github/gitignore/blob/master/Node.gitignore)
 #########
