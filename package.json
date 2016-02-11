@@ -8,6 +8,7 @@
   },
   "author": "",
   "license": "ISC",
+<<<<<<< HEAD
   "version": "2.0.0",
   "description": "Business backend logic for Sol",
   "main": "server.js",
@@ -28,5 +29,10 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4"
+=======
+  "dependencies": {
+    "express": "^4.13.4",
+    "request": "^2.69.0"
+>>>>>>> 35df532d073310745d0bf1b49f0ed615cabd29d8
   }
 }
