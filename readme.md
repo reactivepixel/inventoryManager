@@ -1,14 +1,60 @@
-# Project Name
+# Gravity
 
-TODO: Write a project description
+Business backend logic for Sol
 
 ## Installation
 
 TODO: Describe the installation process
 
-## Usage
+## Endpoints
 
-TODO: Write usage instructions
+### Orders/Create
+
+Create a new order
+
+##### Request
+
+ ```javascript
+ {
+   orders: {
+     sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+     quantity: 1,
+     recipients: {
+       name: 'John Doe',
+       address:{
+         street: '3300 University Blvd',
+         city: 'Winter Park',
+         state: 'FL',
+         zip: '32792'
+       },
+       phone: '555-555-5555',
+       email: 'jdoe@gmail.com'
+     }
+   }
+ }
+ ```
+
+ ##### Response
+
+ ```javascript
+ {
+   orders: {
+     uuid: 'assigned id',
+     sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+     quantity: 1,
+     recipients: {
+       name: 'John Doe',
+       address:{
+         street: '3300 University Blvd',
+         city: 'Winter Park',
+         state: 'FL',
+         zip: '32792'
+       },
+       email: 'jdoe@gmail.com'
+     }
+   }
+ }
+ ```
 
 ## Contributing
 
@@ -17,15 +63,3 @@ TODO: Write usage instructions
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
-
-## History
-
-TODO: Write history
-
-## Credits
-
-TODO: Write credits
-
-## License
-
-TODO: Write license
