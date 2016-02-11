@@ -41,6 +41,10 @@ app.get('/', function(req, res) {
   res.json(data);
 });
 
+app.get('/order', function(res, res) {
+    res.send("Order route");
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
     console.log("Listening on "+port+"...");
