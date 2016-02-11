@@ -8,7 +8,9 @@ TODO: Describe the installation process
 
 ## Endpoints
 
-### Orders/Create
+| Endpoint | Method |
+|---|---|
+| `orders/create` | `POST` |
 
 Create a new order
 
