@@ -7,7 +7,7 @@ Business backend logic for Sol
 ### Orders
 
 | Endpoint | Method | Development Status |
-|---|---|
+|---|---|:---:|
 | `orders/create` | `POST` | In Progress |
 
 Create a new order
