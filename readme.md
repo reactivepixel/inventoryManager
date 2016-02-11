@@ -4,11 +4,11 @@ Business backend logic for Sol
 
 ## Endpoints
 
-### Orders
+### Order
 
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `orders/create` | `PUT` | In Progress |
+| `order/create` | `PUT` | In Progress |
 
 Create a new order
 
@@ -16,7 +16,7 @@ Create a new order
 
  ```javascript
  {
-   orders: {
+   order: {
      items: [
        {
        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
@@ -44,8 +44,9 @@ Create a new order
 
  ```javascript
  {
-   orders: {
+   order: {
      uuid: 'assigned id',
+     timestamp: '1455162560',
      items: [
        {
        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
@@ -75,3 +76,4 @@ Create a new order
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
+jjjk
