@@ -17,7 +17,7 @@ Create a new order
  ```javascript
  {
    order: {
-     items: [
+     units: [
        {
        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
        quantity: 1},
@@ -47,7 +47,7 @@ Create a new order
    order: {
      uuid: 'assigned id',
      timestamp: '1455162560',
-     items: [
+     units: [
        {
        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
        quantity: 1},
