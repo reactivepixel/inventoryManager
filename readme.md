@@ -10,13 +10,11 @@ TODO: Describe the installation process
 
 ### Orders
 
-#### Create
-
-Create a new order
-
 | Endpoint | Method |
 |---|---|
 | `orders/create` | `POST` |
+
+Create a new order
 
 ##### Request
 
