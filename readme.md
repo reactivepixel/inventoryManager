@@ -2,10 +2,6 @@
 
 Business backend logic for Sol
 
-## Installation
-
-TODO: Describe the installation process
-
 ## Endpoints
 
 ### Orders
