@@ -41,7 +41,7 @@ app.get('/', function(req, res) {
   res.json(data);
 });
 
-app.get('/order', function(res, res) {
+app.get('/order', function(req, res) {
     res.send("Order route");
 });
 
