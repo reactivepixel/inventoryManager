@@ -36,6 +36,7 @@ function toTimestamp(strDate) {
 
 data.order.uuid = generateNew();
 data.order.timestamp = toTimestamp();
+
 app.get('/', function(req, res) {
   res.json(data);
 });
