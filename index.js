@@ -27,12 +27,8 @@ const json = {
 let i;
 for(i = 0; i < 10; i++) {
   request({
-    uri: 'https://www.reddit.com/order',
-    method: 'PUT',
-    json: json,
-    headers: {
-      'Content-Type':'application/json'
-    }
+    uri: 'https://www.reddit.com/',
+    method: 'GET',
   }, function(error, response, body) {
     if(error) {
       console.log(error);
