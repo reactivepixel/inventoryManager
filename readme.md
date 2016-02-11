@@ -8,7 +8,7 @@ Business backend logic for Sol
 
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `orders/create` | `POST` | In Progress |
+| `orders/create` | `PUT` | In Progress |
 
 Create a new order
 
