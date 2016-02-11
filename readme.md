@@ -2,13 +2,13 @@
 
 Business backend logic for Sol
 
-## Endpoints
+## API Documentation
 
 ### Order
 
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `order/create` | `PUT` | In Progress |
+| `/order` | `PUT` | In Progress |
 
 Create a new order
 

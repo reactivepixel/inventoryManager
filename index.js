@@ -10,7 +10,7 @@ for(i = 0; i < 10; i++) {
         sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
         quantity: 1},
         {
-        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
         quantity: 1}
       ],
       recipients: {
