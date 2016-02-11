@@ -20,6 +20,13 @@ let idGenerator = function() {
   }
 }
 */
+function s4() {
+  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+}
+
+function generateNew() {
+  return  "j" + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
+}
 
 app.get('/', function(req, res) {
   res.json(data);
@@ -27,6 +34,5 @@ app.get('/', function(req, res) {
 
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
-    console.log("Listening on "+port+" ");
-    return idGenerator;
+    console.log("Listening on "+port+" "+generateNew());
 });
