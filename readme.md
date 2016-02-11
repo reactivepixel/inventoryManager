@@ -8,11 +8,15 @@ TODO: Describe the installation process
 
 ## Endpoints
 
+### Orders
+
+#### Create
+
+Create a new order
+
 | Endpoint | Method |
 |---|---|
 | `orders/create` | `POST` |
-
-Create a new order
 
 ##### Request
 
@@ -36,7 +40,7 @@ Create a new order
  }
  ```
 
- ##### Response
+##### Response
 
  ```javascript
  {
