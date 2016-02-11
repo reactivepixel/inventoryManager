@@ -8,7 +8,9 @@ TODO: Describe the installation process
 
 ## Endpoints
 
-### Orders/Create
+### Orders
+
+#### Create
 
 Create a new order
 
@@ -33,8 +35,8 @@ Create a new order
    }
  }
  ```
-
- ##### Response
+ 
+##### Response
 
  ```javascript
  {
