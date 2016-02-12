@@ -1,6 +1,6 @@
 module.exports = function (express) {
   const router = express.Router();
-  const data = {order:{sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',quantity: 1,recipients: {name: 'John Doe',address: {street: '3300 University Blvd',city: 'Winter Park',state: 'FL',zip: '32792'},phone: '555-555-5555',email: 'jdoe@gmail.com'}}};
+  const data = {order:{sku: ['a5296ab9-9eee-7ba0-0a79-b801594f2c91'],quantity: 1,recipients: {name: 'John Doe',address: {street: '3300 University Blvd',city: 'Winter Park',state: 'FL',zip: '32792'},phone: '555-555-5555',email: 'jdoe@gmail.com'}}};
 
   // Include uuid generator and timestamp generator
   const uuid_generator = require('../src/uuid-generator.js');
