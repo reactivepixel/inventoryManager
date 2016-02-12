@@ -4,7 +4,7 @@ module.exports = function (express) {
   const router = express.Router();
 
   // Display
-  router.get('/order', function(req,res){
+  router.get('/', function(req,res){
     res.send('This is the order route');
   });
   return router;
