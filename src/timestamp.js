@@ -1,6 +1,5 @@
 module.exports = {
 
-  //Add the current time to the json data
   //created a function to get the date
   toTimestamp: function(strDate) {
       const now = new Date();
