@@ -44,8 +44,6 @@ Business backend logic for Sol
  ```javascript
  {
    order: {
-     uuid: 'assigned id',
-     timestamp: '1455162560',
      units: [
        {
        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
@@ -62,8 +60,11 @@ Business backend logic for Sol
          state: 'FL',
          zip: '32792'
        },
+       phone: '555-555-5555',
        email: 'jdoe@gmail.com'
-     }
+     },
+     uuid: 'generated uuid',
+     timestamp: '2/12/2016 2:10:25 AM'
    }
  }
  ```

@@ -2,11 +2,13 @@
 const request = require('request');
 const faker = require('faker');
 
+// Automated request loop
 let i;
-for(i = 0; i < 10; i++) {
-  let payload = {
+for(i = 0; i < 900; i++) {
+  // Using Faker to produce fake user information
+  const payload = {
     order: {
-      items: [
+      units: [
         {
         sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
         quantity: faker.random.number()},
@@ -16,7 +18,7 @@ for(i = 0; i < 10; i++) {
       ],
       recipients: {
         name: faker.name.findName(),
-        address:{
+        address: {
           street: faker.address.streetAddress(),
           city: faker.address.city(),
           state: faker.address.stateAbbr(),
@@ -26,21 +28,24 @@ for(i = 0; i < 10; i++) {
         email: faker.internet.email()
       }
     }
-  }
+  };
 
+/*
+ * HTTP PUT Request hitting endpoint /order
+ * Converting payload to string for readibility purposes
+ */
   request({
     uri: 'http://localhost:3000/order',
     method: 'PUT',
-    json: payload,
     headers: {
-      'Content-Type':'application/json'
+      'Content-Type': 'application/json; charset=utf-8',
     },
     body: JSON.stringify(payload)
   }, function(error, response, body) {
     if(error) {
       console.log(error);
     } else {
-      console.log(response.statusCode, body);
+      console.log(response.statusCode);
     }
   });
-}
+};
