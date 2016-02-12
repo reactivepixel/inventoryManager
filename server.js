@@ -1,9 +1,9 @@
 /**
- * server.js
- * Copyright (C) 2016 jamesalexanderdickerson <jamesalexanderdickerson@Jamess-MacBook-Pro-3.local>
- *
- * Distributed under terms of the MIT license.
- */
+* server.js
+* Copyright (C) 2016 jamesalexanderdickerson <jamesalexanderdickerson@Jamess-MacBook-Pro-3.local>
+*
+* Distributed under terms of the MIT license.
+*/
 'use strict';
 const express = require('express');
 const body_parser = require('body-parser');
@@ -19,22 +19,22 @@ function uuid() {
           + number();
 }
 /**
- * Add the current time to the json data
- * Created a function to get the date
- */
+* Add the current time to the json data
+* Created a function to get the date
+*/
 function toTimestamp(strDate) {
-    const now = new Date();
-    const date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
-    const time = [now.getHours(), now.getMinutes(), now.getSeconds()];
-    const suffix = (time[0] < 12) ? 'AM' : 'PM';
-    time[0] = (time[0] < 12) ? time[0] : time[0] - 12;
-    time[0] = time[0] || 12;
-    for (let i = 1; i < 3; i++) {
-        if (time[i] < 10) {
-            time[i] = '0' + time[i];
-        }
+  const now = new Date();
+  const date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
+  const time = [now.getHours(), now.getMinutes(), now.getSeconds()];
+  const suffix = (time[0] < 12) ? 'AM' : 'PM';
+  time[0] = (time[0] < 12) ? time[0] : time[0] - 12;
+  time[0] = time[0] || 12;
+  for (let i = 1; i < 3; i++) {
+    if (time[i] < 10) {
+      time[i] = '0' + time[i];
     }
-    return date.join('/') + ' ' + time.join(':') + ' ' + suffix;
+  }
+  return date.join('/') + ' ' + time.join(':') + ' ' + suffix;
 }
 
 
@@ -61,5 +61,5 @@ app.route('/order')
 // Configuring the port for the app
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
-    console.log('Listening on ' + port + '...');
+  console.log('Listening on ' + port + '...');
 });
