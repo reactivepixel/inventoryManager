@@ -10,6 +10,9 @@ module.exports = function (express) {
   data.order.uuid = uuid_generator.uuid();
   data.order.timestamp = timestamp.toTimestamp();
 
+  // Simulate multiple orders
+  data.order.sku.push("b5296ab9-9bbb-5ba0-0a79-a801594f2c91");
+
   router.get('/', function(req,res){
     res.json(data);
   });
