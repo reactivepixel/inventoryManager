@@ -2,10 +2,16 @@
 const request = require('request');
 const faker = require('faker');
 
+// Hits variable controls how many times the request loop will autoamtically run
+let hits = 900;
+
 // Automated request loop
 let i;
-for(i = 0; i < 900; i++) {
-  // Using Faker to produce fake user information
+for(i = 0; i < hits; i++) {
+  /**
+   * Using Faker to produce fake user information
+   * Faker API documentation at https://github.com/marak/faker.js
+   */
   const payload = {
     order: {
       units: [
@@ -30,7 +36,7 @@ for(i = 0; i < 900; i++) {
     }
   };
 
-/*
+/**
  * HTTP PUT Request hitting endpoint /order
  * Converting payload to string for readibility purposes
  */
