@@ -1,5 +1,6 @@
 'use strict';
 const request = require('request');
+const faker = require('faker');
 
 let i;
 for(i = 0; i < 10; i++) {
@@ -8,21 +9,21 @@ for(i = 0; i < 10; i++) {
       items: [
         {
         sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-        quantity: 1},
+        quantity: faker.random.number()},
         {
         sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
-        quantity: 1}
+        quantity: faker.random.number()}
       ],
       recipients: {
-        name: 'John Doe',
+        name: faker.name.findName(),
         address:{
-          street: '3300 University Blvd',
-          city: 'Winter Park',
-          state: 'FL',
-          zip: '32792'
+          street: faker.address.streetAddress(),
+          city: faker.address.city(),
+          state: faker.address.stateAbbr(),
+          zip: faker.address.zipCode()
         },
-        phone: '555-555-5555',
-        email: 'jdoe@gmail.com'
+        phone: faker.phone.phoneNumberFormat(),
+        email: faker.internet.email()
       }
     }
   }
@@ -34,7 +35,7 @@ for(i = 0; i < 10; i++) {
     headers: {
       'Content-Type':'application/json'
     },
-    body: JSON.stringify(payload);
+    body: JSON.stringify(payload)
   }, function(error, response, body) {
     if(error) {
       console.log(error);
