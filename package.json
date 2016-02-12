@@ -1,15 +1,11 @@
 {
   "name": "gravity",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Business backend logic for Sol",
-  "main": "index.js",
-  "dependencies": {
-    "express": "^4.13.4",
-    "request": "^2.69.0"
-  },
-  "devDependencies": {},
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/reactivepixel/Gravity/issues"
   },
-  "homepage": "https://github.com/reactivepixel/Gravity#readme"
+  "homepage": "https://github.com/reactivepixel/Gravity#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4"
+  }
 }
