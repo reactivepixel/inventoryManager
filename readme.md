@@ -2,6 +2,54 @@
 
 Business backend logic for Sol
 
+## Setting up
+
+Clone the git repository to your machine using ssh.
+```
+$ git clone git@github.com:reactivepixel/Gravity.git
+$ npm install //Installs the package.json file.
+```
+
+## Database Installation
+
+### Installing mySQL & adding .env file
+
+To check to see if you have mySQL installed on your machine.
+```
+$ mysql --verison
+```
+
+If mySQL is not installed. Install it with [Homebrew](http://brew.sh/).
+```
+$ brew install mysql
+```
+
+Start mySQL server.
+```
+$ mysql.server start //Starting mySQL server.
+$ mysql -u root //Logging in as root.
+
+//Once logged into mySQL
+mysql> create database gravity;
+```
+
+Create an .env file in your root directory.
+```
+$ touch .env
+
+//Add this to the .env file
+DB_HOST=localhost
+DB_NAME=gravity
+DB_USER={local user} //Default root unless otherwise specified.
+DB_PASS={local password} //Standard install is set to blank.
+DB_PORT={local port running mysql} //Standard port is 3306.
+```
+
+If mySQL does not work try:
+```
+$ mysql.server restart
+```
+
 ## API Documentation
 
 ### Order
