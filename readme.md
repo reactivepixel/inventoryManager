@@ -67,6 +67,9 @@ Business backend logic for Sol
 
 ## Contributing
 
+See [Contribute.md](https://github.com/reactivepixel/Gravity/blob/order_bot/CONTRIBUTE.md)
+ for more information on how to contribute
+
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
 3. Commit your changes: `git commit -am 'Add some feature'`
