@@ -1,7 +1,7 @@
-module.exports = {
+module.exports = function() {
 
   // Created a function to get the date
-  function toTimestamp(strDate) {
+  function _toTimestamp(strDate) {
     const now = new Date();
     const date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
     const time = [now.getHours(), now.getMinutes(), now.getSeconds()];
@@ -14,5 +14,9 @@ module.exports = {
       }
     }
     return date.join("/") + " " + time.join(":") + " " + suffix;
+  }
+
+  return {
+    toTimestamp: _toTimestamp
   }
 }

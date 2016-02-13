@@ -2,6 +2,10 @@
 
 Business backend logic for Sol
 
+## Local Dev Installation
+
+... Add instructions here ...
+
 ## API Documentation
 
 ### Order
