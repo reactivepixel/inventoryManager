@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test';
+process.env.PORT = 3001;
 const request = require('supertest');
 
 //  Manually configure Test Routes, they will be mapped to individual tests
@@ -31,7 +33,7 @@ describe('Loading Express', function () {
 
   // Force a bad route
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  it('404 everything bad routes', function testHealth(done){
+  it('[404] everything bad routes', function testHealth(done){
     request(server)
       .get('/not/a/real/route')
       .expect(404, done);
