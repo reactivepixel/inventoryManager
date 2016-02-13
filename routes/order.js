@@ -13,14 +13,12 @@ module.exports = function (express) {
       res.send('Making PUT request to /order');
     })
 
-    // added json_parser to parse the request.body
     .put(function(req, res, body) {
       const data = req.body;
       // adding generated UUID and timestamp to the json data
       data.uuid = uuid_generator.uuid();
       data.timestamp = timestamp.toTimestamp();
       // ending the response and console logging the response data
-      res.end();
       console.log(data);
     });
 

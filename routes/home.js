@@ -5,7 +5,7 @@ module.exports = function (express) {
 
   // Display altered data
   router.get('/', function(req,res){
-    res.json(data);
+    res.send('Homepage');
   });
   return router;
 };

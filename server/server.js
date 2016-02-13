@@ -15,5 +15,5 @@ app.use('/order', require('../routes/order.js')(express));
 
 // Start server
 app.listen(port, function() {
-    console.log("Listening on "+port+"...");
+    console.log("Listening on " + port + "...");
 });
