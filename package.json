@@ -18,17 +18,14 @@
   },
   "homepage": "https://github.com/reactivepixel/Gravity#readme",
   "dependencies": {
-<<<<<<< HEAD
     "body-parser": "1.15.0",
     "express": "4.13.4",
     "faker": "3.0.1",
-    "request": "2.69.0"
-=======
-    "body-parser": "^1.15.0",
-    "express": "^4.13.4",
-    "faker": "^3.0.1",
-    "request": "^2.69.0",
-    "sequelize": "^3.19.2"
->>>>>>> a65ceb1d706e461e69ec256f5e65bafa71f9f8db
+    "request": "2.69.0",
+    "body-parser": "1.15.0",
+    "express": "4.13.4",
+    "faker": "3.0.1",
+    "request": "2.69.0",
+    "sequelize": "3.19.2"
   }
 }
