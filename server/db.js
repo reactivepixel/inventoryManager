@@ -1,10 +1,12 @@
 module.exports = function() {
-  const express = require('express');
+
+  //Requring dependencies.
   const dotenv = require('dotenv').load();
-  const Sqlize = require('sequelize');
+  const Sequelize = require('sequelize');
   const mysql = require('mysql');
 
-  const sqlize = new Sqlize(process.env.DB_NAME, process.env.DB_USER,
+  //Initizling sequelize.
+  const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER,
   process.env.DB_PASS, {
     host: 'localhost',
     dialect: 'mysql',
@@ -13,5 +15,6 @@ module.exports = function() {
   });
 
   sqlize.sync();
-  console.log("I think it works?");
+
+
 };
