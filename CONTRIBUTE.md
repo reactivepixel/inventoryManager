@@ -8,15 +8,15 @@ This is the contribute.md of our project. Great to have you here. Here are a few
 
 This section introduces the core team members.
 
-James Dickerson
-Misha Devine
-Keown Creese
-Chris Fortin
-Aldo Gonzalez
-Jacob Nigh
-Tyler Richard
-Brad Beltowski
-Chris Chapman
+* James Dickerson
+* Misha Devine
+* Keown Creese
+* Chris Fortin
+* Aldo Gonzalez
+* Jacob Nigh
+* Tyler Richard
+* Brad Beltowski
+* Chris Chapman
 
 ## Learn & listen
 
