@@ -7,6 +7,9 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Adding body parser
+app.use(body_parser.json());
+
 // Routes
 app.use('/', require('../routes/index.js')(express));
 app.use('/order', require('../routes/order.js')(express));

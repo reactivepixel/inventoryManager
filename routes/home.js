@@ -1,5 +1,4 @@
 module.exports = function (express) {
-  const fs = require('fs');
 
   // Config
   const router = express.Router();

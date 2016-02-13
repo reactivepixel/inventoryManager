@@ -8,12 +8,13 @@ module.exports = function (express) {
   const timestamp = require('../src/timestamp.js');
 
   // Display
-  app.route('/order')
+  app.route('/')
     .get(function(req, res) {
       res.send('Making PUT request to /order');
     })
+
     // added json_parser to parse the request.body
-    .put(json_parser, function(req, res, body) {
+    .put(function(req, res, body) {
       const data = req.body;
       // adding generated UUID and timestamp to the json data
       data.uuid = uuid_generator.uuid();
