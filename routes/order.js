@@ -4,11 +4,11 @@ module.exports = function (express) {
   const router = express.Router();
 
   // Include uuid generator and timestamp generator
-  const uuid_generator = require('../src/uuid-generator.js');
-  const timestamp = require('../src/timestamp.js');
+  const uuid_generator = require('../server/uuid-generator.js');
+  const timestamp = require('../server/timestamp.js');
 
   // Display
-  app.route('/')
+  router.route('/')
     .get(function(req, res) {
       res.send('Making PUT request to /order');
     })
