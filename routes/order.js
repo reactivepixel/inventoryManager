@@ -19,7 +19,7 @@ module.exports = function (express) {
       data.uuid = uuid_generator.generateUUID();
       data.timestamp = timestamp.makeTimestamp();
       // ending the response and console logging the response data
-      console.log(data);
+      res.send({healthy: true});
     });
 
   return router;
