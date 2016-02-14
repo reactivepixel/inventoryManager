@@ -2,11 +2,10 @@
 
 Business backend logic for Sol
 
-<<<<<<< HEAD
 ## Local Dev Installation
 
 ... Add instructions here ...
-=======
+
 ## Setting up
 
 Clone the git repository to your machine using ssh.
