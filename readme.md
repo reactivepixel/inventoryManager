@@ -2,10 +2,6 @@
 
 Business backend logic for Sol
 
-## Local Dev Installation
-
-... Add instructions here ...
-
 ## Setting up
 
 Clone the git repository to your machine using ssh.
@@ -53,7 +49,6 @@ If mySQL does not work try:
 ```
 $ mysql.server restart
 ```
->>>>>>> 72345462f557cbec2e58aaf967146e6cc2864f7e
 
 ## API Documentation
 
