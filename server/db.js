@@ -11,7 +11,11 @@ module.exports = function() {
     host: 'localhost',
     dialect: 'mysql',
     port: process.env.DB_PORT,
-    pool: { max: 5, min: 0, idle: 10000 }
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    }
   });
 
   // Creating inventory table schema
@@ -81,10 +85,10 @@ module.exports = function() {
     }
   });
 
-	// Syncs newly created tables and data inside the tables
+  // Syncs newly created tables and data inside the tables
   sequelize.sync();
 
-	// Returns data to be called in the models
+  // Returns data to be called in the models
   return {
     connection: sequelize,
     inventory: inventory,

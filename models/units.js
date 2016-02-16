@@ -5,5 +5,5 @@ module.exports = function() {
   const sequelize = db.connection;
 
   // Defining units based on the table schema from the db.js
-	const units = db.units;
+  let units = db.units;
 }
