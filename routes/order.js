@@ -14,12 +14,15 @@ module.exports = function (express) {
     })
 
     .put(function(req, res, body) {
-      const data = req.body;
+      var data = req.body;
+
+      
+
       // adding generated UUID and timestamp to the json data
       data.uuid = uuid_generator.generateUUID();
       data.timestamp = timestamp.makeTimestamp();
       // ending the response and console logging the response data
-      res.send({healthy: true});
+      res.send(data);
     });
 
   return router;

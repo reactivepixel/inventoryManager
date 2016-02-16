@@ -1,10 +1,12 @@
 const request = require('supertest');
+const dataToInsert = {lala: 'dsgaes42q3',lolo: '2'};
+const array1 = [];
 
 //  Manually configure Test Routes, they will be mapped to individual tests
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-const known_routes = [
-  {title: 'Basic Order Test', route: '/order', status_code: 200, res: {healthy: true}},
-  // {title: 'Status Check', route: '/api/v1/status', status_code: 200, res: {healthy: true}}
+
+const uuidTest = [
+     {title: 'Order Json Test', route: '/order', status_code: 200, req: dataToInsert}
 ];
 
 describe('Loading Express', function () {
@@ -19,15 +21,57 @@ describe('Loading Express', function () {
     server.close();
   });
 
-  for(var route_index in known_routes){
-    it('[' + known_routes[route_index].status_code + '] ' + known_routes[route_index].route + ' ' + known_routes[route_index].title , function testHealth(done){
+  it('/should check to see if an uuid is been added', function testHealth(done){
       request(server)
-        .put(known_routes[route_index].route)
+        .put(uuidTest[0].route, uuidTest[0].req)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(known_routes[route_index].status_code, known_routes[route_index].res, done)
-    });
-  }
+        .expect(function (res) {
+
+            console.log(res.body);
+
+            var matchedKeys = [];
+            for(matchKey in uuidTest[0].req){
+                matchedKeys.push(matchKey);
+            }
+
+            var matchCount = 0;
+            for(resKey in res.body){
+                if(matchedKeys.indexOf(resKey) < 0) {
+                    // Un Matched Key
+                } else {
+                    // Key is matched
+                    matchCount++;
+                }
+            }
+
+            if(matchCount !== matchedKeys.length){
+                throw new Error('Incorrect total of matches made');
+            }
+
+            // matchedKeys
+
+
+
+        })
+        .expect(uuidTest[0].status_code, done)
+  });
+
+  //Write a test the check if the json data is been posted
+  // it('should send post params', function testHealth(done) {
+  //     request(server)
+  //     .post(known_routes[route_index].route)
+  //     .send(known_routes[route_index].route)
+  //     .expect(known_routes[route_index].status_code, known_routes[route_index].res)
+  //     .expect('Content-Type', /json/)
+  //     .end(function(err,res) {
+  //
+  //         if (err) done(err);
+  //         res.body.should.have.property(known_routes[route_index].route)
+  //         done();
+  //     })
+  //
+  // })
 
   // Force a bad route
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
