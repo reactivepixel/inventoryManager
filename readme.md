@@ -4,48 +4,49 @@ Business backend logic for Sol
 
 ## Setting up
 
-Clone the git repository to your machine using ssh.
+Clone the git repository to your machine using ssh:
 ```
 $ git clone git@github.com:reactivepixel/Gravity.git
-$ npm install //Installs the package.json file.
+$ npm install
 ```
 
 ## Database Installation
 
 ### Installing MySQL & adding .env file
 
-To check to see if you have MySQL installed on your machine.
+Check to see if you have MySQL installed on your machine:
 ```
-$ mysql --verison
+$ mysql --version
 ```
 
-If MySQL is not installed. Install it with [Homebrew](http://brew.sh/).
+If MySQL is not installed, install it with [Homebrew](http://brew.sh/):
 ```
 $ brew install mysql
 ```
 
-Start MySQL server.
+Start the MySQL server logging in as root, and create the gravity database:
 ```
-$ mysql.server start //Starting MySQL server.
-$ mysql -u root //Logging in as root.
+$ mysql.server start
+$ mysql -u root
 
-//Once logged into MySQL
 mysql> create database gravity;
 ```
 
-Create an .env file in your root directory.
+Create a .env file in your root directory:
 ```
 $ touch .env
-
-//Add this to the .env file
-DB_HOST=localhost
-DB_NAME=gravity
-DB_USER={local user} //Default root unless otherwise specified.
-DB_PASS={local password} //Standard install is set to blank.
-DB_PORT={local port running mysql} //Standard port is 3306.
 ```
 
-If MySQL does not work try:
+Add the database credentials to the .env file:
+```
+DB_HOST=localhost
+DB_NAME=gravity
+DB_USER={local user}                //Default root unless otherwise specified.
+DB_PASS={local password}            //Standard install is set to blank.
+DB_PORT={local port running mysql}  //Standard port is 3306.
+```
+
+If MySQL does not work, try:
 ```
 $ mysql.server restart
 ```
@@ -117,9 +118,3 @@ $ mysql.server restart
 
 See [Contribute.md](https://github.com/reactivepixel/Gravity/blob/order_bot/CONTRIBUTE.md)
  for more information on how to contribute
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
