@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Tests not setup yet\" && exit 0",
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "npm i -g mocha nodemon"
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,15 @@
   "homepage": "https://github.com/reactivepixel/Gravity#readme",
   "dependencies": {
     "body-parser": "1.15.0",
-    "dotenv": "2.0.0",
     "express": "4.13.4",
     "faker": "3.0.1",
     "mysql": "2.10.2",
     "request": "2.69.0",
     "sequelize": "3.19.2"
+  },
+  "devDependencies": {
+    "mocha": "2.4.5",
+    "supertest": "1.2.0",
+    "dotenv": "2.0.0"
   }
 }
