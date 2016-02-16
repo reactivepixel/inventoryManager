@@ -4,6 +4,6 @@ module.exports = function() {
   const Sequelize = require('sequelize');
   const sequelize = db.connection;
 
-  // Defining units based on the table schema from the db.js
-  let units = db.units;
+  // Defining orderedItems based on the table schema from the db.js
+  let orderedItems = db.orderedItems;
 }
