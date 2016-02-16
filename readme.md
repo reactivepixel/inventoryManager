@@ -12,24 +12,24 @@ $ npm install //Installs the package.json file.
 
 ## Database Installation
 
-### Installing mySQL & adding .env file
+### Installing MySQL & adding .env file
 
-To check to see if you have mySQL installed on your machine.
+To check to see if you have MySQL installed on your machine.
 ```
 $ mysql --verison
 ```
 
-If mySQL is not installed. Install it with [Homebrew](http://brew.sh/).
+If MySQL is not installed. Install it with [Homebrew](http://brew.sh/).
 ```
 $ brew install mysql
 ```
 
-Start mySQL server.
+Start MySQL server.
 ```
-$ mysql.server start //Starting mySQL server.
+$ mysql.server start //Starting MySQL server.
 $ mysql -u root //Logging in as root.
 
-//Once logged into mySQL
+//Once logged into MySQL
 mysql> create database gravity;
 ```
 
@@ -45,7 +45,7 @@ DB_PASS={local password} //Standard install is set to blank.
 DB_PORT={local port running mysql} //Standard port is 3306.
 ```
 
-If mySQL does not work try:
+If MySQL does not work try:
 ```
 $ mysql.server restart
 ```
