@@ -1,12 +1,12 @@
 'use strict';
 module.exports = function() {
 
-  //Requring dependencies.
+  // Requiring dependencies.
   const dotenv = require('dotenv').load();
   const Sequelize = require('sequelize');
   const mysql = require('mysql');
 
-  //Initizling sequelize.
+  // Initializing sequelize
   const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
     host: 'localhost',
     dialect: 'mysql',
@@ -14,7 +14,7 @@ module.exports = function() {
     pool: { max: 5, min: 0, idle: 10000 }
   });
 
-  //Creating inventory table    
+  // Creating inventory table schema
   const inventory = sequelize.define('inventory', {
     sku: {
       type: Sequelize.STRING
@@ -23,8 +23,8 @@ module.exports = function() {
       type: Sequelize.STRING
     }
   });
-    
-  //Creting itemOrders table    
+
+  // Creating orderedItems table schema
   const orderedItems = sequelize.define('orderedItems', {
     sku: {
       type: Sequelize.STRING
@@ -37,7 +37,7 @@ module.exports = function() {
     }
   });
 
-  //Creating orders table
+  // Creating orders table schema
   const orders = sequelize.define('orders', {
     orderId: {
       type: Sequelize.STRING
@@ -68,7 +68,7 @@ module.exports = function() {
     }
   });
 
-  //Creating units table    
+  // Creating units table schema
   const units = sequelize.define('units', {
     sku: {
       type: Sequelize.STRING
@@ -81,11 +81,11 @@ module.exports = function() {
     }
   });
 
-	//Syncs newly created tables and data inside the tables
+	// Syncs newly created tables and data inside the tables
   sequelize.sync();
-	
-	//returns data to be called in the models
-  return { 
+
+	// Returns data to be called in the models
+  return {
     connection: sequelize,
     inventory: inventory,
     orderedItems: orderedItems,

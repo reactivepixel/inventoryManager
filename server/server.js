@@ -6,7 +6,7 @@ const body_parser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Adding body parser
+// Adding body parser to parse json automatically
 app.use(body_parser.json());
 
 // Routes
