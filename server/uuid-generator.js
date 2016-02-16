@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
 
   // Create a function to generate a new UUID number
