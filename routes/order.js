@@ -4,6 +4,7 @@ module.exports = function (express) {
   // Config
   const router = express.Router();
   const order = require('../models/orders.js');
+  const orderedItem = require('../models/ordered-items.js');
 
   // Include uuid generator and timestamp generator
   const uuid_generator = require('../server/uuid-generator.js');
@@ -22,6 +23,8 @@ module.exports = function (express) {
       data.timestamp = timestamp.makeTimestamp();
       // ending the response and console logging the response data
       // console.log(data);
+
+      // Creating the order in the database based on the request
       order.create({
         orderId: data.uuid,
         fullName: data.recipients.name,
@@ -32,12 +35,37 @@ module.exports = function (express) {
         phone: data.recipients.phone,
         email: data.recipients.email,
         timeStamp: data.timeStamp
-      }, function(data) {
-        console.log('An order has been created.');
-      }, function(error) {
-        console.log('You\'ve encountered an error.');
-      }
+      },
+      // Success function
+        function(data) {
+          console.log('An order has been created.');
+        },
+
+      // Error function
+        function(error) {
+          console.log('You\'ve encountered an error.');
+        }
       });
+
+      // Creating the ordered items based on how many objects are inside of the units array
+      for (let i = 0; i < data.units.length; i++) {
+        orderedItem.create({
+          sku: data.units[i].sku,
+          orderId: data.uuid,
+          quantity: data.units[i].quantity
+        }
+      },
+      // Success function
+        function(data) {
+          console.log('An orderedItem has been created.');
+        },
+
+      // Error function
+        function(error) {
+          console.log('You\'ve encountered an error.');
+        }
+      });
+
 
     });
 
