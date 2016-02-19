@@ -3,8 +3,10 @@ module.exports = function (express) {
 
   // Config
   const router = express.Router();
-  const order = require('../models/orders.js');
-  const orderedItem = require('../models/ordered-items.js');
+	const Sequelize = require('sequelize');
+	const db = require('../server/db.js');
+	let orderedItems = db.orderedItems;
+	let orders = db.orders;
 
   // Include uuid generator and timestamp generator
   const uuid_generator = require('../server/uuid-generator.js');
@@ -25,7 +27,7 @@ module.exports = function (express) {
       // console.log(data);
 
       // Creating the order in the database based on the request
-      order.create({
+      orders.build({
         orderId: data.uuid,
         fullName: data.recipients.name,
         streetAddress: data.recipients.address.street,
@@ -44,17 +46,16 @@ module.exports = function (express) {
       // Error function
         function(error) {
           console.log('You\'ve encountered an error.');
-        }
-      });
+        }).save();
+      
 
       // Creating the ordered items based on how many objects are inside of the units array
-      for (let i = 0; i < data.units.length; i++) {
-        orderedItem.create({
+      for (let i = 1; i < data.units.length; i++) {
+        orderedItems.build({
           sku: data.units[i].sku,
           orderId: data.uuid,
           quantity: data.units[i].quantity
-        }
-      },
+        },
       // Success function
         function(data) {
           console.log('An orderedItem has been created.');
@@ -63,11 +64,11 @@ module.exports = function (express) {
       // Error function
         function(error) {
           console.log('You\'ve encountered an error.');
-        }
+        }).save()
+			};
+		 
+			
       });
-
-
-    });
-
+ 
   return router;
 };
