@@ -3,7 +3,7 @@ const request = require('request');
 const faker = require('faker');
 
 // Hits variable controls how many times the request loop will autoamtically run
-let hits = 900;
+let hits = 1;
 
 // Automated request loop
 let i;
