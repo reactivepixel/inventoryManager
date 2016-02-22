@@ -36,7 +36,7 @@ module.exports = function (express) {
         zip: data.recipients.address.zip,
         phone: data.recipients.phone,
         email: data.recipients.email,
-        timeStamp: data.timeStamp
+        timeStamp: data.timestamp
       },
       // Success function
         function(data) {
@@ -47,7 +47,7 @@ module.exports = function (express) {
         function(error) {
           console.log('You\'ve encountered an error.');
         }).save();
-      
+
 
       // Creating the ordered items based on how many objects are inside of the units array
       for (let i = 1; i < data.units.length; i++) {
@@ -66,9 +66,9 @@ module.exports = function (express) {
           console.log('You\'ve encountered an error.');
         }).save()
 			};
-		 
-			
+
+
       });
- 
+
   return router;
 };
