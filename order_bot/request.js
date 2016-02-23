@@ -21,7 +21,7 @@ for(i = 0; i < hits; i++) {
       sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
       quantity: faker.random.number()}
     ],
-    recipients: {
+    recipient: {
       name: faker.name.findName(),
       address: {
         street: faker.address.streetAddress(),

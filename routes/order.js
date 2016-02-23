@@ -29,13 +29,13 @@ module.exports = function (express) {
       // Creating the order in the database based on the request
       orders.build({
         orderId: data.uuid,
-        fullName: data.recipients.name,
-        streetAddress: data.recipients.address.street,
-        city: data.recipients.address.city,
-        state: data.recipients.address.state,
-        zip: data.recipients.address.zip,
-        phone: data.recipients.phone,
-        email: data.recipients.email,
+        fullName: data.recipient.name,
+        streetAddress: data.recipient.address.street,
+        city: data.recipient.address.city,
+        state: data.recipient.address.state,
+        zip: data.recipient.address.zip,
+        phone: data.recipient.phone,
+        email: data.recipient.email,
         timeStamp: data.timestamp
       },
       // Success function
