@@ -50,11 +50,11 @@ module.exports = function (express) {
 
 
       // Creating the ordered items based on how many objects are inside of the units array
-      for (let i = 1; i < data.units.length; i++) {
+      for (let i = 1; i <= data.units.length; i++) {
         orderedItems.build({
-          sku: data.units[i].sku,
+          sku: data.units.sku,
           orderId: data.uuid,
-          quantity: data.units[i].quantity
+          quantity: data.units.quantity
         },
       // Success function
         function(data) {

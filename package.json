@@ -26,8 +26,6 @@
     "sequelize": "3.19.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-http": "^2.0.1",
     "dotenv": "2.0.0",
     "faker": "3.0.1",
     "mocha": "2.4.5",
