@@ -1,11 +1,10 @@
-process.env.PORT = 1234;
 const request = require('supertest');
-const dataToInsert = {uuid: 'j42bc2ed9899a490fa44dbb2f756542e5', timestamp: 'Mon Feb 22 2016 13:14:26 GMT-0500 (EST)'};
+const dataToInsert = {uuid: 'j42bc2ed9899a490fa44dbb2f756542e5',timestamp: 'Mon Feb 22 2016 13:14:26 GMT-0500 (EST)', healthy: true};
 
 //  Manually configure Test Routes, they will be mapped to individual tests
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 const known_routes = [
-  {title: 'Basic Order Test', route: '/order', status_code: 200, res: {healthy: true }, req: dataToInsert},
+  {title: 'Basic Order Test', route: '/order', status_code: 200, res: {healthy: true },req: dataToInsert},
   // {title: 'Status Check', route: '/api/v1/status', status_code: 200, res: {healthy: true}}
 ];
 
