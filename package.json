@@ -26,9 +26,9 @@
     "sequelize": "3.19.2"
   },
   "devDependencies": {
-    "mocha": "2.4.5",
-    "supertest": "1.2.0",
     "dotenv": "2.0.0",
-    "faker": "3.0.1"
+    "faker": "3.0.1",
+    "mocha": "2.4.5",
+    "supertest": "1.2.0"
   }
 }
