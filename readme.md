@@ -16,7 +16,7 @@ $ npm install //Installs the package.json file.
 
 To check to see if you have MySQL installed on your machine.
 ```
-$ mysql --verison
+$ mysql --version
 ```
 
 If MySQL is not installed. Install it with [Homebrew](http://brew.sh/).

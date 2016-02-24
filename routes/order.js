@@ -20,31 +20,30 @@ router.route('/')
 
   .put(function(req, res) {
     let data = req.body;
-    let statusCode;
+    let successMsg;
     let error;
 
     data.uuid = uuid_generator.generateUUID();
     data.timestamp = timestamp.makeTimestamp();
 
+    let serverMessage;
+
     orders.create(data, function(err) {
-      let statusCode = 500;
-      let error = err;
-    }, function(data) {
-      let statusCode = 200;
+      error = 'Encountered an error while creating Order.';
+    }, function(order) {
+      successMsg = 'Order was successfully created.';
     });
 
     orderedItems.create(data, function(err) {
-      let statusCode = 500;
-      let error = err;
-    }, function(data) {
-      let statusCode = 200;    
+      error = 'Encountered an error while creating Ordered It.';
+    }, function(order) {
+      successMsg = 'Ordered Item was successfully created.';
     });
 
-    if(statusCode == 200) {
-      res.status(statusCode).json(data);
-    }
-    if(statusCode == 500) {
-      res.status(statusCode).json(error);
+    if(error) {
+      res.status(500).json(error);
+    } else{
+      res.status(200).json(data);
     }
 
   });
