@@ -5,5 +5,9 @@ module.exports = function() {
   const sequelize = db.connection;
 
   // Defining orders based on the table schema from the db.js
-  let orders = db.orders;
+  function _create(data, err, success) {
+    let payload = data;
+    db.order.create(payload).then(success).catch(err)
+  }
+  
 }();

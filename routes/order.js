@@ -18,57 +18,97 @@ module.exports = function (express) {
       res.send('Making PUT request to /order');
     })
 
-    .put(function(req, res, body) {
-      const data = req.body;
-      // adding generated UUID and timestamp to the json data
-      data.uuid = uuid_generator.generateUUID();
-      data.timestamp = timestamp.makeTimestamp();
-      // ending the response and console logging the response data
-      // console.log(data);
+    // .put(function(req, res) {
+    //   var data = req.body;
+    //   // adding generated UUID and timestamp to the json data
+    //   data.uuid = uuid_generator.generateUUID();
+    //   data.timestamp = timestamp.makeTimestamp();
+    //   // ending the response and console logging the response data
+    //
+    //   // Creating the order in the database based on the request
+    //   orders.build({
+    //     orderId: data.uuid,
+    //     fullName: data.recipient.name,
+    //     streetAddress: data.recipient.address.street,
+    //     city: data.recipient.address.city,
+    //     state: data.recipient.address.state,
+    //     zip: data.recipient.address.zip,
+    //     phone: data.recipient.phone,
+    //     email: data.recipient.email,
+    //     timeStamp: data.timestamp
+    //   },
+    //
+    //   // Success function
+    //     function(data) {
+    //       console.log('An order has been created.');
+    //       res.json(data);
+    //     },
+    //
+    //   // Error function
+    //     function(error) {
+    //       console.log('You\'ve encountered an error.');
+    //       res.json(error);
+    //     }).save();
+    //
+    //
+    //   // Creating the ordered items based on how many objects are inside of the units array
+    //   for (let i = 1; i <= data.units.length; i++) {
+    //     orderedItems.build({
+    //       sku: data.units.sku,
+    //       orderId: data.uuid,
+    //       quantity: data.units.quantity
+    //     },
+    //   // Success function
+    //     function(data) {
+    //       console.log('An orderedItem has been created.');
+    //     },
+    //
+    //   // Error function
+    //     function(error) {
+    //       console.log('You\'ve encountered an error.');
+    //     }).save()
+		// 	};
+    //
+    //
+    //   });
 
-      // Creating the order in the database based on the request
-      orders.build({
+
+
+
+    .put(function(req, res) {
+      orders.create({
         orderId: data.uuid,
-        fullName: data.recipients.name,
-        streetAddress: data.recipients.address.street,
-        city: data.recipients.address.city,
-        state: data.recipients.address.state,
-        zip: data.recipients.address.zip,
-        phone: data.recipients.phone,
-        email: data.recipients.email,
+        fullName: data.recipient.name,
+        streetAddress: data.recipient.address.street,
+        city: data.recipient.address.city,
+        state: data.recipient.address.state,
+        zip: data.recipient.address.zip,
+        phone: data.recipient.phone,
+        email: data.recipient.email,
         timeStamp: data.timestamp
-      },
-      // Success function
-        function(data) {
-          console.log('An order has been created.');
-        },
+      })
+      .on('success', function(data) {
+        for (let i = 1; i <= data.units.length; i++) {
+          orderedItems.create({
+            sku: data.units[i].sku,
+            orderId: data.uuid,
+            quantity: data.units[i].quantity
+        })}
+        .on('success', function(data) {
+          res.json(data);
+        })
+        .catch(function() {
+          res.json({
+            success: false,
+            desc: 'Order was created but orderedItems creation failed'
+            statusCode: 500
+          })
+      })
 
-      // Error function
-        function(error) {
-          console.log('You\'ve encountered an error.');
-        }).save();
+      })
 
-
-      // Creating the ordered items based on how many objects are inside of the units array
-      for (let i = 1; i <= data.units.length; i++) {
-        orderedItems.build({
-          sku: data.units.sku,
-          orderId: data.uuid,
-          quantity: data.units.quantity
-        },
-      // Success function
-        function(data) {
-          console.log('An orderedItem has been created.');
-        },
-
-      // Error function
-        function(error) {
-          console.log('You\'ve encountered an error.');
-        }).save()
-			};
-
-
-      });
+      })
+    });
 
   return router;
 };

@@ -5,5 +5,8 @@ module.exports = function() {
   const sequelize = db.connection;
 
   // Defining inventory based on the table schema from the db.js
-  let inventory = db.inventory;
+  let inventory = db.inventory.create({
+    
+  })
+  });
 }();

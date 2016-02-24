@@ -1,43 +1,49 @@
-'use-strict'
-const supertest = require('supertest');
+const request = require('supertest');
+const faker = require('faker');
 
-const server = supertest.agent('http://localhost:3000');
+describe('Order routes', function() {
+  var server;
+  var testOrderData = {
+    units: [
+      {
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      quantity: faker.random.number()},
+      {
+      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
+      quantity: faker.random.number()}
+    ],
+    recipients: {
+      name: faker.name.findName(),
+      address: {
+        street: faker.address.streetAddress(),
+        city: faker.address.city(),
+        state: faker.address.stateAbbr(),
+        zip: faker.address.zipCode()
+      },
+      phone: faker.phone.phoneNumberFormat(),
+      email: faker.internet.email()
+    }
+  };
 
-describe('test', function() {
-  it('/should send data over request', function(done) {
-    server
-    .put('/order')
-    .send({
-      units: [
-        {
-        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-        quantity: '2'},
-        {
-        sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
-        quantity: '3'}
-      ],
-      recipients: {
-        name: 'Sally',
-        address: {
-          street: '3300 University Blvd',
-          city: 'Winter Park',
-          state: 'FL',
-          zip: '32792'
-        },
-        phone: '123-456-7890',
-        email: 'test@testemail.com'
-      }
-    })
-    .expect('Content-Type', /json/)
-    .expect(function(err, res) {
-      if(!res.body.data.recipients.name.should.equal('Sally')){
-        throw new Error('This is supposed to error')
-      }
-      res.body.err.should.equal(false)
-      res.body.data.recipients.name.should.equal('Sally')
-      res.body.data.units.sku.should.equal('test')
+  var orderData;
 
-    })
-    .end(done());
+  beforeEach(function() {
+    server = require('../server/server.js');
+  });
+
+  afterEach(function() {
+    server.close();
+  });
+
+  it('Order create one', function(done) {
+    request(server)
+      .put('/order')
+      .send(testOrderData)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        if(res.body.recipients.name !== testOrderData.recipients.name) throw new Error('Order data did not create properly: Recipients name doesnt match!');
+        orderData = res.body;
+      })
+      .expect(200, done)
   });
 });
