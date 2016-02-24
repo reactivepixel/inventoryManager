@@ -7,10 +7,9 @@ module.exports = function() {
   const mysql = require('mysql');
 
   // Initializing sequelize
-  const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+  const _sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
     host: process.env.DB_HOST,
     dialect: 'mysql',
-    logging: process.env.DEBUG,
     port: process.env.DB_PORT,
     pool: {
       max: 5,
@@ -20,7 +19,7 @@ module.exports = function() {
   });
 
   // Creating inventory table schema
-  const inventory = sequelize.define('inventory', {
+  const _inventory = _sequelize.define('inventory', {
     sku: {
       type: Sequelize.STRING
     },
@@ -30,7 +29,7 @@ module.exports = function() {
   });
 
   // Creating orderedItems table schema
-  const orderedItems = sequelize.define('orderedItems', {
+  const _orderedItems = _sequelize.define('orderedItems', {
     sku: {
       type: Sequelize.STRING
     },
@@ -43,7 +42,7 @@ module.exports = function() {
   });
 
   // Creating orders table schema
-  const orders = sequelize.define('orders', {
+  const _orders = _sequelize.define('orders', {
     orderId: {
       type: Sequelize.STRING
     },
@@ -74,7 +73,7 @@ module.exports = function() {
   });
 
   // Creating units table schema
-  const units = sequelize.define('units', {
+  const _units = _sequelize.define('units', {
     sku: {
       type: Sequelize.STRING
     },
@@ -87,14 +86,14 @@ module.exports = function() {
   });
 
   // Syncs newly created tables and data inside the tables
-  sequelize.sync();
+  _sequelize.sync();
 
   // Returns data to be called in the models
   return {
-    connection: sequelize,
-    inventory: inventory,
-    orderedItems: orderedItems,
-    orders: orders,
-    units: units
+    connection: _sequelize,
+    inventory: _inventory,
+    orderedItems: _orderedItems,
+    orders: _orders,
+    units: _units
   };
 }();

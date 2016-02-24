@@ -1,21 +1,21 @@
 'use strict';
 module.exports = function() {
   const db = require('../server/db.js');
-  const Sequelize = require('sequelize');
+  // const Sequelize = require('sequelize');
   const sequelize = db.connection;
 
   function _create(data, err, success) {
     let payload = data;
 
-    db.orderedItems.create({
-      for(let i = 1; i <= payload.units.length; i++) {
+    for(let i = 0; i < payload.units.length; i++) {
+      db.orderedItems.create({
         sku: payload.units[i].sku,
         orderId: payload.uuid,
         quantity: payload.units[i].quantity
-      }
-    })
-    .then(success)
-    .catch(err);
+      })
+      .then(success)
+      .catch(err);
+    }
   }
 
   function _update(data, err, success) {
@@ -44,7 +44,7 @@ module.exports = function() {
 
   function _destroy(data, err, success) {
     let payload = data;
-    db.orderedItems.destroy({where: {orderId: payload.uuid}, force: {data.force}})
+    db.orderedItems.destroy({where: {orderId: payload.uuid}})
     .then(success)
     .catch(err);
   }

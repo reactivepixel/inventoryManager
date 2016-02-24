@@ -1,14 +1,14 @@
 'use strict';
 module.exports = function() {
   const db = require('../server/db.js');
-  const Sequelize = require('sequelize');
+  // const Sequelize = require('sequelize');
   const sequelize = db.connection;
 
   function _create(data, err, success) {
     let payload = data;
 
-    db.order.create({
-      orderId: payload.uuid;
+    db.orders.create({
+      orderId: payload.uuid,
       fullName: payload.recipient.name,
       streetAddress: payload.recipient.address.street,
       city: payload.recipient.address.city,
@@ -24,7 +24,7 @@ module.exports = function() {
 
   function _update(data, err, success) {
     let payload = data;
-    db.order.find({where: {orderId: payload.uuid}})
+    db.orders.find({where: {orderId: payload.uuid}})
     .then(function(matchedOrder) {
       matchedOrder.updateAttributes(data)
       .then(success)
@@ -35,20 +35,20 @@ module.exports = function() {
 
   function _find(data, err, success) {
     let payload = data;
-    db.order.find({where: {orderId: payload.uuid}})
+    db.orders.find({where: {orderId: payload.uuid}})
     .then(success)
     .catch(err);
   }
 
   function _findAll(err, success) {
-    db.order.findAll()
+    db.orders.findAll()
     .then(success)
     .catch(err);
   }
 
   function _destroy(data, err, success) {
     let payload = data;
-    db.order.destroy({where: {orderId: payload.uuid}, force: data.force})
+    db.order.destroy({where: {orderId: payload.uuid}})
     .then(success)
     .catch(err);
   }
