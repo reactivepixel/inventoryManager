@@ -6,7 +6,6 @@ module.exports = function() {
 
   // Defining inventory based on the table schema from the db.js
   let inventory = db.inventory.create({
-    
-  })
+
   });
 }();
