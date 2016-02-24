@@ -26,8 +26,6 @@ router.route('/')
     data.uuid = uuid_generator.generateUUID();
     data.timestamp = timestamp.makeTimestamp();
 
-    let serverMessage;
-
     orders.create(data, function(err) {
       error = 'Encountered an error while creating Order.';
     }, function(order) {
