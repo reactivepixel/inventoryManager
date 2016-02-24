@@ -6,6 +6,7 @@ module.exports = function() {
 
   function _create(data, err, success) {
     let payload = data;
+    // console.log(payload);
 
     db.orders.create({
       orderId: payload.uuid,
