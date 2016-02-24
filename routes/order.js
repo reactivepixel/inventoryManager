@@ -72,6 +72,27 @@ module.exports = function (express) {
     //
     //   });
 
+      // Creating the order in the database based on the request
+      orders.build({
+        orderId: data.uuid,
+        fullName: data.recipient.name,
+        streetAddress: data.recipient.address.street,
+        city: data.recipient.address.city,
+        state: data.recipient.address.state,
+        zip: data.recipient.address.zip,
+        phone: data.recipient.phone,
+        email: data.recipient.email,
+        timeStamp: data.timestamp
+      },
+      // Success function
+        function(data) {
+          console.log('An order has been created.');
+        },
+
+      // Error function
+        function(error) {
+          console.log('You\'ve encountered an error.');
+        }).save();
 
 
 
