@@ -33,9 +33,6 @@ module.exports = function() {
     sku: {
       type: Sequelize.STRING
     },
-    orderId: {
-      type: Sequelize.STRING
-    },
     quantity: {
       type: Sequelize.STRING
     }
@@ -84,6 +81,8 @@ module.exports = function() {
       type: Sequelize.STRING
     }
   });
+
+  _order.hasMany(_orderedItems, {foreignKey: 'orderId'});
 
   // Syncs newly created tables and data inside the tables
   _sequelize.sync();

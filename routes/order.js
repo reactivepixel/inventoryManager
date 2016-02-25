@@ -26,7 +26,7 @@ router.route('/')
     data.uuid = uuid_generator.generateUUID();
     data.timestamp = timestamp.makeTimestamp();
 
-    orders.create(data, function(err) {
+    /*orders.create(data, function(err) {
       error = 'Encountered an error while creating Order.';
     }, function(order) {
       successMsg = 'Order was successfully created.';
@@ -36,13 +36,28 @@ router.route('/')
       error = 'Encountered an error while creating Ordered It.';
     }, function(order) {
       successMsg = 'Ordered Item was successfully created.';
+    });*/
+
+    orders.create(data, function(err) {
+      error = 'Encountered an error while creating Order.';
+      res.status(500).json(err);
+    }, function(order) {
+      successMsg = 'Order was successfully created.';
+      orderedItems.create(order, function(err) {
+        error = 'Encountered an error while creating Ordered It.';
+        res.status(500).json(err);
+      }, function(completedOrder) {
+        successMsg = 'Ordered Item was successfully created.';
+        res.status(200).json(completedOrder);
+      });
     });
 
-    if(error) {
+
+    /*if(error) {
       res.status(500).json(error);
     } else{
       res.status(200).json(data);
-    }
+    }*/
 
   });
 
