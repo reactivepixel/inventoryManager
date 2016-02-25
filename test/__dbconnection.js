@@ -27,7 +27,6 @@ describe('Order routes', function() {
 
   var orderData;
 
-  console.log(testOrderData);
 
   beforeEach(function() {
     server = require('../server/server.js');
@@ -46,6 +45,7 @@ describe('Order routes', function() {
       .expect(function(res) {
         if(res.body.recipient.name !== testOrderData.recipient.name) throw new Error('Order data did not create properly: Recipients name doesnt match!');
         orderData = res.body;
+        console.log(res.body.recipient.name);
       })
       .expect(200, done)
   });

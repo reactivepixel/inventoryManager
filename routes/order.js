@@ -23,6 +23,8 @@ router.route('/')
     let successMsg;
     let error;
 
+    // console.log(data);
+
     data.uuid = uuid_generator.generateUUID();
     data.timestamp = timestamp.makeTimestamp();
 
