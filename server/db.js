@@ -41,7 +41,8 @@ module.exports = function() {
   // Creating orders table schema
   const _orders = _sequelize.define('orders', {
     uuid: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      primaryKey: true
     },
     fullName: {
       type: Sequelize.STRING
@@ -82,9 +83,8 @@ module.exports = function() {
     }
   });
 
-  _orders.hasMany(_orderedItems, {foreignKey: 'uuid'});
-  // _units.hasMany(_inventory, {foreignKey: 'sku'});
-  // _orderedItems.hasOne(_units, {foreignKey: 'sku'});
+
+  _orders.hasMany(_orderedItems, {foreignKey: 'uuid'})
 
   // Syncs newly created tables and data inside the tables
   _sequelize.sync();

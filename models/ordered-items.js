@@ -7,6 +7,7 @@ module.exports = function() {
     let payload = data;
 
     for(let i = 0; i < payload.units.length; i++) {
+      data.units[i].uuid = data.uuid;
       db.orderedItems.create(data.units[i])
       .then(success)
       .catch(err);

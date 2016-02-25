@@ -21,7 +21,7 @@ router.route('/')
   .put(function(req, res) {
     let data = req.body;
     let successMsg;
-    let error;
+    let serverError;
 
     // console.log(data);
 
@@ -40,23 +40,28 @@ router.route('/')
       successMsg = 'Ordered Item was successfully created.';
     });*/
 
+    var savedData = {};
+
     orders.create(data, function(err) {
-      res.status(500).json(err);
+      serverError = true;
     }, function(order) {
-      orderedItems.create(order, function(err) {
-        res.status(500).json(err);
+      savedData = order.dataValues;
+      savedData.units = [];
+      orderedItems.create(data, function(err) {
+        serverError = true;
       }, function(completedOrder) {
-        successMsg = 'Orders and Ordered Item was successfully created.';
-        res.status(200).json(completedOrder);
+        serverError = false;
+        savedData.units.push(completedOrder.dataValues);
       });
     });
 
+    console.log(savedData);
 
-    /*if(error) {
-      res.status(500).json(error);
+    if(serverError) {
+      res.status(500).json(serverError);
     } else{
-      res.status(200).json(data);
-    }*/
+      res.status(200).json(savedData);
+    }
 
   });
 

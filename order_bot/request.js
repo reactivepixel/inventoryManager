@@ -29,7 +29,6 @@ for(i = 0; i < hits; i++) {
       "zip": "32828",
       "phone": "305-710-8220",
       "email": "jamesalexanderdickerson@gmail.com"
-    }
   };
 
 /**
