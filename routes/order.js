@@ -28,18 +28,6 @@ router.route('/')
     data.uuid = uuid_generator.generateUUID();
     data.timestamp = timestamp.makeTimestamp();
 
-    /*orders.create(data, function(err) {
-      error = 'Encountered an error while creating Order.';
-    }, function(order) {
-      successMsg = 'Order was successfully created.';
-    });
-
-    orderedItems.create(data, function(err) {
-      error = 'Encountered an error while creating Ordered It.';
-    }, function(order) {
-      successMsg = 'Ordered Item was successfully created.';
-    });*/
-
     var savedData = {};
 
     orders.create(data, function(err) {
