@@ -7,11 +7,7 @@ module.exports = function() {
     let payload = data;
 
     for(let i = 0; i < payload.units.length; i++) {
-      db.orderedItems.create({
-        sku: payload.units[i].sku,
-        orderId: payload.uuid,
-        quantity: payload.units[i].quantity
-      })
+      db.orderedItems.create(data.units[i])
       .then(success)
       .catch(err);
     }

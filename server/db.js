@@ -40,7 +40,7 @@ module.exports = function() {
 
   // Creating orders table schema
   const _orders = _sequelize.define('orders', {
-    orderId: {
+    uuid: {
       type: Sequelize.STRING
     },
     fullName: {
@@ -64,7 +64,7 @@ module.exports = function() {
     email: {
       type: Sequelize.STRING
     },
-    timeStamp: {
+    timestamp: {
       type: Sequelize.STRING
     }
   });
@@ -82,7 +82,9 @@ module.exports = function() {
     }
   });
 
-  _order.hasMany(_orderedItems, {foreignKey: 'orderId'});
+  _orders.hasMany(_orderedItems, {foreignKey: 'uuid'});
+  // _units.hasMany(_inventory, {foreignKey: 'sku'});
+  // _orderedItems.hasOne(_units, {foreignKey: 'sku'});
 
   // Syncs newly created tables and data inside the tables
   _sequelize.sync();

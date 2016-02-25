@@ -8,17 +8,7 @@ module.exports = function() {
     let payload = data;
     console.log(payload);
 
-    db.orders.create({
-      orderId: payload.uuid,
-      fullName: payload.recipient.name,
-      streetAddress: payload.recipient.address.street,
-      city: payload.recipient.address.city,
-      state: payload.recipient.address.state,
-      zip: payload.recipient.address.zip,
-      phone: payload.recipient.phone,
-      email: payload.recipient.email,
-      timeStamp: payload.timestamp
-    })
+    db.orders.create(data)
     .then(success)
     .catch(err);
   }

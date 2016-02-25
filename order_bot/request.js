@@ -13,24 +13,22 @@ for(i = 0; i < hits; i++) {
    * Faker API documentation at https://github.com/marak/faker.js
    */
   const payload = {
-    units: [
+    "units": [
       {
-      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: faker.random.number()},
+      "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      "quantity": 5},
       {
-      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
-      quantity: faker.random.number()}
-    ],
-    recipient: {
-      name: faker.name.findName(),
-      address: {
-        street: faker.address.streetAddress(),
-        city: faker.address.city(),
-        state: faker.address.stateAbbr(),
-        zip: faker.address.zipCode()
-      },
-      phone: faker.phone.phoneNumberFormat(),
-      email: faker.internet.email()
+      "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
+      "quantity": 2},
+      ],
+
+      "fullName": "James Dickerson",
+      "streetAddress": "14250 Cheval Mayfaire",
+      "city": "Orlando",
+      "state": "FL",
+      "zip": "32828",
+      "phone": "305-710-8220",
+      "email": "jamesalexanderdickerson@gmail.com"
     }
   };
 

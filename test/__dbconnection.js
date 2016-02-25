@@ -4,24 +4,14 @@ const faker = require('faker');
 describe('Order routes', function() {
   var server;
   var testOrderData = {
-    units: [
-      {
-      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-      quantity: faker.random.number()},
-      {
-      sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
-      quantity: faker.random.number()}
-    ],
-    recipient: {
-      name: faker.name.findName(),
-      address: {
-        street: faker.address.streetAddress(),
-        city: faker.address.city(),
-        state: faker.address.stateAbbr(),
-        zip: faker.address.zipCode()
-      },
-      phone: faker.phone.phoneNumberFormat(),
-      email: faker.internet.email()
+    units: [],
+    fullName: faker.name.findName(),
+    streetAddress: faker.address.streetAddress(),
+    city: faker.address.city(),
+    state: faker.address.stateAbbr(),
+    zip: faker.address.zipCode(),
+    phone: faker.phone.phoneNumberFormat(),
+    email: faker.internet.email()
     }
   };
 

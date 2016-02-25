@@ -41,15 +41,12 @@ router.route('/')
     });*/
 
     orders.create(data, function(err) {
-      error = 'Encountered an error while creating Order.';
       res.status(500).json(err);
     }, function(order) {
-      successMsg = 'Order was successfully created.';
       orderedItems.create(order, function(err) {
-        error = 'Encountered an error while creating Ordered It.';
         res.status(500).json(err);
       }, function(completedOrder) {
-        successMsg = 'Ordered Item was successfully created.';
+        successMsg = 'Orders and Ordered Item was successfully created.';
         res.status(200).json(completedOrder);
       });
     });
