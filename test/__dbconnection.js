@@ -12,7 +12,7 @@ describe('Order routes', function() {
       sku: 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
       quantity: faker.random.number()}
     ],
-    recipients: {
+    recipient: {
       name: faker.name.findName(),
       address: {
         street: faker.address.streetAddress(),
@@ -27,6 +27,8 @@ describe('Order routes', function() {
 
   var orderData;
 
+  console.log(testOrderData);
+
   beforeEach(function() {
     server = require('../server/server.js');
   });
@@ -38,10 +40,11 @@ describe('Order routes', function() {
   it('Order create one', function(done) {
     request(server)
       .put('/order')
+      .set('Accept', 'application/json')
       .send(testOrderData)
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(res.body.recipients.name !== testOrderData.recipients.name) throw new Error('Order data did not create properly: Recipients name doesnt match!');
+        if(res.body.recipient.name !== testOrderData.recipient.name) throw new Error('Order data did not create properly: Recipients name doesnt match!');
         orderData = res.body;
       })
       .expect(200, done)
