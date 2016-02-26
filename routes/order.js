@@ -23,27 +23,30 @@ router.route('/')
     let successMsg;
     let serverError;
 
-    // console.log(data);
+    console.log("DATA IN =======", data);
 
     data.uuid = uuid_generator.generateUUID();
     data.timestamp = timestamp.makeTimestamp();
 
     var savedData = {};
 
+
     orders.create(data, function(err) {
       serverError = true;
     }, function(order) {
       savedData = order.dataValues;
       savedData.units = [];
+      console.log('THE ORDER.CREATE SUCCESS ==========', order);
       orderedItems.create(data, function(err) {
         serverError = true;
+
       }, function(completedOrder) {
         serverError = false;
         savedData.units.push(completedOrder.dataValues);
       });
     });
 
-    console.log(savedData);
+    console.log("DATA OUT =======", savedData);
 
     if(serverError) {
       res.status(500).json(serverError);
