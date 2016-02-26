@@ -4,15 +4,23 @@ const faker = require('faker');
 describe('Order routes', function() {
   var server;
   var testOrderData = {
-    units: [],
-    fullName: faker.name.findName(),
-    streetAddress: faker.address.streetAddress(),
-    city: faker.address.city(),
-    state: faker.address.stateAbbr(),
-    zip: faker.address.zipCode(),
-    phone: faker.phone.phoneNumberFormat(),
-    email: faker.internet.email()
-    }
+    "units": [
+      {
+      "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
+      "quantity": 5},
+      {
+      "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
+      "quantity": 2},
+      ],
+
+      "fullName": "James Dickerson",
+      "streetAddress": "14250 Cheval Mayfaire",
+      "city": "Orlando",
+      "state": "FL",
+      "zip": "32828",
+      "phone": "305-710-8220",
+      "email": "jamesalexanderdickerson@gmail.com"
+  }
   };
 
   var orderData;

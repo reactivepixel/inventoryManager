@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Tests not setup yet\" && exit 0",
-    "start": "node server/server.js",
-    "postinstall": "npm i -g mocha nodemon"
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",

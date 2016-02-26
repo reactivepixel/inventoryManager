@@ -48,7 +48,11 @@ router.route('/')
     if(serverError) {
       res.status(500).json(serverError);
     } else{
-      res.status(200).json(savedData);
+      savedData = orders.find(data, function(err) {
+        res.status(500).json(err);
+      }, function(foundOrder) {
+        res.status(200).json(foundOrder);
+      });
     }
 
   });
