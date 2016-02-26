@@ -19,7 +19,7 @@ for(i = 0; i < hits; i++) {
       "quantity": 5},
       {
       "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
-      "quantity": 2},
+      "quantity": 2}
       ],
 
       "fullName": "James Dickerson",
