@@ -1,12 +1,10 @@
 'use strict';
 module.exports = function() {
   const db = require('../server/db.js')();
-  // const Sequelize = require('sequelize');
   const sequelize = db.connection;
 
   function _create(data, err, success) {
     let payload = data;
-
     db.units.create({
       sku: payload.sku,
       name: payload.name,
@@ -18,7 +16,7 @@ module.exports = function() {
 
   function _update(data, err, success) {
     let payload = data;
-    db.units.find({where: {sku: payload.sku}})
+    db.units.find({where: payload})
     .then(function(matchedOrder) {
       matchedOrder.updateAttributes(data)
       .then(success)
@@ -29,7 +27,7 @@ module.exports = function() {
 
   function _find(data, err, success) {
     let payload = data;
-    db.units.find({where: {sku: payload.sku}})
+    db.units.find({where: payload})
     .then(success)
     .catch(err)
   }
@@ -43,7 +41,7 @@ module.exports = function() {
 
   function _destroy(data, err, success) {
     let payload = data;
-    db.units.destroy({where: {orderId: payload.sku}})
+    db.units.destroy({where: payload})
     .then(success)
     .catch(err);
   }

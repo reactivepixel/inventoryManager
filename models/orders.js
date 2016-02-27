@@ -5,7 +5,6 @@ module.exports = function() {
 
   function _create(data, err, success) {
     let payload = data;
-
     db.orders.create(data)
     .then(success)
     .catch(err);
@@ -13,7 +12,7 @@ module.exports = function() {
 
   function _update(data, err, success) {
     let payload = data;
-    db.orders.find({where: {orderId: payload.uuid}})
+    db.orders.find({where: payload})
     .then(function(matchedOrder) {
       matchedOrder.updateAttributes(data)
       .then(success)
@@ -24,7 +23,7 @@ module.exports = function() {
 
   function _find(data, err, success) {
     let payload = data;
-    db.orders.find({where: {uuid: payload.uuid}})
+    db.orders.find({where: payload})
     .then(success)
     .catch(err);
   }
