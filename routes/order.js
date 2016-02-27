@@ -35,6 +35,9 @@ router.route('/')
 
     var savedData = {};
 
+    orders.create(data)
+
+/*
     orders.create(data, function(err) {
       // serverError = true;
     }, function(order) {
@@ -51,10 +54,10 @@ router.route('/')
         }, function(foundOrder) {
           res.status(200).json(foundOrder);
         })
-      });
-    });
-  });
-
+      }); // End of orderedItems.create
+    }); // End of orders.create
+  }); // End of PUT route
+*/
 router.route('/:uuid')
 
   //Put request to update a record in the database.
