@@ -4,8 +4,7 @@ module.exports = function() {
   const sequelize = db.connection;
 
   function _create(data, err, success) {
-    let payload = data;
-    for(let i = 0; i < payload.units.length; i++) {
+    for(let i = 0; i < data.units.length; i++) {
       data.units[i].uuid = data.uuid;
       db.orderedItems.create(data.units[i])
       .then(success)
@@ -15,7 +14,7 @@ module.exports = function() {
 
   function _update(data, err, success) {
     let payload = data;
-    db.orderedItems.find({where: payload})
+    db.orderedItems.find({where: {uuid: payload.uuid}})
     .then(function(matchedOrder) {
       matchedOrder.updateAttributes(data)
       .then(success)
@@ -26,7 +25,7 @@ module.exports = function() {
 
   function _find(data, err, success) {
     let payload = data;
-    db.orderedItems.find({where: payload})
+    db.orderedItems.findAll({where: {uuid: payload.uuid}})
     .then(success)
     .catch(err);
   }
@@ -39,7 +38,7 @@ module.exports = function() {
 
   function _destroy(data, err, success) {
     let payload = data;
-    db.orderedItems.destroy({where: payload})
+    db.orderedItems.destroy({where: {uuid: payload.uuid}})
     .then(success)
     .catch(err);
   }

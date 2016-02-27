@@ -84,7 +84,7 @@ module.exports = function() {
   });
 
 
-  _orders.hasMany(_orderedItems, {foreignKey: 'uuid'})
+  _orders.hasMany(_orderedItems, {foreignKey: 'uuid'});
 
   // Syncs newly created tables and data inside the tables
   _sequelize.sync();
