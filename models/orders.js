@@ -1,12 +1,10 @@
 'use strict';
 module.exports = function() {
   const db = require('../server/db.js');
-  // const Sequelize = require('sequelize');
   const sequelize = db.connection;
 
   function _create(data, err, success) {
     let payload = data;
-
     db.orders.create(data)
     .then(success)
     .catch(err);
@@ -14,7 +12,7 @@ module.exports = function() {
 
   function _update(data, err, success) {
     let payload = data;
-    db.orders.find({where: {orderId: payload.uuid}})
+    db.orders.find({where: payload})
     .then(function(matchedOrder) {
       matchedOrder.updateAttributes(data)
       .then(success)
@@ -25,7 +23,7 @@ module.exports = function() {
 
   function _find(data, err, success) {
     let payload = data;
-    db.orders.find({where: {uuid: payload.uuid}})
+    db.orders.find({where: payload})
     .then(success)
     .catch(err);
   }
@@ -38,7 +36,7 @@ module.exports = function() {
 
   function _destroy(data, err, success) {
     let payload = data;
-    db.order.destroy({where: {orderId: payload.uuid}})
+    db.order.destroy({where: payload})
     .then(success)
     .catch(err);
   }
