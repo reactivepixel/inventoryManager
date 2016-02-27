@@ -15,7 +15,7 @@ module.exports = function (express) {
     })
 
     .put(function(req, res, body) {
-      var data = req.body;
+      let data = req.body;
 
 
       // adding generated UUID and timestamp to the json data

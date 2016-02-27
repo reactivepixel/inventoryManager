@@ -1,42 +1,38 @@
+'use strict';
 const request = require('supertest');
 const dataToInsert = {uuid: 'j42bc2ed9899a490fa44dbb2f756542e5', timestamp: 'Mon Feb 22 2016 13:14:26 GMT-0500 (EST)'};
-
+let dataInserted = {};
 //  Manually configure Test Routes, they will be mapped to individual tests
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-const known_routes = [
-  {title: 'Basic Order Test', route: '/order', status_code: 200, res: {healthy: true }, req: dataToInsert},
-  // {title: 'Status Check', route: '/api/v1/status', status_code: 200, res: {healthy: true}}
-];
+
 
 describe('Loading Express', function () {
-  var server;
+    var server;
 
-  // Before / After each test create / destroy the express server to fully simulate unique requests.
-  // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  beforeEach(function (){
+    // Before / After each test create / destroy the express server to fully simulate unique requests.
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    beforeEach(function (){
     server = require('../server/server.js');
-  });
-  afterEach(function (){
+    });
+    afterEach(function (){
     server.close();
-  });
+    });
 
-  for(var route_index in known_routes){
-    it('[' + known_routes[route_index].status_code + '] ' + known_routes[route_index].route + ' ' +
-    known_routes[route_index].title , function testHealth(done){
+
+    it('200 /order Basic Order Test', function testHealth(done){
       request(server)
-        .put(known_routes[route_index].route)
+        .put('/order')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res){
 
-            console.log(res.body);
-
             var matchedKeys = [];
-            for(matchKey in known_routes[route_index].req){
+            for(matchKey in dataInserted){
                 matchedKeys.push(matchKey);
             }
 
             var matchCount = 0;
+            var resKey;
             for(resKey in res.body){
                 if((matchedKeys.indexOf(resKey) < 0)) {
                     // Un Matched Key
@@ -50,7 +46,7 @@ describe('Loading Express', function () {
                 throw new Error('Incorrect total of matches made');
             }
 
-            if(known_routes[route_index].req === known_routes[route_index].res){
+            if(dataInserted === dataToInsert){
                 throw new Error('key is not match');
             }
 
@@ -62,9 +58,9 @@ describe('Loading Express', function () {
                 throw new Error('timestamp is not been returned/added');
             }
         })
-        .expect(known_routes[route_index].status_code, done)
+        .expect(200, done)
     });
-  }
+
 
 
   // Force a bad route

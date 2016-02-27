@@ -15,7 +15,7 @@ app.use('/', require('../routes/home.js')(express));
 app.use('/order', require('../routes/order.js')(express));
 
 // Start server
-var server = app.listen(port, function() {
+let server = app.listen(port, function() {
     console.log("Listening on " + port + "...");
 });
 
