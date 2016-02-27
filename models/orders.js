@@ -38,7 +38,7 @@ module.exports = function() {
 
   function _destroy(data, err, success) {
     let payload = data;
-    db.order.destroy({where: {orderId: payload.uuid}})
+    db.orders.destroy({where: {uuid: payload.uuid}})
     .then(success)
     .catch(err);
   }

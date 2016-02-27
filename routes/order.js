@@ -12,15 +12,20 @@ const timestamp = require('../server/timestamp.js');
 
 // Display
 router.route('/')
+
+  //Get request to access all records in database.
   .get(function(req, res) {
     let data = req.body;
+
     orders.findAll(function(err) {
+      //Encoutered an error.
       res.status(500).json(err);
     }, function(data) {
       res.status(200).json(data);
     });
   })
 
+  //Put request to create a record in database.
   .put(function(req, res) {
     let data = req.body;
     let serverError;
@@ -29,7 +34,6 @@ router.route('/')
     data.timestamp = timestamp.makeTimestamp();
 
     var savedData = {};
-
 
     orders.create(data, function(err) {
       // serverError = true;
@@ -42,12 +46,59 @@ router.route('/')
         // serverError = false;
         savedData.units.push(completedOrder.dataValues);
         var foundData = orders.find(data, function(err) {
+          //Encoutered an error.
           res.status(500);
         }, function(foundOrder) {
           res.status(200).json(foundOrder);
         })
       });
     });
+  });
+
+router.route('/:uuid')
+
+  //Put request to update a record in the database.
+  .put(function(req, res) {
+    req.body.uuid = req.params.uuid;
+    orders.update(req.body, function(err) {
+      //Encoutered an error.
+      res.status(500).json(err);
+    }, function(data) {
+      res.status(200).json(data);
+    });
+  })
+
+  //Get request to read one record from the database.
+  .get(function(req, res) {
+    req.body.uuid = req.params.uuid;
+    orders.find(req.body, function(err) {
+      //Encoutered an error.
+      res.status(500).json(err);
+    }, function(data) {
+      res.status(200).json(data);
+    });
+  })
+
+  //Delete reuqest to remove one record from database.
+  .delete(function(req, res) {
+    req.body.uuid = req.params.uuid;
+    orders.destroy(req.body, function(err) {
+      //Encoutered an error.
+      res.status(500).json(err);
+    }, function(data) {
+      res.status(200).json({success: data});
+    })
+  })
+
+return router;
+
+};
+
+
+
+
+
+
 
 /*
     if(serverError) {
@@ -60,9 +111,3 @@ router.route('/')
       });
     }
 */
-
-  });
-
-return router;
-
-};

@@ -50,11 +50,11 @@ describe('Order Routes', function() {
 
   it('Order Read One', function(done) {
     request(server)
-      .get('/order')
+      .get('/order/' + testOrder.uuid.toString())
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(testOrder.uuid != res.body.uuid) throw new Error('The UUID returned does not match.');
+        if(testOrder.uuid !== res.body.uuid) throw new Error('The UUID returned does not match.');
       })
       .expect(200, done);
   });
@@ -72,11 +72,24 @@ describe('Order Routes', function() {
 
   it('Order Update', function(done) {
     request(server)
-      .get('/order')
+      .get('/order/' + testOrder.uuid.toString())
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(testOrder.fullName !== res.body.fullName) throw new Error('')
+        if(testOrder.fullName !== res.body.fullName) throw new Error('Did not update record');
       })
-  })
+      .expect(200, done);
+  });
+
+  it('Order Destroy', function(done) {
+    request(server)
+      .delete('/order/' + testOrder.uuid.toString())
+      .set('Accept', 'application/json')
+      .send({force: true})
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        if(!res.body.success) throw new Error ('Destroy failed.')
+      })
+      .expect(200, done);
+  });
 })
