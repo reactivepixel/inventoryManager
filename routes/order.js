@@ -32,14 +32,14 @@ router.route('/')
 
 
     orders.create(data, function(err) {
-      serverError = true;
+      // serverError = true;
     }, function(order) {
       savedData = order.dataValues;
       savedData.units = [];
       orderedItems.create(data, function(err) {
-        serverError = true;
+        // serverError = true;
       }, function(completedOrder) {
-        serverError = false;
+        // serverError = false;
         savedData.units.push(completedOrder.dataValues);
         var foundData = orders.find(data, function(err) {
           res.status(500);
