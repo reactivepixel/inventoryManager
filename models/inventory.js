@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function() {
-  const db = require('../server/db.js')();
+  const db = require('../server/db.js');
   const sequelize = db.connection;
 
   function _create(data, err, success) {
