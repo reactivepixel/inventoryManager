@@ -4,10 +4,9 @@
   "description": "Business backend logic for Sol",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Tests not setup yet\" && exit 0",
+    "test": "PORT=1234 mocha",
     "start": "node server/server.js",
-    "postinstall": "npm i
-     -g mocha nodemon"
+    "postinstall": "npm i -g mocha nodemon"
   },
   "repository": {
     "type": "git",

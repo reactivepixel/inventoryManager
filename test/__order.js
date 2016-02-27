@@ -1,4 +1,3 @@
-process.env.PORT = 1234;
 const request = require('supertest');
 const dataToInsert = {uuid: 'j42bc2ed9899a490fa44dbb2f756542e5', timestamp: 'Mon Feb 22 2016 13:14:26 GMT-0500 (EST)'};
 
