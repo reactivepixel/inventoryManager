@@ -53,6 +53,8 @@ router.route('/')
      *
      * The results are only immediately available in the next fn()
      *
+     * More documentation can be found here: https://github.com/caolan/async
+     *
      * TODO: Find a better way to handle the errors in the async.waterfall()
      *
     */
