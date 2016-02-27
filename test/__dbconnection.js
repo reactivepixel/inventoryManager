@@ -41,7 +41,6 @@ describe('Order Routes', function() {
       .send(testOrderData)
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        console.log('RESPONSE =========', res);
         if(res.body.fullName !== testOrderData.fullName)
         throw new Error('Order was not properly created.');
         testOrder = res.body;
@@ -49,5 +48,35 @@ describe('Order Routes', function() {
       .expect(200, done);
   });
 
+  it('Order Read One', function(done) {
+    request(server)
+      .get('/order')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        if(testOrder.uuid != res.body.uuid) throw new Error('The UUID returned does not match.');
+      })
+      .expect(200, done);
+  });
 
+  it('Order Read All', function(done) {
+    request(server)
+      .get('/order')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        if(res.body.length < 1) throw new Error('There are no entries in the database.');
+      })
+      .expect(200, done);
+  });
+
+  it('Order Update', function(done) {
+    request(server)
+      .get('/order')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        if(testOrder.fullName !== res.body.fullName) throw new Error('')
+      })
+  })
 })

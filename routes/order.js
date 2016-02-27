@@ -3,8 +3,6 @@ module.exports = function(express) {
 
 // Config
 const router = express.Router();
-// const Sequelize = require('sequelize');
-// const db = require('../server/db.js');
 let orderedItems = require('../models/ordered-items.js');
 let orders = require('../models/orders.js');
 
@@ -15,12 +13,16 @@ const timestamp = require('../server/timestamp.js');
 // Display
 router.route('/')
   .get(function(req, res) {
-    res.send('Making PUT request to /order');
+    let data = req.body;
+    orders.findAll(function(err) {
+      res.status(500).json(err);
+    }, function(data) {
+      res.status(200).json(data);
+    });
   })
 
   .put(function(req, res) {
     let data = req.body;
-    let successMsg;
     let serverError;
 
     data.uuid = uuid_generator.generateUUID();
@@ -40,7 +42,7 @@ router.route('/')
         serverError = false;
         savedData.units.push(completedOrder.dataValues);
         var foundData = orders.find(data, function(err) {
-          res.status(500).json(err);
+          res.status(500);
         }, function(foundOrder) {
           res.status(200).json(foundOrder);
         })
