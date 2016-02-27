@@ -23,8 +23,6 @@ router.route('/')
     let successMsg;
     let serverError;
 
-    console.log("DATA IN =======", data);
-
     data.uuid = uuid_generator.generateUUID();
     data.timestamp = timestamp.makeTimestamp();
 
@@ -36,18 +34,20 @@ router.route('/')
     }, function(order) {
       savedData = order.dataValues;
       savedData.units = [];
-      console.log('THE ORDER.CREATE SUCCESS ==========', order);
       orderedItems.create(data, function(err) {
         serverError = true;
-
       }, function(completedOrder) {
         serverError = false;
         savedData.units.push(completedOrder.dataValues);
+        var foundData = orders.find(data, function(err) {
+          res.status(500).json(err);
+        }, function(foundOrder) {
+          res.status(200).json(foundOrder);
+        })
       });
     });
 
-    console.log("DATA OUT =======", savedData);
-
+/*
     if(serverError) {
       res.status(500).json(serverError);
     } else{
@@ -57,6 +57,7 @@ router.route('/')
         res.status(200).json(foundOrder);
       });
     }
+*/
 
   });
 

@@ -25,7 +25,7 @@ module.exports = function() {
 
   function _find(data, err, success) {
     let payload = data;
-    db.orders.find({where: {orderId: payload.uuid}})
+    db.orders.find({where: {uuid: payload.uuid}})
     .then(success)
     .catch(err);
   }

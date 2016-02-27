@@ -4,7 +4,6 @@ const faker = require('faker');
 describe('Order Routes', function() {
   var server;
   var testOrderData = {
-
   "units": [
     {
     "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
@@ -13,7 +12,6 @@ describe('Order Routes', function() {
     "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
     "quantity": 2}
     ],
-
     "fullName": "James Dickerson",
     "streetAddress": "14250 Cheval Mayfaire",
     "city": "Orlando",
@@ -43,7 +41,8 @@ describe('Order Routes', function() {
       .send(testOrderData)
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(res.body.recipient.name !== testOrderData.recipient.name)
+        console.log('RESPONSE =========', res);
+        if(res.body.fullName !== testOrderData.fullName)
         throw new Error('Order was not properly created.');
         testOrder = res.body;
       })
