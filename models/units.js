@@ -32,8 +32,7 @@ module.exports = function() {
     .catch(err)
   }
 
-  function _findAll(data, err, success) {
-    let payload = data;
+  function _findAll(err, success) {
     db.units.findAll()
     .then(success)
     .catch(err)
