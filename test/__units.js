@@ -35,11 +35,11 @@ describe('Units Route', function() {
 
   it('Unit Read One', function(done) {
     request(server)
-      .get('/unit/' + testOrder.uuid.toString())
+      .get('/unit/' + testUnit.sku.toString())
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(testUnit.uuid !== res.body.uuid) throw new Error('The UUID returned does not match.');
+        if(testUnit.sku !== res.body.sku) throw new Error('The sku returned does not match.');
       })
       .expect(200, done);
   });
