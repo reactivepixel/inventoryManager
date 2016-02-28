@@ -23,9 +23,22 @@ describe('OrderItem Route', function() {
     server.close();
   });
 
+    it('OrderItem Read All', function(done) {
+      request(server)
+        .get('/orderedItems')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          if(res.body.length < 1) throw new Error('There are no entries in the database.');
+          testOrderItems = res.body;
+          console.log(testOrderItems);
+        })
+        .expect(200, done);
+    });
+
   it('OrderItem Read One', function(done) {
     request(server)
-      .get('/orderedItems/' + testOrderItems.uuid.toString())
+      .get('/orderedItems/' + testOrderItems.uuid)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -34,20 +47,9 @@ describe('OrderItem Route', function() {
       .expect(200, done);
   });
 
-  it('OrderItem Read All', function(done) {
-    request(server)
-      .get('/orderedItems')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(function(res) {
-        if(res.body.length < 1) throw new Error('There are no entries in the database.');
-      })
-      .expect(200, done);
-  });
-
   it('OrderItem Update', function(done) {
     request(server)
-      .get('/orderedItems/' + testOrderItems.uuid.toString())
+      .get('/orderedItems/' + testOrderItems.uuid)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -58,7 +60,7 @@ describe('OrderItem Route', function() {
 
   it('OrderItem Destroy', function(done) {
     request(server)
-      .delete('/orderedItems/' + testOrderItems.uuid.toString())
+      .delete('/orderedItems/' + testOrderItems.uuid)
       .set('Accept', 'application/json')
       .send({force: true})
       .expect('Content-Type', /json/)
