@@ -25,10 +25,10 @@ describe('Units Route', function() {
       .set('Accept', 'application/json')
       .send(testOrderData)
       .expect('Content-Type', /json/)
-      .expect(function(res) 
+      .expect(function(res)
         if(res.body.sku !== testOrderData.sku)
         throw new Error('Unit was not properly created.');
-        testOrder = res.body;
+        testUnit = res.body;
       })
       .expect(200, done);
   });
@@ -39,8 +39,44 @@ describe('Units Route', function() {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(testOrder.uuid !== res.body.uuid) throw new Error('The UUID returned does not match.');
+        if(testUnit.uuid !== res.body.uuid) throw new Error('The UUID returned does not match.');
       })
       .expect(200, done);
   });
+
+    it('unit Read All', function(done) {
+      request(server)
+        .get('/unit')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          if(res.body.length < 1) throw new Error('There are no entries in the database.');
+        })
+        .expect(200, done);
+    });
+
+    it('unit Update', function(done) {
+      request(server)
+        .get('/unit/' + testUnit.sku.toString())
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          if(testUnit.sku !== res.body.sku) throw new Error('Did not update record');
+        })
+        .expect(200, done);
+    });
+
+    it('unit Destroy', function(done) {
+      request(server)
+        .delete('/unit/' + testUnit.sku.toString())
+        .set('Accept', 'application/json')
+        .send({force: true})
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          if(!res.body.success) throw new Error ('Destroy failed.')
+        })
+        .expect(200, done);
+    });
+
+
 })
