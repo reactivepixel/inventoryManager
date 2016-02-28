@@ -4,9 +4,7 @@ module.exports = function(express) {
   const async = require('async');
   let inventory = require('../models/inventory.js');
   const db = require('../server/db.js');
-  
-  const timestamp = require('../server/timestamp.js');
-  
+
   router.route('/')
 
   //Get request to access all records in database.
@@ -18,26 +16,23 @@ module.exports = function(express) {
       res.status(200).json(data);
     });
   })
-  
+
   //Put request to create a record in database.
   .put(function(req, res) {
     // payload data is the request body
     let data = req.body;
-    
-     // generating timestamp and adding it to the payload data
-    data.timestamp = timestamp.makeTimestamp();
-    
+
     var savedData = {};
-    
+
     async.waterfall([
       function(callback) {
         // Create the inventory passing through the payload data
         inventory.create(data, function(e) {
           res.status(500).json({error: e});
         }, function(createdInventory) {
-          // pass the createdOrder to the next fn() to be able to access the uuid
-          callback(null, createdInventory);
-        })
+          // pass the createdInventory to the next fn() to be able to access the createdInventory
+          callback(null, createdInventory.dataValues);
+        });
       },
       function(createdInventory, callback) {
         // Find the newly created inventory passing through the createdInventory from the previous fn()
@@ -45,9 +40,9 @@ module.exports = function(express) {
           res.status(500).json({error: e});
         }, function(foundInventory) {
           // Construct the final json object for the response
-          savedData = foundInventory.dataValues;
+          savedData = foundInventory;
           // pass the final json object to the final fn() handling the error / response
-          callback(null, foundInventory);
+          callback(null, savedData);
         });
       }
     ],
@@ -58,8 +53,8 @@ module.exports = function(express) {
       } else{
         res.status(200).json(savedData);
       }
-    })
-  })
-  
+    });
+  });
+
   return router;
 }

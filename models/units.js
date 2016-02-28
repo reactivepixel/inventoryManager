@@ -5,18 +5,14 @@ module.exports = function() {
 
   function _create(data, err, success) {
     let payload = data;
-    db.units.create({
-      sku: payload.sku,
-      name: payload.name,
-      description: payload.description
-    })
+    db.units.create(payload)
     .then(success)
     .catch(err);
   }
 
   function _update(data, err, success) {
     let payload = data;
-    db.units.find({where: payload})
+    db.units.findAll({where: {sku: payload.sku}})
     .then(function(matchedOrder) {
       matchedOrder.updateAttributes(data)
       .then(success)
@@ -27,13 +23,12 @@ module.exports = function() {
 
   function _find(data, err, success) {
     let payload = data;
-    db.units.find({where: payload})
+    db.units.findAll({where: {sku: payload.sku}})
     .then(success)
     .catch(err)
   }
 
-  function _findAll(data, err, success) {
-    let payload = data;
+  function _findAll(err, success) {
     db.units.findAll()
     .then(success)
     .catch(err)
@@ -41,7 +36,7 @@ module.exports = function() {
 
   function _destroy(data, err, success) {
     let payload = data;
-    db.units.destroy({where: payload})
+    db.units.destroy({where: {sku: payload.sku}})
     .then(success)
     .catch(err);
   }
