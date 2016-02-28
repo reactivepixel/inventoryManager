@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function() {
-  const db = require('../server/db.js')();
+  const db = require('../server/db.js');
   const sequelize = db.connection;
 
   function _create(data, err, success) {
@@ -32,7 +32,7 @@ module.exports = function() {
     .catch(err)
   }
 
-  function _findAll(err, success) {
+  function _findAll(data, err, success) {
     let payload = data;
     db.units.findAll()
     .then(success)
@@ -54,4 +54,4 @@ module.exports = function() {
     destroy: _destroy
   }
 
-}
+}();
