@@ -5,8 +5,6 @@ module.exports = function(express) {
   let units = require('../models/units.js');
   const db = require('../server/db.js');
 
-  const timestamp = require('../server/timestamp.js');
-
   router.route('/')
 
   //Get request to access all records in database.
@@ -23,9 +21,6 @@ module.exports = function(express) {
   .put(function(req, res) {
     // payload data is the request body
     let data = req.body;
-
-     // generating timestamp and adding it to the payload data
-    data.timestamp = timestamp.makeTimestamp();
 
     var savedData = {};
 
