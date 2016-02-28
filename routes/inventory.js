@@ -1,6 +1,7 @@
 'use strict';
 module.exports = function(express) {
   const router = express.Router();
+  const async = require('async');
   let inventory = require('../models/inventory.js');
   const db = require('../server/db.js');
   
@@ -26,8 +27,11 @@ module.exports = function(express) {
      // generating timestamp and adding it to the payload data
     data.timestamp = timestamp.makeTimestamp();
     
-    function(callback) {
-      // Create the inventory passing through the payload data
+    var savedData = {};
+    
+    async.waterfall([
+      function(callback) {
+        // Create the inventory passing through the payload data
         inventory.create(data, function(e) {
           res.status(500).json({error: e});
         }, function(createdInventory) {
@@ -37,13 +41,25 @@ module.exports = function(express) {
       },
       function(createdInventory, callback) {
         // Find the newly created inventory passing through the createdInventory from the previous fn()
-        orders.find(createdInventory, function(e) {
+        inventory.find(createdInventory, function(e) {
           res.status(500).json({error: e});
         }, function(foundInventory) {
-          // pass the foundInventory to the next fn() to still be able to access the uuid later on
+          // Construct the final json object for the response
+          savedData = foundInventory.dataValues;
+          // pass the final json object to the final fn() handling the error / response
           callback(null, foundInventory);
         });
-      },
+      }
+    ],
+    function(err, savedData) {
+      // Display the error if there is one, otherwise, show the response data from the db
+      if(err) {
+        res.status(500).json({error: err});
+      } else{
+        res.status(200).json(savedData);
+      }
+    })
   })
+  
   return router;
 }
