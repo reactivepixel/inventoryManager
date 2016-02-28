@@ -2,17 +2,6 @@ const request = require('supertest');
 
 describe('OrderItem Route', function() {
   var server;
-  var testOrderItemsData = {
-  "units": [
-    {
-    "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c91',
-    "quantity": 5},
-    {
-    "sku": 'a5296ab9-9eee-7ba0-0a79-b801594f2c92',
-    "quantity": 2}
-    ]
-  };
-
   var testOrderItems;
 
   beforeEach(function() {
@@ -38,7 +27,7 @@ describe('OrderItem Route', function() {
 
   it('OrderItem Read One', function(done) {
     request(server)
-      .get('/orderedItems/' + testOrderItems.uuid)
+      .get('/orderedItems/' + testOrderItems[0].uuid)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -49,18 +38,18 @@ describe('OrderItem Route', function() {
 
   it('OrderItem Update', function(done) {
     request(server)
-      .get('/orderedItems/' + testOrderItems.uuid)
+      .get('/orderedItems/' + testOrderItems[0].uuid)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(testOrderItems.fullName !== res.body.fullName) throw new Error('Did not update record');
+        if(testOrderItems.uuid !== res.body.uuid) throw new Error('Did not update record');
       })
       .expect(200, done);
   });
 
   it('OrderItem Destroy', function(done) {
     request(server)
-      .delete('/orderedItems/' + testOrderItems.uuid)
+      .delete('/orderedItems/' + testOrderItems[0].uuid)
       .set('Accept', 'application/json')
       .send({force: true})
       .expect('Content-Type', /json/)
