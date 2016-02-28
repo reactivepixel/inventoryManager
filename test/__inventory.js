@@ -6,9 +6,9 @@ describe('Inventory Route', function() {
     "sku": "a5296ab9-9eee-7ba0-0a79-b801594f2c94",
     "location": "California"
   }
-  
+
   var testInventory;
-  
+
   beforeEach(function() {
     server = require('../server/server.js');
   });
@@ -16,7 +16,7 @@ describe('Inventory Route', function() {
   afterEach(function() {
     server.close();
   });
-  
+
   //Testing if the inventory was created.
   it('Inventory Create', function(done) {
     request(server)
@@ -25,17 +25,16 @@ describe('Inventory Route', function() {
       .send(testOrderData)
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        console.log("**************", res.body.sku);
-        if(res.body.sku !== testOrderData.sku)
+        if(res.body.sku !== testOrderData[0].sku)
         throw new Error('Inventory was not properly created.');
         testInventory = res.body;
       })
       .expect(200, done);
   });
-  
+
   it('Inventory Read One', function(done) {
     request(server)
-      .get('/inventory/' + testInventory.sku.toString())
+      .get('/inventory/' + testInventory[0].sku
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -43,7 +42,7 @@ describe('Inventory Route', function() {
       })
       .expect(200, done);
   });
-  
+
   it('Inventory Read All', function(done) {
     request(server)
       .get('/inventory')
@@ -54,10 +53,10 @@ describe('Inventory Route', function() {
       })
       .expect(200, done);
   });
-  
+
   it('Inventory Update', function(done) {
     request(server)
-      .get('/inventory/' + testInventory.sku.toString())
+      .get('/inventory/' + testInventory[0].sku
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -65,10 +64,10 @@ describe('Inventory Route', function() {
       })
       .expect(200, done);
   });
-  
+
   it('Inventory Destroy', function(done) {
     request(server)
-      .delete('/inventory/' + testInventory.sku.toString())
+      .delete('/inventory/' + testInventory[0].sku
       .set('Accept', 'application/json')
       .send({force: true})
       .expect('Content-Type', /json/)
