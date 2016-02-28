@@ -1,5 +1,4 @@
 const request = require('supertest');
-const faker = require('faker');
 
 describe('Order Routes', function() {
   var server;

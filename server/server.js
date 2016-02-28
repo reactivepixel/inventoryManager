@@ -14,6 +14,7 @@ app.use(body_parser.json());
 app.use('/', require('../routes/home.js')(express));
 app.use('/order', require('../routes/order.js')(express));
 app.use('/inventory', require('../routes/inventory.js')(express));
+app.use('/orderedItems', require('../routes/ordered-items.js')(express));
 
 // Start server
 var server = app.listen(port, function() {
