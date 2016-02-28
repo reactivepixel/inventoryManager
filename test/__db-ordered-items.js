@@ -20,7 +20,6 @@ describe('OrderItem Route', function() {
         .expect(function(res) {
           if(res.body.length < 1) throw new Error('There are no entries in the database.');
           testOrderItems = res.body;
-          console.log(testOrderItems);
         })
         .expect(200, done);
     });

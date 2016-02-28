@@ -25,8 +25,7 @@ describe('Units Route', function() {
       .set('Accept', 'application/json')
       .send(testOrderData)
       .expect('Content-Type', /json/)
-      .expect(function(res) {
-        console.log("**************", res.body.sku);
+      .expect(function(res) 
         if(res.body.sku !== testOrderData.sku)
         throw new Error('Unit was not properly created.');
         testOrder = res.body;
