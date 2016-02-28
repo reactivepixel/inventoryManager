@@ -25,7 +25,7 @@ describe('Inventory Route', function() {
       .send(testOrderData)
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(res.body.sku !== testOrderData[0].sku)
+        if(res.body.sku !== testOrderData.sku)
         throw new Error('Inventory was not properly created.');
         testInventory = res.body;
       })
@@ -34,11 +34,11 @@ describe('Inventory Route', function() {
 
   it('Inventory Read One', function(done) {
     request(server)
-      .get('/inventory/' + testInventory[0].sku)
+      .get('/inventory/' + testInventory.sku.toString())
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(testInventory.sku !== res.body.sku) throw new Error('The sku returned does not match.');
+        if(testInventory[0].sku !== res.body.sku) throw new Error('The sku returned does not match.');
       })
       .expect(200, done);
   });
@@ -56,11 +56,11 @@ describe('Inventory Route', function() {
 
   it('Inventory Update', function(done) {
     request(server)
-      .get('/inventory/' + testInventory[0].sku)
+      .get('/inventory/' + testInventory.sku.toString())
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(testInventory.sku !== res.body.sku) throw new Error('Did not update record');
+        if(testInventory[0].sku !== res.body.sku) throw new Error('Did not update record');
       })
       .expect(200, done);
   });
