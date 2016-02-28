@@ -53,8 +53,8 @@ module.exports = function(express) {
       } else{
         res.status(200).json(savedData);
       }
-    })
-  })
+    }); // End of .waterfall()
+  }); // End of PUT route
 
   return router;
 }

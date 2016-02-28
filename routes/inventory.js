@@ -30,8 +30,8 @@ module.exports = function(express) {
         inventory.create(data, function(e) {
           res.status(500).json({error: e});
         }, function(createdInventory) {
-          // pass the createdInventory to the next fn() to be able to access the createdOrder
-          callback(null, createdInventory);
+          // pass the createdInventory to the next fn() to be able to access the createdInventory
+          callback(null, createdInventory.dataValues);
         });
       },
       function(createdInventory, callback) {
@@ -40,7 +40,7 @@ module.exports = function(express) {
           res.status(500).json({error: e});
         }, function(foundInventory) {
           // Construct the final json object for the response
-          savedData = foundInventory.dataValues;
+          savedData = foundInventory;
           // pass the final json object to the final fn() handling the error / response
           callback(null, savedData);
         });
@@ -53,8 +53,8 @@ module.exports = function(express) {
       } else{
         res.status(200).json(savedData);
       }
-    })
-  })
+    });
+  });
 
   return router;
 }

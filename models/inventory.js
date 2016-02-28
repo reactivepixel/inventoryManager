@@ -15,7 +15,7 @@ module.exports = function() {
 
   function _update(data, err, success) {
     let payload = data;
-    db.inventory.findAll({where: {sku: payload.sku}})
+    db.inventory.find({where: {sku: payload.sku}})
     .then(function(matchedOrder) {
       matchedOrder.updateAttributes(data)
       .then(success)
