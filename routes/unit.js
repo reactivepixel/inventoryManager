@@ -55,6 +55,41 @@ module.exports = function(express) {
       }
     }); // End of .waterfall()
   }); // End of PUT route
+  
+  router.route('/:sku')
+
+  //Put request to update a record in the database.
+  .put(function(req, res) {
+    req.body.sku = req.params.sku;
+    units.update(req.body, function(err) {
+      //Encoutered an error.
+      res.status(500).json(err);
+    }, function(data) {
+      res.status(200).json(data);
+    });
+  })
+  
+  //Get request to read one record from the database.
+  .get(function(req, res) {
+    req.body.sku = req.params.sku;
+    units.find(req.body, function(err) {
+      //Encoutered an error.
+      res.status(500).json(err);
+    }, function(data) {
+      res.status(200).json(data);
+    });
+  })
+  
+  //Delete reuqest to remove one record from database.
+  .delete(function(req, res) {
+    req.body.sku = req.params.sku;
+    units.destroy(req.body, function(err) {
+      //Encoutered an error.
+      res.status(500).json(err);
+    }, function(data) {
+      res.status(200).json({success: data});
+    })
+  })
 
   return router;
 }
