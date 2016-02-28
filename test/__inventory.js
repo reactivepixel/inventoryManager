@@ -34,7 +34,7 @@ describe('Inventory Route', function() {
 
   it('Inventory Read One', function(done) {
     request(server)
-      .get('/inventory/' + testInventory[0].sku
+      .get('/inventory/' + testInventory[0].sku)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -56,7 +56,7 @@ describe('Inventory Route', function() {
 
   it('Inventory Update', function(done) {
     request(server)
-      .get('/inventory/' + testInventory[0].sku
+      .get('/inventory/' + testInventory[0].sku)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -67,7 +67,7 @@ describe('Inventory Route', function() {
 
   it('Inventory Destroy', function(done) {
     request(server)
-      .delete('/inventory/' + testInventory[0].sku
+      .delete('/inventory/' + testInventory[0].sku)
       .set('Accept', 'application/json')
       .send({force: true})
       .expect('Content-Type', /json/)
