@@ -31,7 +31,7 @@ module.exports = function(express) {
           res.status(500).json({error: e});
         }, function(createdUnit) {
           // pass the createdUnit to the next fn()
-          callback(null, createdUnit);
+          callback(null, createdUnit.dataValues);
         })
       },
       function(createdUnit, callback) {
@@ -40,7 +40,7 @@ module.exports = function(express) {
           res.status(500).json({error: e});
         }, function(foundUnit) {
           // Construct the final json object for the response
-          savedData = foundUnit.dataValues;
+          savedData = foundUnit;
           // pass the final json object to the final fn() handling the error / response
           callback(null, savedData);
         });

@@ -5,11 +5,7 @@ module.exports = function() {
 
   function _create(data, err, success) {
     let payload = data;
-    db.units.create({
-      sku: payload.sku,
-      name: payload.name,
-      description: payload.description
-    })
+    db.units.create(payload)
     .then(success)
     .catch(err);
   }

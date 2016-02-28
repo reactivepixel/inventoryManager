@@ -5,10 +5,7 @@ module.exports = function() {
 
   function _create(data, err, success) {
     let payload = data;
-    db.inventory.create({
-      sku: payload.sku,
-      location: payload.location
-    })
+    db.inventory.create(payload)
     .then(success)
     .catch(err);
   }
