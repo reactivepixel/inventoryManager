@@ -15,7 +15,7 @@ module.exports = function() {
 
   function _update(data, err, success) {
     let payload = data;
-    db.inventory.find({where: payload})
+    db.inventory.findAll({where: {sku: payload.sku}})
     .then(function(matchedOrder) {
       matchedOrder.updateAttributes(data)
       .then(success)
@@ -26,7 +26,7 @@ module.exports = function() {
 
   function _find(data, err, success) {
     let payload = data;
-    db.inventory.find({where: payload})
+    db.inventory.findAll({where: {sku: payload.sku}})
     .then(success)
     .catch(err);
   }
@@ -39,7 +39,7 @@ module.exports = function() {
 
   function _destroy(data, err, success) {
     let payload = data;
-    db.inventory.destroy({where: payload})
+    db.inventory.destroy({where: {sku: payload.sku}})
     .then(success)
     .catch(err);
   }

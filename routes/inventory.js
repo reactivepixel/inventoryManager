@@ -30,9 +30,9 @@ module.exports = function(express) {
         inventory.create(data, function(e) {
           res.status(500).json({error: e});
         }, function(createdInventory) {
-          // pass the createdOrder to the next fn() to be able to access the uuid
+          // pass the createdInventory to the next fn() to be able to access the createdOrder
           callback(null, createdInventory);
-        })
+        });
       },
       function(createdInventory, callback) {
         // Find the newly created inventory passing through the createdInventory from the previous fn()
