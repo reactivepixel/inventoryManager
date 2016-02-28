@@ -28,18 +28,52 @@ describe('Inventory Route', function() {
         console.log("**************", res.body.sku);
         if(res.body.sku !== testOrderData.sku)
         throw new Error('Inventory was not properly created.');
-        testOrder = res.body;
+        testInventory = res.body;
       })
       .expect(200, done);
   });
   
   it('Inventory Read One', function(done) {
     request(server)
-      .get('/inventory/' + testOrder.uuid.toString())
+      .get('/inventory/' + testInventory.sku.toString())
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        if(testOrder.uuid !== res.body.uuid) throw new Error('The UUID returned does not match.');
+        if(testInventory.sku !== res.body.sku) throw new Error('The sku returned does not match.');
+      })
+      .expect(200, done);
+  });
+  
+  it('Inventory Read All', function(done) {
+    request(server)
+      .get('/inventory')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        if(res.body.length < 1) throw new Error('There are no entries in the database.');
+      })
+      .expect(200, done);
+  });
+  
+  it('Inventory Update', function(done) {
+    request(server)
+      .get('/inventory/' + testInventory.sku.toString())
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        if(testInventory.sku !== res.body.sku) throw new Error('Did not update record');
+      })
+      .expect(200, done);
+  });
+  
+  it('Inventory Destroy', function(done) {
+    request(server)
+      .delete('/inventory/' + testInventory.sku.toString())
+      .set('Accept', 'application/json')
+      .send({force: true})
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        if(!res.body.success) throw new Error ('Destroy failed.')
       })
       .expect(200, done);
   });
