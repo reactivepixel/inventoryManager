@@ -1,6 +1,6 @@
 # Gravity
 
-Business backend logic for Sol
+Business backend logic for Gravity
 
 ## Setting up
 
@@ -14,7 +14,7 @@ $ npm install //Installs the package.json file.
 
 ### Installing MySQL & adding .env file
 
-To check to see if you have MySQL installed on your machine.
+Check to see if you have MySQL installed on your machine.
 ```
 $ mysql --version
 ```
@@ -28,8 +28,9 @@ Start MySQL server.
 ```
 $ mysql.server start //Starting MySQL server.
 $ mysql -u root //Logging in as root.
-
-//Once logged into MySQL
+```
+Once logged into MySQL.
+```
 mysql> create database gravity;
 ```
 
@@ -50,6 +51,18 @@ If MySQL does not work try:
 $ mysql.server restart
 ```
 
+## Server Environments
+Here are the links to all the Environments
+
+# Development
+Link to [Development](https://github.com/reactivepixel/Gravity/tree/server_dev).
+
+# Staging
+Link to [Staging](https://github.com/reactivepixel/Gravity/tree/db_create).
+
+# Production
+Link to [Production](https://github.com/reactivepixel/Gravity/tree/master)
+
 ## API Documentation
 
 ### Order
@@ -57,7 +70,7 @@ $ mysql.server restart
 
 | Endpoint | Method | Development Status |
 |---|---|:---:|
-| `/order` | `PUT` | In Progress |
+| `/order` | `PUT` | In Production |
 
 ##### Request
 
@@ -112,6 +125,24 @@ $ mysql.server restart
    timestamp: '2/12/2016 2:10:25 AM'
  }
  ```
+
+
+
+
+
+
+ 
+
+## How To Adapt the Model Template
+
+To use the Unit model as a template for building out other models you will need to adjust the definition of your model in '/server/db.js'. It must contain the appropriate fields for your model to meet the documentation. db.js is just a rough structure and will need to be adjusted.
+
+Copy /server/models/unit.js and rename it to match your model. You will need to restructure the definitions in this file to reflect the changes you have made to /server/db.js
+
+## Documentation
+
+Each public method in /server/models/unit.js is documented according to the AirBNB Standards. Your own adaptation of this file means you will need to document its use. In your pull request if additional information is needed for team members to understand how to use your contributions please mark it down in the description of your pull request (just like I'm doing now). Additionally, copy / paste your modifications to the /readme.md file so this can be saved for later use by other devs.
+
 
 ## Contributing
 
