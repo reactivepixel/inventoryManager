@@ -4,9 +4,9 @@ module.exports = function(express) {
   const async = require('async');
   let units = require('../models/units.js');
   const db = require('../server/db.js');
-  
+
   const timestamp = require('../server/timestamp.js');
-  
+
   router.route('/')
 
   //Get request to access all records in database.
@@ -18,17 +18,17 @@ module.exports = function(express) {
       res.status(200).json(data);
     });
   })
-  
+
   //Put request to create a record in database.
   .put(function(req, res) {
     // payload data is the request body
     let data = req.body;
-    
+
      // generating timestamp and adding it to the payload data
     data.timestamp = timestamp.makeTimestamp();
-    
+
     var savedData = {};
-    
+
     async.waterfall([
       function(callback) {
         // Create the unit passing through the payload data
@@ -47,7 +47,7 @@ module.exports = function(express) {
           // Construct the final json object for the response
           savedData = foundUnit.dataValues;
           // pass the final json object to the final fn() handling the error / response
-          callback(null, foundUnit);
+          callback(null, savedData);
         });
       }
     ],
@@ -60,6 +60,6 @@ module.exports = function(express) {
       }
     })
   })
-  
+
   return router;
 }
