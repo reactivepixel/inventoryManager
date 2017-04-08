@@ -1,4 +1,4 @@
-# Gravity
+# InventoryManager
 
 Business backend logic for Gravity
 
